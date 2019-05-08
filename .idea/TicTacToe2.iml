@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/abstractClasses" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/appClasses" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/splashScreen" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/mainMenu" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/mainMenu/mainMenuController" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/mainMenu/mainMenuModel" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/mainMenu/mainMenuView" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

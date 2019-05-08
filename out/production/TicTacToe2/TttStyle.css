@@ -1,0 +1,15 @@
+
+
+#MainButton {
+-fx-pref-height: 100;
+-fx-pref-width: 400;
+}
+
+#MainLabel {
+-fx-pref-width:400;
+-fx-pref-height:100;
+-fx-font-family:Arial;
+-fx-font-size: 30px;
+-fx-font-weight:bolder;
+-fx-alignment: center;
+}
