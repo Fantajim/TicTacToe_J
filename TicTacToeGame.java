@@ -9,11 +9,10 @@ import javafx.stage.Stage;
  * 
  * @author Brad Richards
  */
-public class TicTacToeMain extends Application {
-    private static TicTacToeMain mainProgram; // singleton
+public class TicTacToeGame extends Application {
+    private static TicTacToeGame mainProgram; // singleton
     private Splash_View splashView;
     private App_View view;
-    private MainMenuView mainView;
 
     private ServiceLocator serviceLocator; // resources, after initialization
 
@@ -79,22 +78,7 @@ public class TicTacToeMain extends Application {
      * http://docs.oracle.com/javafx/2/threads/jfxpub-threads.htm
      */
 
-    public void startMainMenu() {
-   Stage mainStage = new Stage();
-   MainMenuModel model = new MainMenuModel();
-   mainView = new MainMenuView(mainStage, model);
-   new MainMenuController(model,mainView);
 
-   serviceLocator = ServiceLocator.getServiceLocator();
-
-    splashView.stop();
-    splashView = null;
-
-    view.start();
-
-
-
-}
 
     public void startApp() {
         Stage appStage = new Stage();
@@ -139,7 +123,7 @@ public class TicTacToeMain extends Application {
     }
 
     // Static getter for a reference to the main program object
-    protected static TicTacToeMain getMainProgram() {
+    protected static TicTacToeGame getMainProgram() {
         return mainProgram;
     }
 }

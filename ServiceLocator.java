@@ -17,7 +17,7 @@ public class ServiceLocator {
     private static ServiceLocator serviceLocator; // singleton
 
     // Application-global constants
-    final private String APP_NAME = "TicTacToeMain";
+    final private String APP_NAME = "TicTacToeGame";
 
     // Resources
     private Logger logger;

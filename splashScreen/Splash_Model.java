@@ -27,9 +27,9 @@ public class Splash_Model extends Model {
 
             // First, take some time, update progress
             Integer i = 0;
-            for (; i < 1000000000; i++) {
+            for (; i < 100000000; i++) {
                 if ((i % 1000000) == 0)
-                    this.updateProgress(i, 1000000000);
+                    this.updateProgress(i, 100000000);
             }
 
             // Create the service locator to hold our resources
@@ -74,7 +74,7 @@ public class Splash_Model extends Model {
         try {
             Handler logHandler = new FileHandler("%t/"
                     + serviceLocator.getAPP_NAME() + "_%u" + "_%g" + ".log",
-                    1000000, 9);
+                    100000, 9);
             logHandler.setLevel(Level.FINEST);
             ourLogger.addHandler(logHandler);
         } catch (Exception e) { // If we are unable to create log files

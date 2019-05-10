@@ -10,19 +10,10 @@ public class App_Model extends Model {
     private int value;
     
     public App_Model() {
-        value = 0;
+
         
         serviceLocator = ServiceLocator.getServiceLocator();        
         serviceLocator.getLogger().info("Application model initialized");
     }
-    
-    public int getValue() {
-        return value;
-    }
-    
-    public int incrementValue() {
-        value++;
-        serviceLocator.getLogger().info("Application model: value incremented to " + value);
-        return value;
-    }
+
 }

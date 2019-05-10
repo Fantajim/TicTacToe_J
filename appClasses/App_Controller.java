@@ -15,31 +15,20 @@ public class App_Controller extends Controller<App_Model, App_View> {
 
     public App_Controller(App_Model model, App_View view) {
         super(model, view);
-        
-     // register ourselves to listen for button clicks
-        view.btnClick.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                buttonClick();
-            }
-        });
 
-        // register ourselves to handle window-closing event
-        view.getStage().setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent event) {
-                Platform.exit();
-            }
-        });
+        view.getSinglePlayer().setOnAction(event -> startSingle());
+        view.getMultiPlayer().setOnAction(event -> startMulti());
+        view.getOptions().setOnAction(event -> openOptions());
+        view.getBackSingle().setOnAction(event -> closeSingle());
+        view.getBackMulti().setOnAction(event -> closeMulti());
         
         serviceLocator = ServiceLocator.getServiceLocator();        
         serviceLocator.getLogger().info("Application controller initialized");
     }
-    
-    public void buttonClick() {
-        model.incrementValue();
-        String newText = Integer.toString(model.getValue());        
 
-        view.lblNumber.setText(newText);        
-    }
+    private void startSingle(){ view.getMainmenu().expandSingle(); }
+    private void startMulti(){ view.getMainmenu().expandMulti();}
+    private void closeSingle(){ view.getMainmenu().shrinkSingle(); }
+    private void closeMulti(){ view.getMainmenu().shrinkMulti(); }
+    private void openOptions(){ }
 }
