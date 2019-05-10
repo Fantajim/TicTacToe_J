@@ -101,6 +101,11 @@ public class TicTacToeGame extends Application {
         view.start();
     }
 
+    public void startClassicSingle(){
+
+
+
+    }
     /**
      * The stop method is the opposite of the start method. It provides an
      * opportunity to close down the program, including GUI components. If the

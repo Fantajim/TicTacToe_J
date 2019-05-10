@@ -11,9 +11,12 @@ public class App_Model extends Model {
     
     public App_Model() {
 
-        
+        //create Cells
+        //create Grid
         serviceLocator = ServiceLocator.getServiceLocator();        
         serviceLocator.getLogger().info("Application model initialized");
     }
+
+
 
 }

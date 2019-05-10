@@ -12,6 +12,7 @@ public class MainMenu {
 
     private Stage stage;
 
+    ServiceLocator serviceLocator;
     Button singlePlayer;
     Button multiPlayer;
     Button options;
@@ -52,7 +53,8 @@ public class MainMenu {
 
         scene = new Scene(mainPane);
         scene.getStylesheets().add(getClass().getResource("app.css").toExternalForm());
-
+        serviceLocator = ServiceLocator.getServiceLocator();
+        serviceLocator.getLogger().info("Main Menu has been created");
 
     }
 

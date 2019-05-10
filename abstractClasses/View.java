@@ -29,7 +29,6 @@ public abstract class View<M extends Model> {
     }
 
     protected abstract Scene create_GUI();
-
     /**
      * Display the view
      */

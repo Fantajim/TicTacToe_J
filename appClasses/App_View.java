@@ -11,7 +11,8 @@ import javafx.stage.Stage;
  */
 public class App_View extends View<App_Model> {
     ServiceLocator serviceLocator;
-    private MainMenu mainmenu;
+    private MainMenu mainMenu;
+    private ClassicSingle classicSingle;
     private App_Model model;
     private Stage stage;
 
@@ -26,30 +27,31 @@ public class App_View extends View<App_Model> {
 	@Override
 	protected Scene create_GUI() {
 
-        mainmenu = new MainMenu();
+        mainMenu = new MainMenu();
 
-        return mainmenu.scene;
+        return mainMenu.scene;
 	}
-    public Button getSinglePlayer() {
-        return mainmenu.singlePlayer;
+
+    public Button getClassicSingle() {
+        return mainMenu.singlePlayer;
     }
 
     public Button getMultiPlayer(){
-        return mainmenu.multiPlayer;
+        return mainMenu.multiPlayer;
     }
 
     public Button getOptions(){
-        return mainmenu.options;
+        return mainMenu.options;
     }
 
-    public Button getBackSingle(){ return mainmenu.backButtonSingle; }
+    public Button getBackSingle(){ return mainMenu.backButtonSingle; }
 
-    public Button getBackMulti(){ return mainmenu.backButtonMulti; }
+    public Button getBackMulti(){ return mainMenu.backButtonMulti; }
 
-    public Button getClassic() {return mainmenu.classicButton;}
+    public Button getClassic() {return mainMenu.classicButton;}
 
     public MainMenu getMainmenu(){
-        return mainmenu;
+        return mainMenu;
     }
 
 
