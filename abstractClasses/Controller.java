@@ -1,3 +1,4 @@
+import java.awt.event.ActionListener;
 
 /**
  * Copyright 2015, FHNW, Prof. Dr. Brad Richards. All rights reserved. This code
@@ -6,7 +7,7 @@
  * 
  * @author Brad Richards
  */
-public abstract class Controller<M extends Model, V extends View<M>> {
+public abstract class Controller <M extends Model, V extends View<M>> {
     protected M model;
     protected V view;
     

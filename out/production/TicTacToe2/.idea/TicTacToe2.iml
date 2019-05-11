@@ -11,7 +11,7 @@
       <sourceFolder url="file://$MODULE_DIR$/mainMenu/mainMenuController" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/mainMenu/mainMenuModel" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/mainMenu/mainMenuView" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/ClassicSingle" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Single" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

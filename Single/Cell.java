@@ -1,26 +1,25 @@
 
 import javafx.animation.Timeline;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
 
 
-public class Cell extends Pane {
+public class Cell extends Button {
 
-   private char ident = 'X';
+   private char ident;
 
    public Cell(){
       super();
       this.setPrefSize(150,150);
       setStyle("-fx-border-color: black");
-      this.setOnMouseClicked(event -> cellClick());
+      ident = ' ';
+    //  this.setOnMouseClicked(event -> cellClick());
 
    }
 
-   public void cellClick(){
-
-   }
 
    public char getIdent(){
       return ident;
@@ -41,6 +40,7 @@ public class Cell extends Pane {
          line1.endYProperty().bind(this.heightProperty().subtract(20));
 
          getChildren().addAll(line1,line2);
+         this.setDisable(true);
       }
 
       else if(ident == 'O'){
@@ -55,6 +55,7 @@ public class Cell extends Pane {
          ellipse1.setFill(Color.BLACK);
 
          getChildren().add(ellipse1);
+         this.setDisable(true);
 
       }
 

@@ -1,3 +1,5 @@
+import java.awt.event.ActionListener;
+
 /**
  * Copyright 2015, FHNW, Prof. Dr. Brad Richards. All rights reserved. This code
  * is licensed under the terms of the BSD 3-clause license (see the file
@@ -20,6 +22,8 @@ public class MainMenuController extends Controller<MainMenuModel, MainMenuView> 
         
         serviceLocator = ServiceLocator.getServiceLocator();        
         serviceLocator.getLogger().info("Application controller initialized");
+
+
     }
 
     private void startSingle(){ view.expandSingle(); }

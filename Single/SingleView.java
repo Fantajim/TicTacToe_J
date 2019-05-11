@@ -1,22 +1,25 @@
 
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class SingleView extends View<SingleModel> {
 
    ServiceLocator serviceLocator;
-   private MainMenuModel model;
+   private SingleModel model;
    private Stage stage;
-   private Cell[][] cell;
+   private Cell[][] cells;
    private GridPane grid;
    private BorderPane pane;
    private TextArea console;
    private LocalDateTime ts;
+   private ArrayList<Cell> buttons;
    Scene scene;
 
    public SingleView(Stage stage, SingleModel model) {
@@ -32,14 +35,21 @@ public class SingleView extends View<SingleModel> {
    @Override
    protected Scene create_GUI() {
 
-   grid = new GridPane();
-      cell = new Cell[3][3];
-      for (int i = 0; i < 3;i++){
-         for (int j = 0; j < 3;j++){
-         cell[i][j] = new Cell();
-         grid.add(cell[i][j], j, i);
+      cells = new Cell[3][3];
+      grid = new GridPane();
+      buttons = new ArrayList<>();
+
+
+
+
+      for (int i = 0;i<3;i++){
+         for( int j = 0;j< 3;j++){
+            cells[i][j] = new Cell();
+            buttons.add(cells[i][j]);
+            grid.add(cells[i][j],j,i);
+            }
          }
-      }
+
 
       ts = LocalDateTime.now();
       pane = new BorderPane();
@@ -62,5 +72,19 @@ public class SingleView extends View<SingleModel> {
 
    public GridPane getGrid() {
       return grid;
+   }
+
+   public Cell[][] getCells(){
+      return cells;
+   }
+
+   public Cell getCell(int i, int j){
+      return cells[i][j];
+   }
+
+
+   public char getCurrentPlayer(){
+      return model.getCurrentPlayer();
+
    }
 }

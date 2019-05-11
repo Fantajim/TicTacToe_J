@@ -49,4 +49,5 @@ public abstract class View<M extends Model> {
     public Stage getStage() {
         return stage;
     }
+
 }
