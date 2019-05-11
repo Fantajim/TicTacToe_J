@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 public class TicTacToeGame extends Application {
     private static TicTacToeGame mainProgram; // singleton
     private Splash_View splashView;
-    private App_View view;
+    private MainMenuView view;
 
     private ServiceLocator serviceLocator; // resources, after initialization
 
@@ -86,9 +86,9 @@ public class TicTacToeGame extends Application {
         // Initialize the application MVC components. Note that these components
         // can only be initialized now, because they may depend on the
         // resources initialized by the splash screen
-        App_Model model = new App_Model();
-        view = new App_View(appStage, model);
-        new App_Controller(model, view);
+        MainMenuModel model = new MainMenuModel();
+        view = new MainMenuView(appStage, model);
+        new MainMenuController(model, view);
 
         // Resources are now initialized
         serviceLocator = ServiceLocator.getServiceLocator();
@@ -102,6 +102,19 @@ public class TicTacToeGame extends Application {
     }
 
     public void startClassicSingle(){
+
+        Stage classicSingleStage = new Stage();
+
+        SingleModel modelSingle = new SingleModel();
+        SingleView viewSingle = new SingleView(classicSingleStage,modelSingle);
+        new SingleController(modelSingle, viewSingle);
+
+        serviceLocator = ServiceLocator.getServiceLocator();
+
+        view.stop();
+        view = null;
+
+        viewSingle.start();
 
 
 

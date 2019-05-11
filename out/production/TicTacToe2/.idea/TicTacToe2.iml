@@ -4,13 +4,14 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/abstractClasses" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/appClasses" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/MainMenuClasses" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/splashScreen" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/mainMenu" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/mainMenu/mainMenuController" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/mainMenu/mainMenuModel" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/mainMenu/mainMenuView" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ClassicSingle" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

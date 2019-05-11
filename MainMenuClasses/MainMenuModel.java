@@ -5,11 +5,11 @@
  * 
  * @author Brad Richards
  */
-public class App_Model extends Model {
+public class MainMenuModel extends Model {
     ServiceLocator serviceLocator;
     private int value;
     
-    public App_Model() {
+    public MainMenuModel() {
 
         //create Cells
         //create Grid

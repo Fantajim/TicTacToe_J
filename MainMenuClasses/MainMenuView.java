@@ -4,15 +4,24 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class MainMenu {
-
-    private Stage stage;
-
+/**
+ * Copyright 2015, FHNW, Prof. Dr. Brad Richards. All rights reserved. This code
+ * is licensed under the terms of the BSD 3-clause license (see the file
+ * license.txt).
+ * 
+ * @author Brad Richards
+ */
+public class MainMenuView extends View<MainMenuModel> {
     ServiceLocator serviceLocator;
+    private MainMenuModel model;
+    private Stage stage;
     Button singlePlayer;
     Button multiPlayer;
     Button options;
@@ -25,9 +34,17 @@ public class MainMenu {
     private VBox vbox1;
     private VBox vbox2;
     private VBox vbox3;
-    Scene scene;
 
-    public MainMenu() {
+	public MainMenuView(Stage stage, MainMenuModel model) {
+        super(stage, model);
+        stage.setTitle("TicTacToe");
+        
+        serviceLocator = ServiceLocator.getServiceLocator();        
+        serviceLocator.getLogger().info("Application view initialized");
+    }
+
+	@Override
+	protected Scene create_GUI() {
 
         mainPane = new BorderPane();
         vbox1 = new VBox();
@@ -56,7 +73,23 @@ public class MainMenu {
         serviceLocator = ServiceLocator.getServiceLocator();
         serviceLocator.getLogger().info("Main Menu has been created");
 
+
+        return scene;
+	}
+
+    public Button getClassicSingle() { return singlePlayer; }
+
+    public Button getMultiPlayer(){ return multiPlayer; }
+
+    public Button getOptions(){
+        return options;
     }
+
+    public Button getBackSingle(){ return backButtonSingle; }
+
+    public Button getBackMulti(){ return backButtonMulti; }
+
+    public Button getClassic() {return classicButton;}
 
     public void expandSingle(){
 
@@ -145,3 +178,5 @@ public class MainMenu {
     public void expandOptions(){ }
 
 }
+
+

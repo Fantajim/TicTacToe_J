@@ -5,10 +5,10 @@
  * 
  * @author Brad Richards
  */
-public class App_Controller extends Controller<App_Model, App_View> {
+public class MainMenuController extends Controller<MainMenuModel, MainMenuView> {
     ServiceLocator serviceLocator;
 
-    public App_Controller(App_Model model, App_View view) {
+    public MainMenuController(MainMenuModel model, MainMenuView view) {
         super(model, view);
 
         view.getClassicSingle().setOnAction(event -> startSingle());
@@ -22,10 +22,10 @@ public class App_Controller extends Controller<App_Model, App_View> {
         serviceLocator.getLogger().info("Application controller initialized");
     }
 
-    private void startSingle(){ view.getMainmenu().expandSingle(); }
-    private void startMulti(){ view.getMainmenu().expandMulti();}
-    private void closeSingle(){ view.getMainmenu().shrinkSingle(); }
-    private void closeMulti(){ view.getMainmenu().shrinkMulti(); }
+    private void startSingle(){ view.expandSingle(); }
+    private void startMulti(){ view.expandMulti();}
+    private void closeSingle(){ view.shrinkSingle(); }
+    private void closeMulti(){ view.shrinkMulti(); }
     private void openOptions(){ }
-    private void startClassic(){ view.startClassicSingle();};
+    private void startClassic(){ TicTacToeGame.getMainProgram().startClassicSingle();};
 }
