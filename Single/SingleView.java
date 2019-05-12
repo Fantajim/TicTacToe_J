@@ -1,9 +1,12 @@
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,8 +15,6 @@ public class SingleView extends View<SingleModel> {
 
    ServiceLocator serviceLocator;
    TextArea console;
-   private SingleModel model;
-   private Stage stage;
    private Cell[][] cells;
    private GridPane grid;
    private BorderPane pane;
@@ -21,6 +22,9 @@ public class SingleView extends View<SingleModel> {
    private String fts;
    private static final String DATE_FORMATTER= "yyyy-MM-dd HH:mm:ss";
    private DateTimeFormatter formatter;
+   private Label player1Label;
+   private Label player2Label;
+   private Label playerTurnLabel;
 
    Scene scene;
 
@@ -53,9 +57,18 @@ public class SingleView extends View<SingleModel> {
       console.setPrefWidth(300);
       console.setWrapText(true);
       console.setText("Classic SinglePlayer Game has started "+"\n"+ fts);
+      player1Label.setText(model.player1.getName() + " = "+ model.player1.getSymbol());
+      player2Label.setText(model.player2.getName() + " = "+ model.player2.getSymbol());
+      playerTurnLabel.setText("Current turn: "+model.getCurrentPlayerName());
+      Region spacer1 = new Region();
+      Region spacer2 = new Region();
+      spacer1.setPrefWidth(100);
+      spacer2.setPrefWidth(100);
+      HBox playerBox = new HBox(playerTurnLabel,spacer1,player1Label,spacer2,player2Label);
 
       pane.setCenter(grid);
       pane.setRight(console);
+      pane.setBottom(playerBox);
 
       serviceLocator = ServiceLocator.getServiceLocator();
       serviceLocator.getLogger().info("Classic SinglePlayer Game has been started");
@@ -99,4 +112,9 @@ public class SingleView extends View<SingleModel> {
       temp = temp.concat("\n"+"\n"+s+"\n"+fts);
       console.setText(temp);
    }
+
+   public void updateTurnLabel() {
+      playerTurnLabel.setText("Current turn: "+ model.getCurrentPlayerName());
+   }
+
 }

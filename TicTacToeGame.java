@@ -14,6 +14,7 @@ public class TicTacToeGame extends Application {
     private Splash_View splashView;
     private MainMenuView view;
     private SingleView viewSingle;
+    private static boolean cpuPlayer = true;
 
     private ServiceLocator serviceLocator; // resources, after initialization
 
@@ -167,4 +168,5 @@ public class TicTacToeGame extends Application {
     protected static TicTacToeGame getMainProgram() {
         return mainProgram;
     }
+    protected static boolean getCpuPlayer(){ return cpuPlayer;}
 }

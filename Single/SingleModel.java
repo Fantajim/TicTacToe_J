@@ -2,35 +2,91 @@ public class SingleModel extends Model {
 
     ServiceLocator serviceLocator;
     private char currentPlayer;
+    public SinglePlayer player1;
+    public SinglePlayer player2;
+    private char symbol1;
+    private char symbol2;
 
     public SingleModel() {
 
-        SinglePlayer player1 = new SinglePlayer('X', "John");
-        SinglePlayer player2 = new SinglePlayer('O', "Jim");
-
+        randomizePlayerSymbol();
+        player1 = new SinglePlayer(symbol1, "Player 1");
+        player2 = new SinglePlayer(symbol2, "Player 2");
 
         randomizePlayer();
         serviceLocator = ServiceLocator.getServiceLocator();
         serviceLocator.getLogger().info("Single model initialized");
 
+       // if (TicTacToeGame.getCpuPlayer() == true &&){
+
+
+       // }
+
     }
 
     public char getCurrentPlayer() {
-        return currentPlayer;
+        char symb;
+        if (player1.getTurn()== true){
+            symb = player1.getSymbol();
+        }
+        else {
+            symb = player2.getSymbol();
+        }
+        return symb;
+    }
+
+    public String getCurrentPlayerName(){
+        String name;
+        if (player1.getTurn()== true){
+            name = player1.getName();
+        }
+        else {
+            name = player2.getName();
+        }
+        return name;
     }
 
     //toggles playerturn
-    public void toggleCurrentPlayer() {
+  /*  public void toggleCurrentPlayer() {
         if (currentPlayer == 'X') currentPlayer = 'O';
         else currentPlayer = 'X';
-    }
+    }*/
+
+  public void toggleCurrentPlayer(){
+      if (player1.getTurn()== true){
+          player1.setTurn(false);
+          player2.setTurn(true);
+      }
+      else {
+          player2.setTurn(false);
+          player1.setTurn(true);
+      }
+  }
 
 
-    //randomizer for playerturn
+   /* //randomizer for playerturn
     public void randomizePlayer() {
         double turn = Math.random();
         if (turn < 0.5) currentPlayer = 'X';
         else currentPlayer = 'O';
+    }*/
+
+    public void randomizePlayer() {
+        double turn = Math.random();
+        if (turn < 0.5) player1.setTurn(true);
+        else player2.setTurn(true);
+    }
+
+    public void randomizePlayerSymbol(){
+        double temp = Math.random();
+        if (temp < 0.5) {
+            symbol1 = 'X';
+            symbol2 = 'O';
+        }
+        else {
+            symbol1 = 'O';
+            symbol2 = 'X';
+        }
     }
 
 

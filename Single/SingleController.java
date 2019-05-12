@@ -52,6 +52,7 @@ public class SingleController extends Controller<SingleModel, SingleView> {
                 view.addToConsole("Game resulted in a Draw\nGame has been restarted" );
                 model.randomizePlayer();
                 view.createBoard();
+                view.updateTurnLabel();
                 addEvents();
             }
         }
@@ -68,6 +69,7 @@ public class SingleController extends Controller<SingleModel, SingleView> {
                     isWin();
                     isDraw();
                     model.toggleCurrentPlayer();
+                    view.updateTurnLabel();
 
                 });
             }
@@ -96,9 +98,10 @@ public class SingleController extends Controller<SingleModel, SingleView> {
             }
 
             else if (action.get() == restart){
-                view.addToConsole("Winner: "+ model.getCurrentPlayer()+"\nGame has been restarted");
+                view.addToConsole("Winner: "+ model.getCurrentPlayerName()+"\nGame has been restarted");
                 model.randomizePlayer();
                 view.createBoard();
+                view.updateTurnLabel();
                 addEvents();
             }
         }
