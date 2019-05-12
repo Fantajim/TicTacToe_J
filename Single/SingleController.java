@@ -1,4 +1,7 @@
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+
+import java.util.Optional;
 
 public class SingleController extends Controller<SingleModel, SingleView> {
 
@@ -49,13 +52,29 @@ public class SingleController extends Controller<SingleModel, SingleView> {
         }
 
         if (result==true){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Game result");
             alert.setHeaderText("DRAW");
-            alert.setContentText("Game has ended in a draw");
-            alert.showAndWait();
-            view.createBoard();
-            addEvents();
+            alert.setContentText("Game has ended in a draw, please select how to continue");
+
+            ButtonType goMainMenu = new ButtonType("MainMenu");
+            ButtonType restart = new ButtonType("Restart");
+            alert.getButtonTypes().removeAll(ButtonType.OK,ButtonType.CANCEL);
+            alert.getButtonTypes().addAll(goMainMenu,restart);
+            Optional<ButtonType> action = alert.showAndWait();
+            if (action.get()== goMainMenu){
+
+                TicTacToeGame.getMainProgram().startMainMenu();
+
+                    }
+            else if (action.get() == restart){
+                view.addToConsole("Game has been restarted");
+                view.createBoard();
+                addEvents();
+            }
+
+
+
 
         }
     }

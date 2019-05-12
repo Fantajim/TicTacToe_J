@@ -7,19 +7,23 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SingleView extends View<SingleModel> {
 
    ServiceLocator serviceLocator;
+   TextArea console;
    private SingleModel model;
    private Stage stage;
    private Cell[][] cells;
    private GridPane grid;
    private BorderPane pane;
-   private TextArea console;
    private LocalDateTime ts;
+   private String fts;
+   private static final String DATE_FORMATTER= "yyyy-MM-dd HH:mm:ss";
+   private DateTimeFormatter formatter;
 
    Scene scene;
 
@@ -47,11 +51,13 @@ public class SingleView extends View<SingleModel> {
       }
 
       ts = LocalDateTime.now();
+      formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
+      fts = ts.format(formatter);
       pane = new BorderPane();
       console = new TextArea();
       console.setPrefWidth(300);
       console.setWrapText(true);
-      console.setText("Classic SinglePlayer Game has started ("+ ts+")");
+      console.setText("Classic SinglePlayer Game has started "+"\n"+ fts);
 
       pane.setCenter(grid);
       pane.setRight(console);
@@ -87,9 +93,14 @@ public class SingleView extends View<SingleModel> {
          }
       }
       pane.setCenter(grid);
+   }
 
-
-
+   public void addToConsole(String s){
+      ts = LocalDateTime.now();
+      fts = ts.format(formatter);
+      String temp = console.getText();
+      temp = temp.concat("\n"+"\n"+s+"\n"+fts);
+      console.setText(temp);
    }
 
 
