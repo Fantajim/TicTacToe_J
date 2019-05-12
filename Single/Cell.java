@@ -16,7 +16,6 @@ public class Cell extends Button {
       this.setPrefSize(150,150);
       setStyle("-fx-border-color: black");
       ident = ' ';
-    //  this.setOnMouseClicked(event -> cellClick());
 
    }
 
@@ -41,6 +40,7 @@ public class Cell extends Button {
 
          getChildren().addAll(line1,line2);
          this.setDisable(true);
+         this.ident = 'X';
       }
 
       else if(ident == 'O'){
@@ -56,6 +56,7 @@ public class Cell extends Button {
 
          getChildren().add(ellipse1);
          this.setDisable(true);
+         this.ident = 'O';
 
       }
 

@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SingleView extends View<SingleModel> {
 
@@ -19,13 +20,14 @@ public class SingleView extends View<SingleModel> {
    private BorderPane pane;
    private TextArea console;
    private LocalDateTime ts;
-   private ArrayList<Cell> buttons;
+
    Scene scene;
 
    public SingleView(Stage stage, SingleModel model) {
 
       super(stage, model);
       stage.setTitle("Classic SinglePlayer");
+
 
       serviceLocator = ServiceLocator.getServiceLocator();
       serviceLocator.getLogger().info("Single view initialized");
@@ -34,22 +36,15 @@ public class SingleView extends View<SingleModel> {
 
    @Override
    protected Scene create_GUI() {
-
-      cells = new Cell[3][3];
       grid = new GridPane();
-      buttons = new ArrayList<>();
-
-
-
+      cells = new Cell[3][3];
 
       for (int i = 0;i<3;i++){
          for( int j = 0;j< 3;j++){
             cells[i][j] = new Cell();
-            buttons.add(cells[i][j]);
             grid.add(cells[i][j],j,i);
-            }
          }
-
+      }
 
       ts = LocalDateTime.now();
       pane = new BorderPane();
@@ -82,9 +77,22 @@ public class SingleView extends View<SingleModel> {
       return cells[i][j];
    }
 
+   public void createBoard(){
 
-   public char getCurrentPlayer(){
-      return model.getCurrentPlayer();
+      grid = new GridPane();
+      for (int i = 0;i<3;i++){
+         for( int j = 0;j< 3;j++){
+            cells[i][j] = new Cell();
+            grid.add(cells[i][j],j,i);
+         }
+      }
+      pane.setCenter(grid);
+
+
 
    }
+
+
+
+
 }

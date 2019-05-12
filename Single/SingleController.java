@@ -1,4 +1,4 @@
-
+import javafx.scene.control.Alert;
 
 public class SingleController extends Controller<SingleModel, SingleView> {
 
@@ -6,18 +6,13 @@ public class SingleController extends Controller<SingleModel, SingleView> {
 
     public SingleController(SingleModel model, SingleView view) {
         super(model, view);
+        String result ="";
 
-        for (int i =0;i<3;i++){
-            for(int j=0;j<3;j++){
-                view.getCell(i,j).setOnMouseClicked(event -> {
-                   int index[] = getButtonPressed((Cell)event.getSource());
-                   view.getCell(index[0],index[1]).setIdent(model.getCurrentPlayer());
-                   model.toggleCurrentPlayer();
+        addEvents();
 
-                });
 
-            }
-               }
+
+
         serviceLocator = ServiceLocator.getServiceLocator();
         serviceLocator.getLogger().info("Single controller initialized");
     }
@@ -39,5 +34,53 @@ public class SingleController extends Controller<SingleModel, SingleView> {
         }
         return index;
     }
+
+    public void isDraw() {
+
+        boolean result = false;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (view.getCell(i,j).getIdent() == ' ') {
+                    result = false;
+                    break;
+                }
+                else result = true;
+            }
+        }
+
+        if (result==true){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Game result");
+            alert.setHeaderText("DRAW");
+            alert.setContentText("Game has ended in a draw");
+            alert.showAndWait();
+            view.createBoard();
+            addEvents();
+
+        }
+    }
+
+    public void addEvents(){
+
+        for (int i =0;i<3;i++){
+            for(int j=0;j<3;j++){
+                view.getCell(i,j).setOnMouseClicked(event -> {
+                    int index[] = getButtonPressed((Cell)event.getSource());
+                    view.getCell(index[0],index[1]).setIdent(model.getCurrentPlayer());
+                    model.toggleCurrentPlayer();
+                    isDraw();
+                });
+
+            }
+        }
+
+    }
+
+    public boolean isWin(){
+        boolean result = false;
+        Cell[][] temp = view.getCells();
+return result;
+    }
+
 
 }
