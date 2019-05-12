@@ -9,7 +9,7 @@ public class SingleController extends Controller<SingleModel, SingleView> {
 
     public SingleController(SingleModel model, SingleView view) {
         super(model, view);
-        String result ="";
+
 
         addEvents();
 
@@ -52,23 +52,24 @@ public class SingleController extends Controller<SingleModel, SingleView> {
         }
 
         if (result==true){
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Game result");
-            alert.setHeaderText("DRAW");
-            alert.setContentText("Game has ended in a draw, please select how to continue");
+            Alert alertDraw = new Alert(Alert.AlertType.CONFIRMATION);
+            alertDraw.setTitle("Game result");
+            alertDraw.setHeaderText("DRAW");
+            alertDraw.setContentText("Game has ended in a draw, please select how to continue");
 
             ButtonType goMainMenu = new ButtonType("MainMenu");
             ButtonType restart = new ButtonType("Restart");
-            alert.getButtonTypes().removeAll(ButtonType.OK,ButtonType.CANCEL);
-            alert.getButtonTypes().addAll(goMainMenu,restart);
-            Optional<ButtonType> action = alert.showAndWait();
+            alertDraw.getButtonTypes().removeAll(ButtonType.OK,ButtonType.CANCEL);
+            alertDraw.getButtonTypes().addAll(goMainMenu,restart);
+            Optional<ButtonType> action = alertDraw.showAndWait();
             if (action.get()== goMainMenu){
 
                 TicTacToeGame.getMainProgram().startMainMenu();
 
                     }
             else if (action.get() == restart){
-                view.addToConsole("Game has been restarted");
+                view.addToConsole("Game resulted in a Draw\nGame has been restarted" );
+                model.randomizePlayer();
                 view.createBoard();
                 addEvents();
             }
@@ -86,8 +87,10 @@ public class SingleController extends Controller<SingleModel, SingleView> {
                 view.getCell(i,j).setOnMouseClicked(event -> {
                     int index[] = getButtonPressed((Cell)event.getSource());
                     view.getCell(index[0],index[1]).setIdent(model.getCurrentPlayer());
-                    model.toggleCurrentPlayer();
+                    isWin();
                     isDraw();
+                    model.toggleCurrentPlayer();
+
                 });
 
             }
@@ -95,10 +98,64 @@ public class SingleController extends Controller<SingleModel, SingleView> {
 
     }
 
-    public boolean isWin(){
+    public void isWin(){
         boolean result = false;
-        Cell[][] temp = view.getCells();
-return result;
+        Cell[][] temp;
+        temp = view.getCells();
+
+        if (temp[0][0].getIdent() == temp[0][1].getIdent() && temp[0][0].getIdent() == temp[0][2].getIdent() && temp[0][0].getIdent()!=' '){
+            result = true;
+            }
+        else if(temp[1][0].getIdent() == temp[1][1].getIdent() && temp[1][0].getIdent() == temp[1][2].getIdent()&& temp[1][0].getIdent()!=' '){
+            result = true;
+        }
+        else if(temp[2][0].getIdent() == temp[2][1].getIdent() && temp[2][0].getIdent() == temp[2][2].getIdent()&& temp[2][0].getIdent()!=' '){
+            result = true;
+        }
+        else if(temp[0][0].getIdent() == temp[1][0].getIdent() && temp[0][0].getIdent() == temp[2][0].getIdent()&& temp[0][0].getIdent()!=' '){
+            result = true;
+        }
+        else if(temp[0][1].getIdent() == temp[1][1].getIdent() && temp[0][1].getIdent() == temp[2][1].getIdent() && temp[0][1].getIdent()!=' '){
+            result = true;
+        }
+        else if(temp[0][2].getIdent() == temp[1][2].getIdent() && temp[0][2].getIdent() == temp[2][2].getIdent()&& temp[0][2].getIdent()!=' '){
+            result = true;
+        }
+        else if(temp[0][0].getIdent() == temp[1][1].getIdent() && temp[0][0].getIdent() == temp[2][2].getIdent()&& temp[0][2].getIdent()!=' '){
+            result = true;
+        }
+        else if(temp[0][2].getIdent() == temp[1][1].getIdent() && temp[0][2].getIdent() == temp[2][0].getIdent()&& temp[0][2].getIdent()!=' '){
+            result = true;
+        }
+
+
+        if (result == true){
+            Alert alertWin = new Alert(Alert.AlertType.CONFIRMATION);
+            alertWin.setTitle("Game result");
+            alertWin.setHeaderText("Winner");
+            alertWin.setContentText("Game has ended in a winner, please select how to continue");
+
+            ButtonType goMainMenu = new ButtonType("MainMenu");
+            ButtonType restart = new ButtonType("Restart");
+            alertWin.getButtonTypes().removeAll(ButtonType.OK,ButtonType.CANCEL);
+            alertWin.getButtonTypes().addAll(goMainMenu,restart);
+            Optional<ButtonType> action = alertWin.showAndWait();
+
+            if (action.get()== goMainMenu){
+
+                TicTacToeGame.getMainProgram().startMainMenu();
+
+            }
+            else if (action.get() == restart){
+                view.addToConsole("Winner: "+ model.getCurrentPlayer()+"\nGame has been restarted");
+                model.randomizePlayer();
+                view.createBoard();
+                addEvents();
+            }
+
+        }
+
+
     }
 
 

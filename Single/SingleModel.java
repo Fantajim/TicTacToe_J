@@ -8,12 +8,9 @@ public class SingleModel extends Model{
       SinglePlayer player1 = new SinglePlayer('X', "John");
       SinglePlayer player2 = new SinglePlayer('O', "Jim");
 
-      double turn = Math.random();
-      if (turn < 0.5)currentPlayer = 'X';
-      else currentPlayer = 'O';
 
 
-
+      randomizePlayer();
       serviceLocator = ServiceLocator.getServiceLocator();
       serviceLocator.getLogger().info("Single model initialized");
 
@@ -39,6 +36,13 @@ public class SingleModel extends Model{
   public void toggleCurrentPlayer(){
       if (currentPlayer=='X') currentPlayer = 'O';
       else currentPlayer = 'X';
+  }
+
+  public void randomizePlayer(){
+      double turn = Math.random();
+      if (turn < 0.5)currentPlayer = 'X';
+      else currentPlayer = 'O';
+
   }
 
 }
