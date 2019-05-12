@@ -20,16 +20,14 @@ import javafx.util.Duration;
  */
 public class MainMenuView extends View<MainMenuModel> {
     ServiceLocator serviceLocator;
-    private MainMenuModel model;
-    private Stage stage;
-    Button singlePlayer;
-    Button multiPlayer;
-    Button options;
-    Button backButtonSingle;
-    Button backButtonMulti;
-    Button classicButton;
-    Button hostButton;
-    Button clientButton;
+    private Button singlePlayer;
+    private Button multiPlayer;
+    private Button options;
+    private Button backButtonSingle;
+    private Button backButtonMulti;
+    private Button classicButton;
+    private Button hostButton;
+    private Button clientButton;
     private BorderPane mainPane;
     private VBox vbox1;
     private VBox vbox2;

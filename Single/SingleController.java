@@ -85,7 +85,7 @@ public class SingleController extends Controller<SingleModel, SingleView> {
             Alert alertWin = new Alert(Alert.AlertType.CONFIRMATION);
             alertWin.setTitle("Game result");
             alertWin.setHeaderText("Winner");
-            alertWin.setContentText("Game has ended in a winner, please select how to continue");
+            alertWin.setContentText(model.getCurrentPlayerName()+ " is the winner, please select how to continue");
 
             ButtonType goMainMenu = new ButtonType("MainMenu");
             ButtonType restart = new ButtonType("Restart");
