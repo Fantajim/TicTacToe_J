@@ -9,12 +9,7 @@ public class SingleController extends Controller<SingleModel, SingleView> {
 
     public SingleController(SingleModel model, SingleView view) {
         super(model, view);
-
-
         addEvents();
-
-
-
 
         serviceLocator = ServiceLocator.getServiceLocator();
         serviceLocator.getLogger().info("Single controller initialized");
@@ -33,50 +28,35 @@ public class SingleController extends Controller<SingleModel, SingleView> {
                     index[1] = j;
                 }
             }
-
         }
         return index;
     }
 
     public void isDraw() {
 
-        boolean result = false;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (view.getCell(i,j).getIdent() == ' ') {
-                    result = false;
-                    break;
-                }
-                else result = true;
-            }
-        }
+        boolean result = model.isDrawLogic(view.getCells());
 
         if (result==true){
             Alert alertDraw = new Alert(Alert.AlertType.CONFIRMATION);
             alertDraw.setTitle("Game result");
             alertDraw.setHeaderText("DRAW");
             alertDraw.setContentText("Game has ended in a draw, please select how to continue");
-
             ButtonType goMainMenu = new ButtonType("MainMenu");
             ButtonType restart = new ButtonType("Restart");
             alertDraw.getButtonTypes().removeAll(ButtonType.OK,ButtonType.CANCEL);
             alertDraw.getButtonTypes().addAll(goMainMenu,restart);
             Optional<ButtonType> action = alertDraw.showAndWait();
+
             if (action.get()== goMainMenu){
-
                 TicTacToeGame.getMainProgram().startMainMenu();
-
                     }
+
             else if (action.get() == restart){
                 view.addToConsole("Game resulted in a Draw\nGame has been restarted" );
                 model.randomizePlayer();
                 view.createBoard();
                 addEvents();
             }
-
-
-
-
         }
     }
 
@@ -92,41 +72,12 @@ public class SingleController extends Controller<SingleModel, SingleView> {
                     model.toggleCurrentPlayer();
 
                 });
-
             }
         }
-
     }
 
     public void isWin(){
-        boolean result = false;
-        Cell[][] temp;
-        temp = view.getCells();
-
-        if (temp[0][0].getIdent() == temp[0][1].getIdent() && temp[0][0].getIdent() == temp[0][2].getIdent() && temp[0][0].getIdent()!=' '){
-            result = true;
-            }
-        else if(temp[1][0].getIdent() == temp[1][1].getIdent() && temp[1][0].getIdent() == temp[1][2].getIdent()&& temp[1][0].getIdent()!=' '){
-            result = true;
-        }
-        else if(temp[2][0].getIdent() == temp[2][1].getIdent() && temp[2][0].getIdent() == temp[2][2].getIdent()&& temp[2][0].getIdent()!=' '){
-            result = true;
-        }
-        else if(temp[0][0].getIdent() == temp[1][0].getIdent() && temp[0][0].getIdent() == temp[2][0].getIdent()&& temp[0][0].getIdent()!=' '){
-            result = true;
-        }
-        else if(temp[0][1].getIdent() == temp[1][1].getIdent() && temp[0][1].getIdent() == temp[2][1].getIdent() && temp[0][1].getIdent()!=' '){
-            result = true;
-        }
-        else if(temp[0][2].getIdent() == temp[1][2].getIdent() && temp[0][2].getIdent() == temp[2][2].getIdent()&& temp[0][2].getIdent()!=' '){
-            result = true;
-        }
-        else if(temp[0][0].getIdent() == temp[1][1].getIdent() && temp[0][0].getIdent() == temp[2][2].getIdent()&& temp[0][2].getIdent()!=' '){
-            result = true;
-        }
-        else if(temp[0][2].getIdent() == temp[1][1].getIdent() && temp[0][2].getIdent() == temp[2][0].getIdent()&& temp[0][2].getIdent()!=' '){
-            result = true;
-        }
+        boolean result = model.isWinLogic(view.getCells());
 
 
         if (result == true){
@@ -152,11 +103,6 @@ public class SingleController extends Controller<SingleModel, SingleView> {
                 view.createBoard();
                 addEvents();
             }
-
         }
-
-
     }
-
-
 }
