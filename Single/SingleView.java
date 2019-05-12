@@ -33,6 +33,10 @@ public class SingleView extends View<SingleModel> {
       super(stage, model);
       stage.setTitle("Classic SinglePlayer");
 
+      player1Label.setText(model.player1.getName() + " = "+ model.player1.getSymbol());
+      player2Label.setText(model.player2.getName() + " = "+ model.player2.getSymbol());
+      playerTurnLabel.setText("Current turn: "+model.getCurrentPlayerName());
+
       serviceLocator = ServiceLocator.getServiceLocator();
       serviceLocator.getLogger().info("Single view initialized");
    }
@@ -49,6 +53,7 @@ public class SingleView extends View<SingleModel> {
          }
       }
 
+      //Setup console with timestamp
       ts = LocalDateTime.now();
       formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
       fts = ts.format(formatter);
@@ -57,15 +62,16 @@ public class SingleView extends View<SingleModel> {
       console.setPrefWidth(300);
       console.setWrapText(true);
       console.setText("Classic SinglePlayer Game has started "+"\n"+ fts);
-      player1Label.setText(model.player1.getName() + " = "+ model.player1.getSymbol());
-      player2Label.setText(model.player2.getName() + " = "+ model.player2.getSymbol());
-      playerTurnLabel.setText("Current turn: "+model.getCurrentPlayerName());
+      player1Label = new Label(" ");
+      player2Label = new Label(" ");
+      playerTurnLabel = new Label(" ");
       Region spacer1 = new Region();
       Region spacer2 = new Region();
       spacer1.setPrefWidth(100);
       spacer2.setPrefWidth(100);
       HBox playerBox = new HBox(playerTurnLabel,spacer1,player1Label,spacer2,player2Label);
 
+      //set all nodes in root pane
       pane.setCenter(grid);
       pane.setRight(console);
       pane.setBottom(playerBox);

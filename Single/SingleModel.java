@@ -46,12 +46,6 @@ public class SingleModel extends Model {
         return name;
     }
 
-    //toggles playerturn
-  /*  public void toggleCurrentPlayer() {
-        if (currentPlayer == 'X') currentPlayer = 'O';
-        else currentPlayer = 'X';
-    }*/
-
   public void toggleCurrentPlayer(){
       if (player1.getTurn()== true){
           player1.setTurn(false);
@@ -62,14 +56,6 @@ public class SingleModel extends Model {
           player1.setTurn(true);
       }
   }
-
-
-   /* //randomizer for playerturn
-    public void randomizePlayer() {
-        double turn = Math.random();
-        if (turn < 0.5) currentPlayer = 'X';
-        else currentPlayer = 'O';
-    }*/
 
     public void randomizePlayer() {
         double turn = Math.random();

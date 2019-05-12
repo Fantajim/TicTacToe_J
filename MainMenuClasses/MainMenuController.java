@@ -21,7 +21,7 @@ public class MainMenuController extends Controller<MainMenuModel, MainMenuView> 
         view.getClassic().setOnAction(event -> startClassic());
         
         serviceLocator = ServiceLocator.getServiceLocator();        
-        serviceLocator.getLogger().info("Application controller initialized");
+        serviceLocator.getLogger().info("MainMenu controller initialized");
 
 
     }

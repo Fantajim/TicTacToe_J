@@ -95,6 +95,7 @@ public class SingleController extends Controller<SingleModel, SingleView> {
 
             if (action.get()== goMainMenu){
                 TicTacToeGame.getMainProgram().startMainMenu();
+                serviceLocator.getLogger().info("SinglePlayer Game has stopped");
             }
 
             else if (action.get() == restart){

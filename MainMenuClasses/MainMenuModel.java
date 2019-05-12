@@ -14,7 +14,7 @@ public class MainMenuModel extends Model {
         //create Cells
         //create Grid
         serviceLocator = ServiceLocator.getServiceLocator();        
-        serviceLocator.getLogger().info("Application model initialized");
+        serviceLocator.getLogger().info("MainMenu model initialized");
     }
 
 

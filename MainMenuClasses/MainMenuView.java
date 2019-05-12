@@ -40,7 +40,7 @@ public class MainMenuView extends View<MainMenuModel> {
         stage.setTitle("TicTacToe");
         
         serviceLocator = ServiceLocator.getServiceLocator();        
-        serviceLocator.getLogger().info("Application view initialized");
+        serviceLocator.getLogger().info("MainMenu view initialized");
     }
 
 	@Override
@@ -70,9 +70,6 @@ public class MainMenuView extends View<MainMenuModel> {
 
         scene = new Scene(mainPane);
         scene.getStylesheets().add(getClass().getResource("app.css").toExternalForm());
-        serviceLocator = ServiceLocator.getServiceLocator();
-        serviceLocator.getLogger().info("Main Menu has been created");
-
 
         return scene;
 	}
