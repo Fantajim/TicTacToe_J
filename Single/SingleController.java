@@ -15,10 +15,6 @@ public class SingleController extends Controller<SingleModel, SingleView> {
         serviceLocator.getLogger().info("Single controller initialized");
     }
 
-    public void buttonClick(){
-
-    }
-
     public int[] getButtonPressed(Cell c){
         int index[] = new int [2];
         for (int i = 0;i<3;i++){
@@ -32,6 +28,7 @@ public class SingleController extends Controller<SingleModel, SingleView> {
         return index;
     }
 
+    //controller part of draw
     public void isDraw() {
 
         boolean result = model.isDrawLogic(view.getCells());
@@ -60,6 +57,7 @@ public class SingleController extends Controller<SingleModel, SingleView> {
         }
     }
 
+    //add events to buttons
     public void addEvents(){
 
         for (int i =0;i<3;i++){
@@ -76,9 +74,10 @@ public class SingleController extends Controller<SingleModel, SingleView> {
         }
     }
 
+
+    //controller par of win
     public void isWin(){
         boolean result = model.isWinLogic(view.getCells());
-
 
         if (result == true){
             Alert alertWin = new Alert(Alert.AlertType.CONFIRMATION);
@@ -93,10 +92,9 @@ public class SingleController extends Controller<SingleModel, SingleView> {
             Optional<ButtonType> action = alertWin.showAndWait();
 
             if (action.get()== goMainMenu){
-
                 TicTacToeGame.getMainProgram().startMainMenu();
-
             }
+
             else if (action.get() == restart){
                 view.addToConsole("Winner: "+ model.getCurrentPlayer()+"\nGame has been restarted");
                 model.randomizePlayer();

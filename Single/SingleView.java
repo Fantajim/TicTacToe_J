@@ -5,11 +5,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class SingleView extends View<SingleModel> {
 
@@ -32,10 +29,8 @@ public class SingleView extends View<SingleModel> {
       super(stage, model);
       stage.setTitle("Classic SinglePlayer");
 
-
       serviceLocator = ServiceLocator.getServiceLocator();
       serviceLocator.getLogger().info("Single view initialized");
-
    }
 
    @Override
@@ -66,14 +61,12 @@ public class SingleView extends View<SingleModel> {
       serviceLocator.getLogger().info("Classic SinglePlayer Game has been started");
 
       scene = new Scene(pane);
-
-
       return scene;
    }
 
-   public GridPane getGrid() {
+   /*public GridPane getGrid() {
       return grid;
-   }
+   }*/
 
    public Cell[][] getCells(){
       return cells;
@@ -83,6 +76,8 @@ public class SingleView extends View<SingleModel> {
       return cells[i][j];
    }
 
+
+   //method for creating a new playboard
    public void createBoard(){
 
       grid = new GridPane();
@@ -95,6 +90,8 @@ public class SingleView extends View<SingleModel> {
       pane.setCenter(grid);
    }
 
+
+   //method for easy console access
    public void addToConsole(String s){
       ts = LocalDateTime.now();
       fts = ts.format(formatter);
@@ -102,8 +99,4 @@ public class SingleView extends View<SingleModel> {
       temp = temp.concat("\n"+"\n"+s+"\n"+fts);
       console.setText(temp);
    }
-
-
-
-
 }
