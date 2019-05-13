@@ -110,8 +110,9 @@ public class SingleView extends View<SingleModel> {
    public void addToConsole(String s){
       ts = LocalDateTime.now();
       fts = ts.format(formatter);
-      String temp = console.getText();
-      temp = temp.concat("\n"+"\n"+s+"\n"+fts);
+     // String temp2 = console.getText();
+      String temp = s+"\n"+fts+"\n"+"\n";
+      temp += console.getText();
       console.setText(temp);
    }
 

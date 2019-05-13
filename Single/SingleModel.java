@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class SingleModel extends Model {
 
     ServiceLocator serviceLocator;
@@ -8,6 +10,8 @@ public class SingleModel extends Model {
     private char symbol2;
     boolean cpuPlayer = TicTacToeGame.getCpuPlayer();
     private int[] lastTurn;
+    private int totalTurns = 0;
+    private int[]cpuLastTurn = new int[2];
 
     public SingleModel() {
         lastTurn = new int[2];
@@ -92,24 +96,35 @@ public class SingleModel extends Model {
         return result;
     }
 
-    //Logic for CPU to choose which starting cell to press
+    //Logic for CPU to choose which starting Cell to take
     public int[] cpuFirstTurn(){
         int[] firstTurn = new int[2];
-
         double random = Math.random();
-        if (random <= 0.5)firstTurn[0]= 0;
-        else firstTurn[0] = 2;
+        if (random <= 0.5){
+            firstTurn[0]= 1;
+            firstTurn[1]= 1;
+        }
+        else {
+            random = Math.random();
+            if (random <= 0.5) firstTurn[0] = 0;
+            else firstTurn[0] = 2;
 
-        random = Math.random();
-        if (random <= 0.5)firstTurn[1]=0;
-        else firstTurn[1] = 2;
+            random = Math.random();
+            if (random <= 0.5) firstTurn[1] = 0;
+            else firstTurn[1] = 2;
+        }
         return firstTurn;
     }
 
     public void setLastTurn(int[] i){
         lastTurn[0] = i[0];
         lastTurn[1] = i[1];
+        totalTurns +=1;
     }
+
+    public int getTotalTurns(){ return totalTurns;}
+
+    public void setTotalTurns(){ totalTurns=0;}
 
     public boolean isCpuTurn(){
         boolean cpuTurn = false;
@@ -118,6 +133,45 @@ public class SingleModel extends Model {
         }
         return cpuTurn;
     }
+
+    public boolean isAllEmpty(Cell[][] cells) {
+        boolean empty = true;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (cells[i][j].getSymbol() != ' ') empty = false;
+            }
+        }
+        return empty;
+    }
+
+    public int[] cpuGetCorner(){
+        int[] corner = new int[2];
+        double random = Math.random();
+        if (random <= 0.5) corner[0] = 0;
+        else corner[0] = 2;
+
+        random = Math.random();
+        if (random <= 0.5) corner[1] = 0;
+        else corner[1] = 2;
+        return corner;
+    }
+
+    public int[] cpuFindMove(Cell[][] cells){
+        int[] move = new int[2];
+
+
+
+
+
+        return move;
+    }
+
+    public void setCpuLastTurn(int i, int j){
+        cpuLastTurn[0] = i;
+        cpuLastTurn[1] = j;
+    }
+
+    public int[] getCpuLastTurn(){ return cpuLastTurn; }
 
     public SinglePlayer getCurrentPlayer() { return currentPlayer; }
 

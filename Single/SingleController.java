@@ -38,13 +38,14 @@ public class SingleController extends Controller<SingleModel, SingleView> {
         for (int i =0;i<3;i++){
             for(int j=0;j<3;j++){
                 view.getCell(i,j).setOnAction(event -> {
+                    boolean toggle;
                     int[] index = getButtonPressed((Cell) event.getSource());
                     view.drawSymbol(model.getCurrentPlayer().getSymbol(),view.getCell(index[0],index[1]));
-                    //view.getCell(index[0],index[1]).setIdent(model.getCurrentPlayer().getSymbol());
-                    isWin();
-                    isDraw();
-                    model.toggleCurrentPlayer();
+                    if(isWin())model.setTotalTurns();
+                    else if(isDraw())model.setTotalTurns();
+                    else model.toggleCurrentPlayer();
                     view.updateTurnLabel();
+                    if(model.isCpuTurn())cpuTurnController();
 
                 });
             }
@@ -53,7 +54,7 @@ public class SingleController extends Controller<SingleModel, SingleView> {
 
 
     //controller part of win
-    public void isWin(){
+    public boolean isWin(){
         boolean result = model.isWinLogic(view.getCells());
 
         if (result){
@@ -83,10 +84,11 @@ public class SingleController extends Controller<SingleModel, SingleView> {
 
         }
         }
+        return result;
     }
 
     //controller part of draw
-    public void isDraw() {
+    public boolean isDraw() {
 
         boolean result = model.isDrawLogic(view.getCells());
 
@@ -115,24 +117,34 @@ public class SingleController extends Controller<SingleModel, SingleView> {
 
             }
         }
+        return result;
     }
 
     public void cpuTurnController() {
-        boolean AllEmptyCell = true;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (view.getCell(i,j).getSymbol() != ' '){
-                    AllEmptyCell = false;
-                }
+        int[] turn;
+        switch(model.getTotalTurns()){
+
+            case 0: turn = model.cpuFirstTurn();
+                    model.setCpuLastTurn(turn[0],turn[1]);
+                    cpuMove(turn[0],turn[1]);
+                    break;
+
+            case 1: if (view.getCell(1,1).getSymbol() == ' '){
+                    model.setCpuLastTurn(1,1);
+                    cpuMove(1,1);
             }
-        }
+                    else {
+                    turn = model.cpuGetCorner();
+                    model.setCpuLastTurn(turn[0],turn[1]);
+                    cpuMove(turn[0],turn[1]);
+                    }
+                    break;
+            case 2:  turn = model.cpuFindMove(view.getCells());
 
-        if (AllEmptyCell){
-            int[] firstTurn = model.cpuFirstTurn();
-            Platform.runLater(()-> {
-                view.getCell(firstTurn[0],firstTurn[1]).fire();
-            });
-
         }
+    }
+
+    public void cpuMove(int i, int j){
+        Platform.runLater(()-> { view.getCell(i,j).fire(); });
     }
 }
