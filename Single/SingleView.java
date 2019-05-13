@@ -32,14 +32,13 @@ public class SingleView extends View<SingleModel> {
 
       super(stage, model);
       stage.setTitle("Classic SinglePlayer");
-
       player1Label.setText(model.player1.getName() + " = "+ model.player1.getSymbol());
       player2Label.setText(model.player2.getName() + " = "+ model.player2.getSymbol());
-      playerTurnLabel.setText("Current turn: "+model.getCurrentPlayerName());
-
+      playerTurnLabel.setText("Current turn: "+model.getCurrentPlayer().getName());
       serviceLocator = ServiceLocator.getServiceLocator();
       serviceLocator.getLogger().info("Single view initialized");
       updateTurnLabel();
+
    }
 
    @Override
@@ -53,7 +52,6 @@ public class SingleView extends View<SingleModel> {
             grid.add(cells[i][j],j,i);
          }
       }
-
       //Setup console with timestamp
       ts = LocalDateTime.now();
       formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
@@ -84,9 +82,6 @@ public class SingleView extends View<SingleModel> {
       return scene;
    }
 
-   /*public GridPane getGrid() {
-      return grid;
-   }*/
 
    public Cell[][] getCells(){
       return cells;
@@ -121,7 +116,7 @@ public class SingleView extends View<SingleModel> {
    }
 
    public void updateTurnLabel() {
-      playerTurnLabel.setText("Current turn: "+ model.getCurrentPlayerName());
+      playerTurnLabel.setText("Current turn: "+ model.getCurrentPlayer().getName());
    }
 
 }
