@@ -39,6 +39,7 @@ public class SingleView extends View<SingleModel> {
 
       serviceLocator = ServiceLocator.getServiceLocator();
       serviceLocator.getLogger().info("Single view initialized");
+      updateTurnLabel();
    }
 
    @Override

@@ -1,14 +1,18 @@
+import java.util.Random;
+
 public class SingleModel extends Model {
 
     ServiceLocator serviceLocator;
-    private char currentPlayer;
     public SinglePlayer player1;
     public SinglePlayer player2;
     private char symbol1;
     private char symbol2;
+    boolean cpuPlayer = TicTacToeGame.getCpuPlayer();
+    private int[] lastTurn;
+    private Cell[][] lookCurrentGrid;
 
     public SingleModel() {
-
+        lastTurn = new int[2];
         randomizePlayerSymbol();
         player1 = new SinglePlayer(symbol1, "Player 1");
         player2 = new SinglePlayer(symbol2, "Player 2");
@@ -17,10 +21,7 @@ public class SingleModel extends Model {
         serviceLocator = ServiceLocator.getServiceLocator();
         serviceLocator.getLogger().info("Single model initialized");
 
-       // if (TicTacToeGame.getCpuPlayer() == true &&){
-
-
-       // }
+       if (cpuPlayer == true ){ player2.setName("Hal"); }
 
     }
 
@@ -116,5 +117,37 @@ public class SingleModel extends Model {
             }
         }
         return result;
+    }
+
+    public int[] cpuFirstTurn(){
+        int[] firstTurn = new int[2];
+        double random = Math.random();
+
+        if (random > 0.5)firstTurn[0]=0;
+        else firstTurn[0] = 2;
+
+        random = Math.random();
+
+        if (random > 0.5)firstTurn[1]=0;
+        else firstTurn[1] = 2;
+
+        return firstTurn;
+    }
+
+    public void setLastTurn(int[] i){
+        lastTurn[0] = i[0];
+        lastTurn[1] = i[1];
+    }
+
+    public boolean isCpuTurn(){
+        boolean cpuTurn = false;
+        char symbol = getCurrentPlayer();
+        if (cpuPlayer == true && symbol == player2.getSymbol()){
+            cpuTurn = true;
+        }
+        else {
+            cpuTurn = false;
+        }
+        return cpuTurn;
     }
 }

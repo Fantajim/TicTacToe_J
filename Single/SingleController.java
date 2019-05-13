@@ -1,15 +1,23 @@
+import javafx.event.Event;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 
+import java.awt.*;
+import java.awt.event.InputEvent;
 import java.util.Optional;
 
 public class SingleController extends Controller<SingleModel, SingleView> {
-
     ServiceLocator serviceLocator;
 
     public SingleController(SingleModel model, SingleView view) {
         super(model, view);
         addEvents();
+
+        if (model.isCpuTurn() == true){
+            cpuTurnController();
+        }
 
         serviceLocator = ServiceLocator.getServiceLocator();
         serviceLocator.getLogger().info("Single controller initialized");
@@ -25,6 +33,7 @@ public class SingleController extends Controller<SingleModel, SingleView> {
                 }
             }
         }
+        model.setLastTurn(index);
         return index;
     }
 
@@ -54,6 +63,10 @@ public class SingleController extends Controller<SingleModel, SingleView> {
                 view.createBoard();
                 view.updateTurnLabel();
                 addEvents();
+                if (model.isCpuTurn() == true){
+                    cpuTurnController();
+                }
+
             }
         }
     }
@@ -63,7 +76,7 @@ public class SingleController extends Controller<SingleModel, SingleView> {
 
         for (int i =0;i<3;i++){
             for(int j=0;j<3;j++){
-                view.getCell(i,j).setOnMouseClicked(event -> {
+                view.getCell(i,j).setOnAction(event -> {
                     int index[] = getButtonPressed((Cell)event.getSource());
                     view.getCell(index[0],index[1]).setIdent(model.getCurrentPlayer());
                     isWin();
@@ -104,7 +117,30 @@ public class SingleController extends Controller<SingleModel, SingleView> {
                 view.createBoard();
                 view.updateTurnLabel();
                 addEvents();
+                if (model.isCpuTurn() == true){
+                    cpuTurnController();
+                }
             }
+        }
+    }
+
+    public void cpuTurnController() {
+        boolean AllEmptyCell = true;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (view.getCell(i,j).getIdent() != ' '){
+                    AllEmptyCell = false;
+                }
+            }
+        }
+
+        if (AllEmptyCell == true){
+            int[] firstTurn = model.cpuFirstTurn();
+            char symbol = model.getCurrentPlayer();
+           // view.getCell(firstTurn[0],firstTurn[1]).fire();
+            view.getCell(firstTurn[0],firstTurn[1]).setIdent(model.player2.getSymbol());
+            //Todo
+            //wont draw lines/ellipse correctly
         }
     }
 }
