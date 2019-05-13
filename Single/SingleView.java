@@ -1,4 +1,5 @@
 
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -7,6 +8,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Ellipse;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -25,8 +29,7 @@ public class SingleView extends View<SingleModel> {
    private Label player1Label;
    private Label player2Label;
    private Label playerTurnLabel;
-
-   Scene scene;
+   private Scene scene;
 
    public SingleView(Stage stage, SingleModel model) {
 
@@ -82,14 +85,11 @@ public class SingleView extends View<SingleModel> {
       return scene;
    }
 
+   //get whole Array
+   public Cell[][] getCells(){ return cells; }
 
-   public Cell[][] getCells(){
-      return cells;
-   }
-
-   public Cell getCell(int i, int j){
-      return cells[i][j];
-   }
+   //get a single Cell from Array
+   public Cell getCell(int i, int j){ return cells[i][j]; }
 
 
    //method for creating a new playboard
@@ -115,8 +115,49 @@ public class SingleView extends View<SingleModel> {
       console.setText(temp);
    }
 
+   //Update label to display currentplayer
    public void updateTurnLabel() {
       playerTurnLabel.setText("Current turn: "+ model.getCurrentPlayer().getName());
    }
 
+
+   //Draw Symbols ontop of Cell
+   public void drawSymbol(char ident, Cell c){
+      if (ident == 'X') {
+
+         Group lineGroup = new Group();
+
+         Line line1 = new Line();
+         line1.setStartX(20);
+         line1.setStartY(20);
+         line1.setEndX(c.getWidth() - 20);
+         line1.setEndY(c.getHeight() - 20);
+
+         Line line2 = new Line();
+         line2.setStartX(20);
+         line2.setStartY(c.getHeight() - 20);
+         line2.setEndX(c.getWidth() - 20);
+         line2.setEndY(20);
+
+         lineGroup.getChildren().addAll(line1,line2);
+
+         c.setGraphic(lineGroup);
+         c.setDisable(true);
+         c.setSymbol('X');
+
+      } else if (ident == 'O') {
+
+         Ellipse ellipse1 = new Ellipse();
+         ellipse1.setCenterX(c.getWidth() / 2);
+         ellipse1.setCenterY(c.getHeight() / 2);
+         ellipse1.setRadiusX(c.getWidth() / 2 - 20);
+         ellipse1.setRadiusY(c.getHeight() / 2 - 20);
+
+         ellipse1.setFill(Color.BLACK);
+
+         c.setGraphic(ellipse1);
+         c.setDisable(true);
+         c.setSymbol('O');
+      }
+   }
 }

@@ -39,7 +39,8 @@ public class SingleController extends Controller<SingleModel, SingleView> {
             for(int j=0;j<3;j++){
                 view.getCell(i,j).setOnAction(event -> {
                     int[] index = getButtonPressed((Cell) event.getSource());
-                    view.getCell(index[0],index[1]).setIdent(model.getCurrentPlayer().getSymbol());
+                    view.drawSymbol(model.getCurrentPlayer().getSymbol(),view.getCell(index[0],index[1]));
+                    //view.getCell(index[0],index[1]).setIdent(model.getCurrentPlayer().getSymbol());
                     isWin();
                     isDraw();
                     model.toggleCurrentPlayer();
@@ -120,7 +121,7 @@ public class SingleController extends Controller<SingleModel, SingleView> {
         boolean AllEmptyCell = true;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (view.getCell(i,j).getIdent() != ' '){
+                if (view.getCell(i,j).getSymbol() != ' '){
                     AllEmptyCell = false;
                 }
             }

@@ -6,24 +6,14 @@ public class SinglePlayer {
     public SinglePlayer(char c, String name){
         this.symbol = c;
         this.name = name;
-
     }
 
-    public char getSymbol(){
-        return symbol;
-    }
+    public char getSymbol(){ return symbol; }
 
-    public String getName(){
-        return name;
-    }
+    public String getName(){ return name; }
 
-    public void setSymbol(char c){
-        this.symbol = c;
-    }
+    public void setSymbol(char c){ this.symbol = c; }
 
-    public void setName(String name){
-        this.name = name;
-    }
-
+    public void setName(String name){ this.name = name; }
 
 }
