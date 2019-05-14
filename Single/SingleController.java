@@ -127,6 +127,8 @@ public class SingleController extends Controller<SingleModel, SingleView> {
     public void cpuTurnController() {
         int[] turn;
         int[] lastTurn = model.getLastTurn();
+        char player = model.player1.getSymbol();
+        char hal = model.player2.getSymbol();
        // int[][] possibleTurns;
         switch(model.getTotalTurns()){
 
@@ -187,7 +189,7 @@ public class SingleController extends Controller<SingleModel, SingleView> {
                     else if((lastTurn[0] == 1 && lastTurn[1] == 0)|| (lastTurn[0] == 0 && lastTurn[1] == 1 ) ||
                     (lastTurn[0] == 1 && lastTurn[1] == 2)||(lastTurn[0] == 2 && lastTurn[1] == 2))
                     {
-                    int[][] foundMoves2 = model.checkTwo(view.getCells());
+                    int[][] foundMoves2 = model.checkTwo(view.getCells(),player);
                     cpuMove(foundMoves2[0][0],foundMoves2[0][1]);
                     }
                     break;

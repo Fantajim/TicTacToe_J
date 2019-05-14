@@ -199,71 +199,71 @@ public class SingleModel extends Model {
     }
 
 
-    public int[][] checkTwo(Cell[][] cells){
+    public int[][] checkTwo(Cell[][] cells, char c){
 
         //horizontal check
-        if (cells[0][0].getSymbol() == cells[0][1].getSymbol() && cells[0][0].getSymbol() == player1.getSymbol()) {
+        if (cells[0][0].getSymbol() == cells[0][1].getSymbol() && cells[0][0].getSymbol() == c) {
             int [][]result = {{0,2}};
             return result;
-        } else if (cells[0][2].getSymbol() == cells[0][1].getSymbol() && cells[0][2].getSymbol() == player1.getSymbol()) {
+        } else if (cells[0][2].getSymbol() == cells[0][1].getSymbol() && cells[0][2].getSymbol() == c) {
             int [][]result = {{0,0}};
             return result;
-        } else if (cells[0][0].getSymbol() == cells[0][2].getSymbol() && cells[0][2].getSymbol() == player1.getSymbol()) {
+        } else if (cells[0][0].getSymbol() == cells[0][2].getSymbol() && cells[0][2].getSymbol() == c) {
             int [][]result = {{0,1}};
             return result;
-        } else if (cells[1][0].getSymbol() == cells[1][1].getSymbol() && cells[1][0].getSymbol() == player1.getSymbol()) {
+        } else if (cells[1][0].getSymbol() == cells[1][1].getSymbol() && cells[1][0].getSymbol() == c) {
             int [][]result = {{1,2}};
             return result;
-        } else if (cells[1][2].getSymbol() == cells[1][1].getSymbol() && cells[1][2].getSymbol() == player1.getSymbol()) {
+        } else if (cells[1][2].getSymbol() == cells[1][1].getSymbol() && cells[1][2].getSymbol() == c) {
             int [][]result = {{1,0}};
             return result;
-        } else if (cells[1][0].getSymbol() == cells[1][2].getSymbol() && cells[1][2].getSymbol() == player1.getSymbol()) {
+        } else if (cells[1][0].getSymbol() == cells[1][2].getSymbol() && cells[1][2].getSymbol() == c) {
             int [][]result = {{1,1}};
             return result;
-        } else if (cells[2][0].getSymbol() == cells[2][1].getSymbol() && cells[2][0].getSymbol() == player1.getSymbol()) {
+        } else if (cells[2][0].getSymbol() == cells[2][1].getSymbol() && cells[2][0].getSymbol() == c) {
             int [][]result = {{2,2}};
             return result;
-        } else if (cells[2][2].getSymbol() == cells[2][1].getSymbol() && cells[2][2].getSymbol() == player1.getSymbol()) {
+        } else if (cells[2][2].getSymbol() == cells[2][1].getSymbol() && cells[2][2].getSymbol() == c) {
             int[][] result = {{2, 0}};
             return result;
-        } else if (cells[2][0].getSymbol() == cells[2][2].getSymbol() && cells[2][2].getSymbol() == player1.getSymbol()) {
+        } else if (cells[2][0].getSymbol() == cells[2][2].getSymbol() && cells[2][2].getSymbol() == c) {
                 int [][]result = {{2,1}};
                 return result;
 
         //vertical check
-        } else if (cells[0][0].getSymbol() == cells[1][0].getSymbol() && cells[0][0].getSymbol() == player1.getSymbol()) {
+        } else if (cells[0][0].getSymbol() == cells[1][0].getSymbol() && cells[0][0].getSymbol() == c) {
             int [][]result = {{2,0}};
             return result;
-        } else if (cells[2][0].getSymbol() == cells[1][0].getSymbol() && cells[2][0].getSymbol() == player1.getSymbol()) {
+        } else if (cells[2][0].getSymbol() == cells[1][0].getSymbol() && cells[2][0].getSymbol() == c) {
             int [][]result = {{0,0}};
             return result;
-        } else if (cells[0][0].getSymbol() == cells[2][0].getSymbol() && cells[2][0].getSymbol() == player1.getSymbol()) {
+        } else if (cells[0][0].getSymbol() == cells[2][0].getSymbol() && cells[2][0].getSymbol() == c) {
             int [][]result = {{1,0}};
             return result;
-        }else if (cells[0][1].getSymbol() == cells[1][1].getSymbol() && cells[0][1].getSymbol() == player1.getSymbol()) {
+        }else if (cells[0][1].getSymbol() == cells[1][1].getSymbol() && cells[0][1].getSymbol() == c) {
             int [][]result = {{2,1}};
             return result;
-        } else if (cells[2][1].getSymbol() == cells[1][1].getSymbol() && cells[1][1].getSymbol() == player1.getSymbol()) {
+        } else if (cells[2][1].getSymbol() == cells[1][1].getSymbol() && cells[1][1].getSymbol() == c) {
             int [][]result = {{0,1}};
             return result;
-        } else if (cells[0][1].getSymbol() == cells[2][1].getSymbol() && cells[2][1].getSymbol() == player1.getSymbol()) {
+        } else if (cells[0][1].getSymbol() == cells[2][1].getSymbol() && cells[2][1].getSymbol() == c) {
             int [][]result = {{1,1}};
             return result;
-        }else if (cells[0][2].getSymbol() == cells[1][2].getSymbol() && cells[0][2].getSymbol() == player1.getSymbol()) {
+        }else if (cells[0][2].getSymbol() == cells[1][2].getSymbol() && cells[0][2].getSymbol() == c) {
             int [][]result = {{2,2}};
             return result;
-        } else if (cells[2][2].getSymbol() == cells[1][2].getSymbol() && cells[2][2].getSymbol() == player1.getSymbol()) {
+        } else if (cells[2][2].getSymbol() == cells[1][2].getSymbol() && cells[2][2].getSymbol() == c) {
             int[][] result = {{0, 2}};
             return result;
-        } else if (cells[0][2].getSymbol() == cells[2][2].getSymbol() && cells[2][2].getSymbol() == player1.getSymbol()) {
+        } else if (cells[0][2].getSymbol() == cells[2][2].getSymbol() && cells[2][2].getSymbol() == c) {
             int [][]result = {{1,2}};
             return result;
 
             //diagonal check
-        } else if (cells[0][0].getSymbol() == cells[1][1].getSymbol() && cells[0][0].getSymbol() == player1.getSymbol()) {
+        } else if (cells[0][0].getSymbol() == cells[1][1].getSymbol() && cells[0][0].getSymbol() == c) {
             int [][]result = {{2,2}};
             return result;
-        } else if (cells[2][2].getSymbol() == cells[1][1].getSymbol() && cells[2][2].getSymbol() == player1.getSymbol()) {
+        } else if (cells[2][2].getSymbol() == cells[1][1].getSymbol() && cells[2][2].getSymbol() == c) {
             int[][] result = {{0, 0}};
             return result;
         }
