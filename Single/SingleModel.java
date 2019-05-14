@@ -198,10 +198,8 @@ public class SingleModel extends Model {
         return lastTurn;
     }
 
-    //TODO give computer cell back so that player doesnt have 3 in a row
 
     public int[][] checkTwo(Cell[][] cells){
-    //int[] result= new int[2];
 
         //horizontal check
         if (cells[0][0].getSymbol() == cells[0][1].getSymbol() && cells[0][0].getSymbol() == player1.getSymbol()) {
@@ -210,18 +208,28 @@ public class SingleModel extends Model {
         } else if (cells[0][2].getSymbol() == cells[0][1].getSymbol() && cells[0][2].getSymbol() == player1.getSymbol()) {
             int [][]result = {{0,0}};
             return result;
+        } else if (cells[0][0].getSymbol() == cells[0][2].getSymbol() && cells[0][2].getSymbol() == player1.getSymbol()) {
+            int [][]result = {{0,1}};
+            return result;
         } else if (cells[1][0].getSymbol() == cells[1][1].getSymbol() && cells[1][0].getSymbol() == player1.getSymbol()) {
             int [][]result = {{1,2}};
             return result;
         } else if (cells[1][2].getSymbol() == cells[1][1].getSymbol() && cells[1][2].getSymbol() == player1.getSymbol()) {
             int [][]result = {{1,0}};
             return result;
+        } else if (cells[1][0].getSymbol() == cells[1][2].getSymbol() && cells[1][2].getSymbol() == player1.getSymbol()) {
+            int [][]result = {{1,1}};
+            return result;
         } else if (cells[2][0].getSymbol() == cells[2][1].getSymbol() && cells[2][0].getSymbol() == player1.getSymbol()) {
             int [][]result = {{2,2}};
             return result;
         } else if (cells[2][2].getSymbol() == cells[2][1].getSymbol() && cells[2][2].getSymbol() == player1.getSymbol()) {
-            int [][]result = {{2,0}};
+            int[][] result = {{2, 0}};
             return result;
+        } else if (cells[2][0].getSymbol() == cells[2][2].getSymbol() && cells[2][2].getSymbol() == player1.getSymbol()) {
+                int [][]result = {{2,1}};
+                return result;
+
         //vertical check
         } else if (cells[0][0].getSymbol() == cells[1][0].getSymbol() && cells[0][0].getSymbol() == player1.getSymbol()) {
             int [][]result = {{2,0}};
@@ -229,19 +237,29 @@ public class SingleModel extends Model {
         } else if (cells[2][0].getSymbol() == cells[1][0].getSymbol() && cells[2][0].getSymbol() == player1.getSymbol()) {
             int [][]result = {{0,0}};
             return result;
-        } else if (cells[0][1].getSymbol() == cells[1][1].getSymbol() && cells[0][1].getSymbol() == player1.getSymbol()) {
+        } else if (cells[0][0].getSymbol() == cells[2][0].getSymbol() && cells[2][0].getSymbol() == player1.getSymbol()) {
+            int [][]result = {{1,0}};
+            return result;
+        }else if (cells[0][1].getSymbol() == cells[1][1].getSymbol() && cells[0][1].getSymbol() == player1.getSymbol()) {
             int [][]result = {{2,1}};
             return result;
         } else if (cells[2][1].getSymbol() == cells[1][1].getSymbol() && cells[1][1].getSymbol() == player1.getSymbol()) {
             int [][]result = {{0,1}};
             return result;
-        } else if (cells[0][2].getSymbol() == cells[1][2].getSymbol() && cells[0][2].getSymbol() == player1.getSymbol()) {
+        } else if (cells[0][1].getSymbol() == cells[2][1].getSymbol() && cells[2][1].getSymbol() == player1.getSymbol()) {
+            int [][]result = {{1,1}};
+            return result;
+        }else if (cells[0][2].getSymbol() == cells[1][2].getSymbol() && cells[0][2].getSymbol() == player1.getSymbol()) {
             int [][]result = {{2,2}};
             return result;
         } else if (cells[2][2].getSymbol() == cells[1][2].getSymbol() && cells[2][2].getSymbol() == player1.getSymbol()) {
-            int [][]result = {{0,2}};
+            int[][] result = {{0, 2}};
             return result;
-         //diagonal check
+        } else if (cells[0][2].getSymbol() == cells[2][2].getSymbol() && cells[2][2].getSymbol() == player1.getSymbol()) {
+            int [][]result = {{1,2}};
+            return result;
+
+            //diagonal check
         } else if (cells[0][0].getSymbol() == cells[1][1].getSymbol() && cells[0][0].getSymbol() == player1.getSymbol()) {
             int [][]result = {{2,2}};
             return result;
@@ -253,12 +271,22 @@ public class SingleModel extends Model {
         return null;
     }
 
+    public boolean isCross(){
+        boolean cross = false;
+        if ((lastTurn[0] == 1 && lastTurn[1] == 0) || (lastTurn[0] == 0 && lastTurn[1] == 1) ||
+        (lastTurn[0] == 1 && lastTurn[1] == 2) || (lastTurn[0] == 2 && lastTurn[1] == 1)){
+         cross = true;
+        }
+        return cross;
+    }
+
     public int generateRandom(int i){
         int number;
         Random random = new Random();
         number = random.nextInt(i)+1;
         return number;
     }
+
 
     public int[] getCpuLastTurn(){ return cpuLastTurn; }
 
