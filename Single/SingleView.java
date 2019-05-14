@@ -95,14 +95,13 @@ public class SingleView extends View<SingleModel> {
    //method for creating a new playboard
    public void createBoard(){
 
-      grid = new GridPane();
       for (int i = 0;i<3;i++){
          for( int j = 0;j< 3;j++){
-            cells[i][j] = new Cell();
-            grid.add(cells[i][j],j,i);
+            cells[i][j].setGraphic(null);
+            cells[i][j].setSymbol(' ');
+            cells[i][j].setDisable(false);
          }
       }
-      pane.setCenter(grid);
    }
 
 
