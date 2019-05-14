@@ -227,6 +227,6 @@ public class SingleController extends Controller<SingleModel, SingleView> {
 
     public void cpuMove(int i, int j){
         model.setCpuLastTurn(i,j);
-        Platform.runLater(()-> { view.getCell(i,j).fire(); });
+        Platform.runLater(()-> view.getCell(i,j).fire());
     }
 }
