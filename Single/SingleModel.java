@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class SingleModel extends Model {
 
@@ -12,6 +13,7 @@ public class SingleModel extends Model {
     private int[] lastTurn;
     private int totalTurns = 0;
     private int[]cpuLastTurn = new int[2];
+    ArrayList<int [][]> savedCpuTurns = new ArrayList<>();
 
     public SingleModel() {
         lastTurn = new int[2];
@@ -156,19 +158,106 @@ public class SingleModel extends Model {
         return corner;
     }
 
-    public int[] cpuFindMove(Cell[][] cells){
-        int[] move = new int[2];
+    public int[][] cpuFindMoveBest(int[][] moves, Cell[][]cells){
+        for (int[]move:moves){
+            if (cells[move[0]][move[1]].getSymbol() == ' ') {
+                int[][] temp = {{move[0],move[1]}};
+                return temp;
+            }
+        }
+
+      return null;
+    }
 
 
+    public int[][] cpuFindMoveRandom(int[][] moves, Cell[][]cells){
+        for (int[]move:moves){
+        if (cells[move[0]][move[1]].getSymbol() == ' ') {
+            int[][] temp = {{move[0],move[1]}};
+            savedCpuTurns.add(temp);
+        }
+        }
 
+        int number = generateRandom(savedCpuTurns.size());
+        int[][] preferedMove = savedCpuTurns.get(number-1);
+        return preferedMove;
+    }
 
+    public int[][] doesntMatterItsTie(Cell[][] cells){
+        int[][] preferedMove = new int[1][1];
 
-        return move;
+        return preferedMove;
     }
 
     public void setCpuLastTurn(int i, int j){
         cpuLastTurn[0] = i;
         cpuLastTurn[1] = j;
+       // savedCpuTurns.add(cpuLastTurn);
+    }
+    public int[] getLastTurn(){
+        return lastTurn;
+    }
+
+    //TODO give computer cell back so that player doesnt have 3 in a row
+
+    public int[][] checkTwo(Cell[][] cells){
+    //int[] result= new int[2];
+
+        //horizontal check
+        if (cells[0][0].getSymbol() == cells[0][1].getSymbol() && cells[0][0].getSymbol() == player1.getSymbol()) {
+            int [][]result = {{0,2}};
+            return result;
+        } else if (cells[0][2].getSymbol() == cells[0][1].getSymbol() && cells[0][2].getSymbol() == player1.getSymbol()) {
+            int [][]result = {{0,0}};
+            return result;
+        } else if (cells[1][0].getSymbol() == cells[1][1].getSymbol() && cells[1][0].getSymbol() == player1.getSymbol()) {
+            int [][]result = {{1,2}};
+            return result;
+        } else if (cells[1][2].getSymbol() == cells[1][1].getSymbol() && cells[1][2].getSymbol() == player1.getSymbol()) {
+            int [][]result = {{1,0}};
+            return result;
+        } else if (cells[2][0].getSymbol() == cells[2][1].getSymbol() && cells[2][0].getSymbol() == player1.getSymbol()) {
+            int [][]result = {{2,2}};
+            return result;
+        } else if (cells[2][2].getSymbol() == cells[2][1].getSymbol() && cells[2][2].getSymbol() == player1.getSymbol()) {
+            int [][]result = {{2,0}};
+            return result;
+        //vertical check
+        } else if (cells[0][0].getSymbol() == cells[1][0].getSymbol() && cells[0][0].getSymbol() == player1.getSymbol()) {
+            int [][]result = {{2,0}};
+            return result;
+        } else if (cells[2][0].getSymbol() == cells[1][0].getSymbol() && cells[2][0].getSymbol() == player1.getSymbol()) {
+            int [][]result = {{0,0}};
+            return result;
+        } else if (cells[0][1].getSymbol() == cells[1][1].getSymbol() && cells[0][1].getSymbol() == player1.getSymbol()) {
+            int [][]result = {{2,1}};
+            return result;
+        } else if (cells[2][1].getSymbol() == cells[1][1].getSymbol() && cells[1][1].getSymbol() == player1.getSymbol()) {
+            int [][]result = {{0,1}};
+            return result;
+        } else if (cells[0][2].getSymbol() == cells[1][2].getSymbol() && cells[0][2].getSymbol() == player1.getSymbol()) {
+            int [][]result = {{2,2}};
+            return result;
+        } else if (cells[2][2].getSymbol() == cells[1][2].getSymbol() && cells[2][2].getSymbol() == player1.getSymbol()) {
+            int [][]result = {{0,2}};
+            return result;
+         //diagonal check
+        } else if (cells[0][0].getSymbol() == cells[1][1].getSymbol() && cells[0][0].getSymbol() == player1.getSymbol()) {
+            int [][]result = {{2,2}};
+            return result;
+        } else if (cells[2][2].getSymbol() == cells[1][1].getSymbol() && cells[2][2].getSymbol() == player1.getSymbol()) {
+            int[][] result = {{0, 0}};
+            return result;
+        }
+
+        return null;
+    }
+
+    public int generateRandom(int i){
+        int number;
+        Random random = new Random();
+        number = random.nextInt(i)+1;
+        return number;
     }
 
     public int[] getCpuLastTurn(){ return cpuLastTurn; }

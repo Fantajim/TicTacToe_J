@@ -1,6 +1,8 @@
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class SingleController extends Controller<SingleModel, SingleView> {
@@ -122,24 +124,44 @@ public class SingleController extends Controller<SingleModel, SingleView> {
 
     public void cpuTurnController() {
         int[] turn;
+        int[] lastTurn = model.getLastTurn();
+       // int[][] possibleTurns;
         switch(model.getTotalTurns()){
 
             case 0: turn = model.cpuFirstTurn();
-                    model.setCpuLastTurn(turn[0],turn[1]);
                     cpuMove(turn[0],turn[1]);
                     break;
 
             case 1: if (view.getCell(1,1).getSymbol() == ' '){
                     model.setCpuLastTurn(1,1);
-                    cpuMove(1,1);
-            }
+                    cpuMove(1,1); }
                     else {
                     turn = model.cpuGetCorner();
                     model.setCpuLastTurn(turn[0],turn[1]);
                     cpuMove(turn[0],turn[1]);
                     }
                     break;
-            case 2:  turn = model.cpuFindMove(view.getCells());
+
+            case 2:
+
+            case 3: if(lastTurn[0] == 0 && lastTurn[1] == 2 ){
+                    int [][] possibleTurns = {{0,1},{0,2}};
+                    int [][] foundMoves = model.cpuFindMoveRandom(possibleTurns,view.getCells());
+                    cpuMove(foundMoves[0][0],foundMoves[0][1]); }
+                    else if(lastTurn[0] == 0 && lastTurn[1] == 0)cpuMove(0,0);
+                    else if(lastTurn[0] == 2 && lastTurn[1] == 2)cpuMove(2,2);
+                    else if((lastTurn[0] == 1 && lastTurn[1] == 0)|| (lastTurn[0] == 0 && lastTurn[1] == 1 ) ||
+                    (lastTurn[0] == 1 && lastTurn[1] == 2)||(lastTurn[0] == 2 && lastTurn[1] == 2)){
+                    int[][] foundMoves = model.checkTwo(view.getCells());
+                    cpuMove(foundMoves[0][0],foundMoves[0][1]);
+                    cpuMove(model.checkTwo(view.getCells())[0][0],model.checkTwo(view.getCells())[0][1]) ;
+
+            }
+
+                turn = model.getLastTurn();
+                if(turn[0]== 1 && turn[1]==1){
+
+                }
 
         }
     }
