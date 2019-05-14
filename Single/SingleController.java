@@ -2,7 +2,6 @@ import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 public class SingleController extends Controller<SingleModel, SingleView> {
@@ -43,8 +42,8 @@ public class SingleController extends Controller<SingleModel, SingleView> {
                     boolean toggle;
                     int[] index = getButtonPressed((Cell) event.getSource());
                     view.drawSymbol(model.getCurrentPlayer().getSymbol(),view.getCell(index[0],index[1]));
-                    if(isWin())model.setTotalTurns();
-                    else if(isDraw())model.setTotalTurns();
+                    if(isWin())model.resetCpuTurn();
+                    else if(isDraw())model.resetCpuTurn();
                     else model.toggleCurrentPlayer();
                     view.updateTurnLabel();
                     if(model.isCpuTurn())cpuTurnController();
@@ -125,79 +124,106 @@ public class SingleController extends Controller<SingleModel, SingleView> {
     //Controller for CPU tries to have some randomness in its logic, tries to counter the player
     //as best as possible, to be honest it's a mess, i'm very very sure there are much much more elegant ways to do this..
     public void cpuTurnController() {
-        int[] turn;
+        int[] temp;
         int[] lastTurn = model.getLastTurn();
         char player = model.player1.getSymbol();
         char hal = model.player2.getSymbol();
-       // int[][] possibleTurns;
-        switch(model.getTotalTurns()){
 
-            case 0: turn = model.cpuFirstTurn();
-                    cpuMove(turn[0],turn[1]);
+        switch(model.getCpuTurn()){
+
+            case 0: temp = model.cpuFirstTurn();
+                    cpuMove(temp[0],temp[1]);
                     break;
 
-            case 1: if (view.getCell(1,1).getSymbol() == ' '){
-                    cpuMove(1,1); }
+            case 1: if (view.getCell(1,1).getSymbol() == ' ')cpuMove(1,1);
                     else {
-                    turn = model.cpuGetCorner();
-                    cpuMove(turn[0],turn[1]);
+                    temp = model.cpuGetCorner();
+                    cpuMove(temp[0],temp[1]);
                     }
                     break;
 
-            case 2: if(model.getCpuLastTurn()[0]== 1 && model.getCpuLastTurn()[1] ==1 ){
-                    turn = model.getLastTurn();
-                    if(model.isCross()){
-                        if(turn[0] == 1 && turn[1] == 0){
-                            int[][] possibleTurns = {{0,2},{2,2}};
-                            int [][] foundMoves = model.cpuFindMoveRandom(possibleTurns,view.getCells());
-                            cpuMove(foundMoves[0][0],foundMoves[0][1]);
+                    //TODO player has moved to 1,1
+                    //CPU made move 0
+            case 2:
+                if(lastTurn[0] == 1 && lastTurn[1] == 1) {
+                    if (model.getCpuLastTurn()[0] == 0 && model.getCpuLastTurn()[1] == 0) cpuMove(2, 2);
+                    else if (model.getCpuLastTurn()[0] == 0 && model.getCpuLastTurn()[1] == 2) cpuMove(2, 0);
+                    else if (model.getCpuLastTurn()[0] == 2 && model.getCpuLastTurn()[1] == 2) cpuMove(0, 0);
+                    else if (model.getCpuLastTurn()[0] == 2 && model.getCpuLastTurn()[1] == 0) cpuMove(0, 2);
+                    if (model.getCpuLastTurn()[0] == 1 && model.getCpuLastTurn()[1] == 1) {
+                        if (model.isCross()) {
+                            if (lastTurn[0] == 1 && lastTurn[1] == 0) {
+                                int[][] possibleTurns = {{0, 2}, {2, 2}};
+                                int[][] foundMoves = model.cpuFindMoveRandom(possibleTurns, view.getCells());
+                                cpuMove(foundMoves[0][0], foundMoves[0][1]);
+                            } else if (lastTurn[0] == 0 && lastTurn[1] == 1) {
+                                int[][] possibleTurns = {{0, 2}, {2, 2}};
+                                int[][] foundMoves = model.cpuFindMoveRandom(possibleTurns, view.getCells());
+                                cpuMove(foundMoves[0][0], foundMoves[0][1]);
+                            } else if (lastTurn[0] == 1 && lastTurn[1] == 2) {
+                                int[][] possibleTurns = {{0, 0}, {0, 2}};
+                                int[][] foundMoves = model.cpuFindMoveRandom(possibleTurns, view.getCells());
+                                cpuMove(foundMoves[0][0], foundMoves[0][1]);
+                            } else if (lastTurn[0] == 2 && lastTurn[1] == 1) {
+                                int[][] possibleTurns = {{0, 0}, {0, 2}};
+                                int[][] foundMoves = model.cpuFindMoveRandom(possibleTurns, view.getCells());
+                                cpuMove(foundMoves[0][0], foundMoves[0][1]);
+                            }
+                        } else if (lastTurn[0] == 0 && lastTurn[1] == 0) {
+                            cpuMove(2, 2);
+                        } else if (lastTurn[0] == 0 && lastTurn[1] == 2) {
+                            cpuMove(2, 0);
+                        } else if (lastTurn[0] == 2 && lastTurn[1] == 2) {
+                            cpuMove(0, 0);
+                        } else if (lastTurn[0] == 2 && lastTurn[1] == 0) {
+                            cpuMove(0, 2);
                         }
-                        else if(turn[0] == 0 && turn[1] == 1){
-                            int[][] possibleTurns = {{0,2},{2,2}};
-                            int [][] foundMoves = model.cpuFindMoveRandom(possibleTurns,view.getCells());
-                            cpuMove(foundMoves[0][0],foundMoves[0][1]);
-                        }
-                        else if(turn[0] == 1 && turn[1] == 2){
-                            int[][] possibleTurns = {{0,0},{0,2}};
-                            int [][] foundMoves = model.cpuFindMoveRandom(possibleTurns,view.getCells());
-                            cpuMove(foundMoves[0][0],foundMoves[0][1]);
-                        }
-                        else if(turn[0] == 2 && turn[1] == 1){
-                            int[][] possibleTurns = {{0,0},{0,2}};
-                            int [][] foundMoves = model.cpuFindMoveRandom(possibleTurns,view.getCells());
-                            cpuMove(foundMoves[0][0],foundMoves[0][1]);
-                        }
                     }
-                    else if(turn[0] == 0 && turn[1] == 0){cpuMove(2,2);
-                    }
-                    else if(turn[0] == 0 && turn[1] == 2){cpuMove(2,0);
-                    }
-                    else if(turn[0] == 2 && turn[1] == 2){cpuMove(0,0);
-                    }
-                    else if(turn[0] == 2 && turn[1] == 0){cpuMove(0,2);
-                    }
-            }
-            break;
-
-
-            case 3: if(lastTurn[0] == 0 && lastTurn[1] == 2 ){
-                    int [][] possibleTurns = {{0,1},{0,2}};
-                    int [][] foundMoves = model.cpuFindMoveRandom(possibleTurns,view.getCells());
-                    cpuMove(foundMoves[0][0],foundMoves[0][1]); }
+                    break;
+                }
+//Todo case 2 Player has not clicked middle cell
+                    //CPU made move 1
+                    case 3: if(lastTurn[0] == 0 && lastTurn[1] == 2 ){ //corners
+                        int [][] possibleTurns = {{0,1},{0,2}};
+                        int [][] foundMoves = model.cpuFindMoveRandom(possibleTurns,view.getCells());
+                        cpuMove(foundMoves[0][0],foundMoves[0][1]); }
                     else if(lastTurn[0] == 0 && lastTurn[1] == 0)cpuMove(0,0);
                     else if(lastTurn[0] == 2 && lastTurn[1] == 2)cpuMove(2,2);
-                    else if((lastTurn[0] == 1 && lastTurn[1] == 0)|| (lastTurn[0] == 0 && lastTurn[1] == 1 ) ||
-                    (lastTurn[0] == 1 && lastTurn[1] == 2)||(lastTurn[0] == 2 && lastTurn[1] == 2))
-                    {
-                    int[][] foundMoves2 = model.checkTwo(view.getCells(),player);
-                    cpuMove(foundMoves2[0][0],foundMoves2[0][1]);
+
+                    else if(lastTurn[0] == 1 && lastTurn[1] == 0){ //cross
+                        int [][] possibleTurns = {{0,2},{2,2}};
+                        int [][] foundMoves = model.cpuFindMoveRandom(possibleTurns,view.getCells());
+                        cpuMove(foundMoves[0][0],foundMoves[0][1]);
                     }
-                    break;
+                    else if (lastTurn[0] == 0 && lastTurn[1] == 1 ) {
+                        int [][] possibleTurns = {{2,0},{2,2}};
+                        int [][] foundMoves = model.cpuFindMoveRandom(possibleTurns,view.getCells());
+                        cpuMove(foundMoves[0][0],foundMoves[0][1]);
+                    }
+                    else if (lastTurn[0] == 1 && lastTurn[1] == 2){
+                        int [][] possibleTurns = {{0,0},{0,2}};
+                        int [][] foundMoves = model.cpuFindMoveRandom(possibleTurns,view.getCells());
+                        cpuMove(foundMoves[0][0],foundMoves[0][1]);
+                    }
+                    else if (lastTurn[0] == 2 && lastTurn[1] == 1) {
+                        int [][] possibleTurns = {{0,0},{0,2}};
+                        int [][] foundMoves = model.cpuFindMoveRandom(possibleTurns,view.getCells());
+                        cpuMove(foundMoves[0][0],foundMoves[0][1]);
+                    }
+                        break;
 
-            case 4:
+                    //CPU made move 2
+                    case 4: int[][] foundMoves = model.checkTwo(view.getCells(),player);
+                        if (foundMoves == null){
+                            if(lastTurn[0] == 0 && lastTurn[1] == 1)cpuMove(2,2);
+                            else if (lastTurn[0] == 1 && lastTurn[1] == 2)cpuMove(2,0);
+                            else if (lastTurn[0] == 2 && lastTurn[1] == 1)cpuMove(0,0);
+                            else if (lastTurn[0] == 1 && lastTurn[1] == 0)cpuMove(0,2);
+                        }
+                        break;
 
-        }
-    }
+                }
+            }
 
     public void cpuMove(int i, int j){
         model.setCpuLastTurn(i,j);

@@ -11,7 +11,7 @@ public class SingleModel extends Model {
     private char symbol2;
     boolean cpuPlayer = TicTacToeGame.getCpuPlayer();
     private int[] lastTurn;
-    private int totalTurns = 0;
+    private int cpuTurn = 0;
     private int[]cpuLastTurn = new int[2];
     ArrayList<int [][]> savedCpuTurns = new ArrayList<>();
 
@@ -121,12 +121,12 @@ public class SingleModel extends Model {
     public void setLastTurn(int[] i){
         lastTurn[0] = i[0];
         lastTurn[1] = i[1];
-        totalTurns +=1;
+        cpuTurn +=1;
     }
 
-    public int getTotalTurns(){ return totalTurns;}
+    public int getCpuTurn(){ return cpuTurn;}
 
-    public void setTotalTurns(){ totalTurns=0;}
+    public void resetCpuTurn(){ cpuTurn =0;}
 
     public boolean isCpuTurn(){
         boolean cpuTurn = false;
@@ -136,6 +136,7 @@ public class SingleModel extends Model {
         return cpuTurn;
     }
 
+    //checker if board is empty
     public boolean isAllEmpty(Cell[][] cells) {
         boolean empty = true;
         for (int i = 0; i < 3; i++) {
@@ -146,6 +147,7 @@ public class SingleModel extends Model {
         return empty;
     }
 
+    //return a random corner of the board
     public int[] cpuGetCorner(){
         int[] corner = new int[2];
         double random = Math.random();
@@ -158,6 +160,7 @@ public class SingleModel extends Model {
         return corner;
     }
 
+    //finds first free occurence of provided array
     public int[][] cpuFindMoveBest(int[][] moves, Cell[][]cells){
         for (int[]move:moves){
             if (cells[move[0]][move[1]].getSymbol() == ' ') {
@@ -170,6 +173,7 @@ public class SingleModel extends Model {
     }
 
 
+    //Finds random cell within provided array
     public int[][] cpuFindMoveRandom(int[][] moves, Cell[][]cells){
         for (int[]move:moves){
         if (cells[move[0]][move[1]].getSymbol() == ' ') {
@@ -192,78 +196,78 @@ public class SingleModel extends Model {
     public void setCpuLastTurn(int i, int j){
         cpuLastTurn[0] = i;
         cpuLastTurn[1] = j;
-       // savedCpuTurns.add(cpuLastTurn);
     }
+
     public int[] getLastTurn(){
         return lastTurn;
     }
 
-
+    //Check to see if there's a combination of two equal symbols
     public int[][] checkTwo(Cell[][] cells, char c){
 
         //horizontal check
-        if (cells[0][0].getSymbol() == cells[0][1].getSymbol() && cells[0][0].getSymbol() == c) {
+        if (cells[0][0].getSymbol() == cells[0][1].getSymbol() && cells[0][0].getSymbol() == c && cells[0][2].getSymbol() == ' ' ) {
             int [][]result = {{0,2}};
             return result;
-        } else if (cells[0][2].getSymbol() == cells[0][1].getSymbol() && cells[0][2].getSymbol() == c) {
+        } else if (cells[0][2].getSymbol() == cells[0][1].getSymbol() && cells[0][2].getSymbol() == c && cells[0][0].getSymbol() == ' ') {
             int [][]result = {{0,0}};
             return result;
-        } else if (cells[0][0].getSymbol() == cells[0][2].getSymbol() && cells[0][2].getSymbol() == c) {
+        } else if (cells[0][0].getSymbol() == cells[0][2].getSymbol() && cells[0][2].getSymbol() == c && cells[0][1].getSymbol() == ' ') {
             int [][]result = {{0,1}};
             return result;
-        } else if (cells[1][0].getSymbol() == cells[1][1].getSymbol() && cells[1][0].getSymbol() == c) {
+        } else if (cells[1][0].getSymbol() == cells[1][1].getSymbol() && cells[1][0].getSymbol() == c && cells[1][2].getSymbol() == ' ') {
             int [][]result = {{1,2}};
             return result;
-        } else if (cells[1][2].getSymbol() == cells[1][1].getSymbol() && cells[1][2].getSymbol() == c) {
+        } else if (cells[1][2].getSymbol() == cells[1][1].getSymbol() && cells[1][2].getSymbol() == c && cells[1][0].getSymbol() == ' ') {
             int [][]result = {{1,0}};
             return result;
-        } else if (cells[1][0].getSymbol() == cells[1][2].getSymbol() && cells[1][2].getSymbol() == c) {
+        } else if (cells[1][0].getSymbol() == cells[1][2].getSymbol() && cells[1][2].getSymbol() == c && cells[1][1].getSymbol() == ' ') {
             int [][]result = {{1,1}};
             return result;
-        } else if (cells[2][0].getSymbol() == cells[2][1].getSymbol() && cells[2][0].getSymbol() == c) {
+        } else if (cells[2][0].getSymbol() == cells[2][1].getSymbol() && cells[2][0].getSymbol() == c && cells[2][2].getSymbol() == ' ') {
             int [][]result = {{2,2}};
             return result;
-        } else if (cells[2][2].getSymbol() == cells[2][1].getSymbol() && cells[2][2].getSymbol() == c) {
+        } else if (cells[2][2].getSymbol() == cells[2][1].getSymbol() && cells[2][2].getSymbol() == c && cells[2][0].getSymbol() == ' ') {
             int[][] result = {{2, 0}};
             return result;
-        } else if (cells[2][0].getSymbol() == cells[2][2].getSymbol() && cells[2][2].getSymbol() == c) {
+        } else if (cells[2][0].getSymbol() == cells[2][2].getSymbol() && cells[2][2].getSymbol() == c && cells[2][1].getSymbol() == ' ') {
                 int [][]result = {{2,1}};
                 return result;
 
         //vertical check
-        } else if (cells[0][0].getSymbol() == cells[1][0].getSymbol() && cells[0][0].getSymbol() == c) {
+        } else if (cells[0][0].getSymbol() == cells[1][0].getSymbol() && cells[0][0].getSymbol() == c && cells[2][0].getSymbol() == ' ') {
             int [][]result = {{2,0}};
             return result;
-        } else if (cells[2][0].getSymbol() == cells[1][0].getSymbol() && cells[2][0].getSymbol() == c) {
+        } else if (cells[2][0].getSymbol() == cells[1][0].getSymbol() && cells[2][0].getSymbol() == c && cells[0][0].getSymbol() == ' ') {
             int [][]result = {{0,0}};
             return result;
-        } else if (cells[0][0].getSymbol() == cells[2][0].getSymbol() && cells[2][0].getSymbol() == c) {
+        } else if (cells[0][0].getSymbol() == cells[2][0].getSymbol() && cells[2][0].getSymbol() == c && cells[1][0].getSymbol() == ' ') {
             int [][]result = {{1,0}};
             return result;
-        }else if (cells[0][1].getSymbol() == cells[1][1].getSymbol() && cells[0][1].getSymbol() == c) {
+        }else if (cells[0][1].getSymbol() == cells[1][1].getSymbol() && cells[0][1].getSymbol() == c && cells[2][1].getSymbol() == ' ') {
             int [][]result = {{2,1}};
             return result;
-        } else if (cells[2][1].getSymbol() == cells[1][1].getSymbol() && cells[1][1].getSymbol() == c) {
+        } else if (cells[2][1].getSymbol() == cells[1][1].getSymbol() && cells[1][1].getSymbol() == c && cells[0][1].getSymbol() == ' ') {
             int [][]result = {{0,1}};
             return result;
-        } else if (cells[0][1].getSymbol() == cells[2][1].getSymbol() && cells[2][1].getSymbol() == c) {
+        } else if (cells[0][1].getSymbol() == cells[2][1].getSymbol() && cells[2][1].getSymbol() == c && cells[1][1].getSymbol() == ' ') {
             int [][]result = {{1,1}};
             return result;
-        }else if (cells[0][2].getSymbol() == cells[1][2].getSymbol() && cells[0][2].getSymbol() == c) {
+        }else if (cells[0][2].getSymbol() == cells[1][2].getSymbol() && cells[0][2].getSymbol() == c && cells[2][2].getSymbol() == ' ') {
             int [][]result = {{2,2}};
             return result;
-        } else if (cells[2][2].getSymbol() == cells[1][2].getSymbol() && cells[2][2].getSymbol() == c) {
+        } else if (cells[2][2].getSymbol() == cells[1][2].getSymbol() && cells[2][2].getSymbol() == c && cells[0][2].getSymbol() == ' ') {
             int[][] result = {{0, 2}};
             return result;
-        } else if (cells[0][2].getSymbol() == cells[2][2].getSymbol() && cells[2][2].getSymbol() == c) {
+        } else if (cells[0][2].getSymbol() == cells[2][2].getSymbol() && cells[2][2].getSymbol() == c && cells[1][2].getSymbol() == ' ') {
             int [][]result = {{1,2}};
             return result;
 
             //diagonal check
-        } else if (cells[0][0].getSymbol() == cells[1][1].getSymbol() && cells[0][0].getSymbol() == c) {
+        } else if (cells[0][0].getSymbol() == cells[1][1].getSymbol() && cells[0][0].getSymbol() == c && cells[2][2].getSymbol() == ' ') {
             int [][]result = {{2,2}};
             return result;
-        } else if (cells[2][2].getSymbol() == cells[1][1].getSymbol() && cells[2][2].getSymbol() == c) {
+        } else if (cells[2][2].getSymbol() == cells[1][1].getSymbol() && cells[2][2].getSymbol() == c && cells[0][0].getSymbol() == ' ') {
             int[][] result = {{0, 0}};
             return result;
         }
@@ -271,6 +275,7 @@ public class SingleModel extends Model {
         return null;
     }
 
+    //Check if there is a cross pattern
     public boolean isCross(){
         boolean cross = false;
         if ((lastTurn[0] == 1 && lastTurn[1] == 0) || (lastTurn[0] == 0 && lastTurn[1] == 1) ||
@@ -280,6 +285,7 @@ public class SingleModel extends Model {
         return cross;
     }
 
+    //Generates a random number with provided int range, used for cpuFindMoveRandom
     public int generateRandom(int i){
         int number;
         Random random = new Random();
