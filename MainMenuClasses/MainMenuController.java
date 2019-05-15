@@ -31,5 +31,5 @@ public class MainMenuController extends Controller<MainMenuModel, MainMenuView> 
     private void closeSingle(){ view.shrinkSingle(); }
     private void closeMulti(){ view.shrinkMulti(); }
     private void openOptions(){ }
-    private void startClassic(){ TicTacToeGame.getMainProgram().startClassicSingle();};
+    private void startClassic(){ TicTacToeGame.getMainProgram().startClassicSingle();}
 }

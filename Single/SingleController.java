@@ -18,7 +18,7 @@ public class SingleController extends Controller<SingleModel, SingleView> {
     }
 
     public int[] getButtonPressed(Cell c){
-        int index[] = new int [2];
+        int[] index = new int[2];
         for (int i = 0;i<3;i++){
             for (int j = 0;j<3;j++){
                 if (c == view.getCell(i,j)){
