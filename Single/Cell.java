@@ -14,4 +14,12 @@ public class Cell extends Button {
    public char getSymbol(){ return symbol; }
 
    public void setSymbol(char c) { this.symbol = c; }
+
+   public double getCenterX(){
+      return this.getTranslateX()+75;
+   }
+
+   public double getCenterY(){
+      return this.getTranslateY()+75;
+   }
 }

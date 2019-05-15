@@ -1,17 +1,21 @@
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -20,6 +24,8 @@ public class SingleView extends View<SingleModel> {
    ServiceLocator serviceLocator;
    TextArea console;
    private Cell[][] cells;
+   private Button backButton;
+   private Button restartButton;
    private GridPane grid;
    private BorderPane pane;
    private LocalDateTime ts;
@@ -30,6 +36,8 @@ public class SingleView extends View<SingleModel> {
    private Label player2Label;
    private Label playerTurnLabel;
    private Scene scene;
+   private VBox groupGrid;
+
 
    public SingleView(Stage stage, SingleModel model) {
 
@@ -69,12 +77,28 @@ public class SingleView extends View<SingleModel> {
       playerTurnLabel = new Label(" ");
       Region spacer1 = new Region();
       Region spacer2 = new Region();
-      spacer1.setPrefWidth(100);
-      spacer2.setPrefWidth(100);
-      HBox playerBox = new HBox(playerTurnLabel,spacer1,player1Label,spacer2,player2Label);
+      Region spacer3 = new Region();
+      Region spacer4 = new Region();
+      //spacer1.setPrefWidth(100);
+      //spacer2.setPrefWidth(100);
 
       //set all nodes in root pane
-      pane.setCenter(grid);
+      groupGrid = new VBox(grid);
+
+      restartButton = new Button("Restart");
+      restartButton.setPrefSize(100,50);
+      backButton = new Button("Main Menu");
+      backButton.setPrefSize(100,50);
+
+      HBox playerBox = new HBox(backButton,spacer3,playerTurnLabel,spacer1,player1Label,spacer2,player2Label,spacer4,restartButton);
+      playerBox.setHgrow(spacer1,Priority.ALWAYS);
+      playerBox.setHgrow(spacer2,Priority.ALWAYS);
+      playerBox.setHgrow(spacer3,Priority.ALWAYS);
+      playerBox.setHgrow(spacer4,Priority.ALWAYS);
+      playerBox.setAlignment(Pos.CENTER);
+
+
+      pane.setCenter(groupGrid);
       pane.setRight(console);
       pane.setBottom(playerBox);
 
@@ -157,4 +181,36 @@ public class SingleView extends View<SingleModel> {
          c.setSymbol('O');
       }
    }
+
+   public void animateWin(){
+       Cell[] temp = model.getWinnerCombo();
+
+       Timeline tl = new Timeline();
+
+       Line line1 = new Line();
+       line1.setStartX(temp[0].getCenterX());
+       line1.setStartY(temp[0].getCenterY());
+       line1.setEndX(temp[0].getCenterX());
+       line1.setEndY(temp[0].getCenterY());
+       groupGrid.getChildren().add(line1);
+       tl.getKeyFrames().add(new KeyFrame(Duration.millis(1500), new KeyValue(line1.endXProperty(),temp[2].getCenterX()),
+               new KeyValue(line1.endYProperty(),temp[2].getCenterY())));
+       tl.play();
+
+       PauseTransition pause = new PauseTransition(Duration.millis(2000));
+       pause.play();
+
+   }
+
+   public Button getBackButton(){
+       return backButton;
+   }
+
+   public Button getRestartButton(){
+       return restartButton;
+   }
+
+
+
+
 }

@@ -10,6 +10,19 @@ public class SingleController extends Controller<SingleModel, SingleView> {
     public SingleController(SingleModel model, SingleView view) {
         super(model, view);
 
+
+        view.getBackButton().setOnAction(event -> {
+            TicTacToeGame.getMainProgram().startMainMenu();
+            serviceLocator.getLogger().info("SinglePlayer Game has stopped");
+        });
+        view.getRestartButton().setOnAction(event -> {
+            model.randomizePlayer();
+            view.createBoard();
+            addEvents();
+            if(model.isCpuTurn() && TicTacToeGame.getCpuPlayer())cpuTurnController();
+            view.addToConsole("Game has been restarted");
+            view.updateTurnLabel();
+        });
         addEvents();
         if (model.isCpuTurn() == true && TicTacToeGame.getCpuPlayer())cpuTurnController();
 
@@ -52,32 +65,13 @@ public class SingleController extends Controller<SingleModel, SingleView> {
     //controller part of win
     public boolean isWin(){
         boolean result = model.isWinLogic(view.getCells());
-
-        if (result){
-            Alert alertWin = new Alert(Alert.AlertType.CONFIRMATION);
-            alertWin.setTitle("Game result");
-            alertWin.setHeaderText("Winner");
-            alertWin.setContentText(model.getCurrentPlayer().getName()+ " is the winner, please select how to continue");
-
-            ButtonType goMainMenu = new ButtonType("MainMenu");
-            ButtonType restart = new ButtonType("Restart");
-            alertWin.getButtonTypes().removeAll(ButtonType.OK,ButtonType.CANCEL);
-            alertWin.getButtonTypes().addAll(goMainMenu,restart);
-            Optional<ButtonType> action = alertWin.showAndWait();
-
-            if (action.get()== goMainMenu){
-                TicTacToeGame.getMainProgram().startMainMenu();
-                serviceLocator.getLogger().info("SinglePlayer Game has stopped");
-            }
-
-            else if (action.get() == restart){
-                model.randomizePlayer();
-                view.createBoard();
-                addEvents();
-                if(model.isCpuTurn() && TicTacToeGame.getCpuPlayer())cpuTurnController();
-                view.addToConsole("Winner: "+ model.getCurrentPlayer().getName()+"\nGame has been restarted");
-                view.updateTurnLabel();
-
+        if (result) {
+            view.animateWin();
+            view.addToConsole(model.getCurrentPlayer().getName() + " is the winner\nplease press restart to continue");
+            for (int i = 0;i<3;i++){
+                for(int j=0;j<3;j++){
+                    view.getCells()[i][j].setDisable(true);
+                }
             }
         }
         return result;
@@ -89,28 +83,11 @@ public class SingleController extends Controller<SingleModel, SingleView> {
         boolean result = model.isDrawLogic(view.getCells());
 
         if (result){
-            Alert alertDraw = new Alert(Alert.AlertType.CONFIRMATION);
-            alertDraw.setTitle("Game result");
-            alertDraw.setHeaderText("DRAW");
-            alertDraw.setContentText("Game has ended in a draw, please select how to continue");
-            ButtonType goMainMenu = new ButtonType("MainMenu");
-            ButtonType restart = new ButtonType("Restart");
-            alertDraw.getButtonTypes().removeAll(ButtonType.OK,ButtonType.CANCEL);
-            alertDraw.getButtonTypes().addAll(goMainMenu,restart);
-            Optional<ButtonType> action = alertDraw.showAndWait();
-
-            if (action.get()== goMainMenu){
-                TicTacToeGame.getMainProgram().startMainMenu();
-            }
-
-            else if (action.get() == restart){
-                model.randomizePlayer();
-                view.createBoard();
-                addEvents();
-                if(model.isCpuTurn() && TicTacToeGame.getCpuPlayer())cpuTurnController();
-                view.addToConsole("Game resulted in a Draw\nGame has been restarted" );
-                view.updateTurnLabel();
-
+            view.addToConsole("Game has ended in a draw\nplease press restart to continue");
+            for (int i = 0;i<3;i++){
+                for(int j=0;j<3;j++){
+                    view.getCells()[i][j].setDisable(true);
+                }
             }
         }
         return result;
@@ -143,17 +120,14 @@ public class SingleController extends Controller<SingleModel, SingleView> {
             int[][] foundCorners = model.cpuFindMoveRandom(corners,view.getCells());
             foundCpuMove[0] = foundCorners[0][0];
             foundCpuMove[1] = foundCorners[0][1];
-            view.addToConsole(foundCorners[0][0]+" foundcorner Row "+ foundCorners[0][1]+ " foundcorner col");
         }
         else if (model.cpuFindMoveRandom(cross,view.getCells())!= null) {
             int[][] foundCross = model.cpuFindMoveRandom(cross, view.getCells());
             foundCpuMove[0] = foundCross[0][0];
             foundCpuMove[1] = foundCross[0][1];
-            view.addToConsole(foundCross[0][0]+" foundcross Row "+ foundCross[0][1]+ " foundcross col");
         }
 
         cpuMove(foundCpuMove[0],foundCpuMove[1]);
-        view.addToConsole(foundCpuMove[0]+" row "+foundCpuMove[1]+" col");
 
     }
 

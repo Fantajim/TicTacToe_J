@@ -10,11 +10,10 @@ public class SingleModel extends Model {
     private char symbol1;
     private char symbol2;
     boolean cpuPlayer = TicTacToeGame.getCpuPlayer();
-    private int[] lastTurn;
+    private Cell[] winnerCombo = new Cell[3];
     ArrayList<int [][]> savedCpuTurns = new ArrayList<>();
 
     public SingleModel() {
-        lastTurn = new int[2];
         randomizePlayerSymbol();
         player1 = new SinglePlayer(symbol1, "Player 1");
         player2 = new SinglePlayer(symbol2, "Player 2");
@@ -62,20 +61,44 @@ public class SingleModel extends Model {
         //check if three cells are equal
         if (cells[0][0].getSymbol() == cells[0][1].getSymbol() && cells[0][0].getSymbol() == cells[0][2].getSymbol() && cells[0][0].getSymbol() != ' ') {
             result = true; // first row horizontal
+            winnerCombo[0] = cells[0][0];
+            winnerCombo[1] = cells[0][1];
+            winnerCombo[2] = cells[0][2];
         } else if (cells[1][0].getSymbol() == cells[1][1].getSymbol() && cells[1][0].getSymbol() == cells[1][2].getSymbol() && cells[1][0].getSymbol() != ' ') {
             result = true; // 2nd row horizontal
+            winnerCombo[0] = cells[1][0];
+            winnerCombo[1] = cells[1][1];
+            winnerCombo[2] = cells[1][2];
         } else if (cells[2][0].getSymbol() == cells[2][1].getSymbol() && cells[2][0].getSymbol() == cells[2][2].getSymbol() && cells[2][0].getSymbol() != ' ') {
             result = true; // 3rd row horizontal
+            winnerCombo[0] = cells[2][0];
+            winnerCombo[1] = cells[2][1];
+            winnerCombo[2] = cells[2][2];
         } else if (cells[0][0].getSymbol() == cells[1][0].getSymbol() && cells[0][0].getSymbol() == cells[2][0].getSymbol() && cells[0][0].getSymbol() != ' ') {
             result = true; //first row vertical
+            winnerCombo[0] = cells[0][0];
+            winnerCombo[1] = cells[1][0];
+            winnerCombo[2] = cells[2][0];
         } else if (cells[0][1].getSymbol() == cells[1][1].getSymbol() && cells[0][1].getSymbol() == cells[2][1].getSymbol() && cells[0][1].getSymbol() != ' ') {
             result = true; // 2nd row vertical
+            winnerCombo[0] = cells[0][1];
+            winnerCombo[1] = cells[1][1];
+            winnerCombo[2] = cells[2][1];
         } else if (cells[0][2].getSymbol() == cells[1][2].getSymbol() && cells[0][2].getSymbol() == cells[2][2].getSymbol() && cells[0][2].getSymbol() != ' ') {
             result = true; //3rd row vertical
+            winnerCombo[0] = cells[0][2];
+            winnerCombo[1] = cells[1][2];
+            winnerCombo[2] = cells[2][2];
         } else if (cells[0][0].getSymbol() == cells[1][1].getSymbol() && cells[0][0].getSymbol() == cells[2][2].getSymbol() && cells[0][0].getSymbol() != ' ') {
             result = true; //diagonal
+            winnerCombo[0] = cells[0][0];
+            winnerCombo[1] = cells[1][1];
+            winnerCombo[2] = cells[2][2];
         } else if (cells[0][2].getSymbol() == cells[1][1].getSymbol() && cells[0][2].getSymbol() == cells[2][0].getSymbol() && cells[0][2].getSymbol() != ' ') {
             result = true; //diagonal
+            winnerCombo[0] = cells[0][2];
+            winnerCombo[1] = cells[1][1];
+            winnerCombo[2] = cells[2][0];
         }
         return result;
     }
@@ -185,9 +208,21 @@ public class SingleModel extends Model {
         } else if (cells[0][0].getSymbol() == cells[1][1].getSymbol() && cells[0][0].getSymbol() == c && cells[2][2].getSymbol() == ' ') {
             int [][]result = {{2,2}};
             return result;
-        } else if (cells[2][2].getSymbol() == cells[1][1].getSymbol() && cells[2][2].getSymbol() == c && cells[0][0].getSymbol() == ' ') {
-            int[][] result = {{0, 0}};
+        } else if (cells[0][0].getSymbol() == cells[2][2].getSymbol() && cells[0][0].getSymbol() == c && cells[1][1].getSymbol() == ' ') {
+            int [][]result = {{1,1}};
             return result;
+        } else if (cells[1][1].getSymbol() == cells[2][2].getSymbol() && cells[1][1].getSymbol() == c && cells[0][0].getSymbol() == ' ') {
+            int [][]result = {{0,0}};
+            return result;//first diagonal
+        } else if (cells[0][2].getSymbol() == cells[1][1].getSymbol() && cells[0][2].getSymbol() == c && cells[2][0].getSymbol() == ' ') {
+            int[][] result = {{2, 0}};
+            return result;
+        } else if (cells[0][2].getSymbol() == cells[2][0].getSymbol() && cells[0][2].getSymbol() == c && cells[1][1].getSymbol() == ' ') {
+            int [][]result = {{1,1}};
+            return result;
+        } else if (cells[1][1].getSymbol() == cells[2][0].getSymbol() && cells[1][1].getSymbol() == c && cells[0][2].getSymbol() == ' ') {
+            int[][] result = {{0, 2}};
+            return result;//second diagonal
         }
 
         return null;
@@ -204,5 +239,7 @@ public class SingleModel extends Model {
     public SinglePlayer getCurrentPlayer() { return currentPlayer; }
 
     public void setCurrentPlayer(SinglePlayer player){ currentPlayer = player; }
+
+    public Cell[] getWinnerCombo(){ return winnerCombo; }
 
 }
