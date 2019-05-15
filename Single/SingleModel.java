@@ -11,8 +11,6 @@ public class SingleModel extends Model {
     private char symbol2;
     boolean cpuPlayer = TicTacToeGame.getCpuPlayer();
     private int[] lastTurn;
-    private int cpuTurn = 0;
-    private int[]cpuLastTurn = new int[2];
     ArrayList<int [][]> savedCpuTurns = new ArrayList<>();
 
     public SingleModel() {
@@ -56,12 +54,11 @@ public class SingleModel extends Model {
         }
     }
 
-
     //Logic part of win
     public boolean isWinLogic(Cell[][] cells) {
         boolean result = false;
 
-
+        //TODO make loops instead of being a caveman
         //check if three cells are equal
         if (cells[0][0].getSymbol() == cells[0][1].getSymbol() && cells[0][0].getSymbol() == cells[0][2].getSymbol() && cells[0][0].getSymbol() != ' ') {
             result = true; // first row horizontal
@@ -83,7 +80,6 @@ public class SingleModel extends Model {
         return result;
     }
 
-
     //Logic part of draw to check if there's an empty cell left
     public boolean isDrawLogic(Cell[][] cells) {
         boolean result = true;
@@ -98,36 +94,6 @@ public class SingleModel extends Model {
         return result;
     }
 
-    //Logic for CPU to choose which starting Cell to take
-    public int[] cpuFirstTurn(){
-        int[] firstTurn = new int[2];
-        double random = Math.random();
-        if (random <= 0.5){
-            firstTurn[0]= 1;
-            firstTurn[1]= 1;
-        }
-        else {
-            random = Math.random();
-            if (random <= 0.5) firstTurn[0] = 0;
-            else firstTurn[0] = 2;
-
-            random = Math.random();
-            if (random <= 0.5) firstTurn[1] = 0;
-            else firstTurn[1] = 2;
-        }
-        return firstTurn;
-    }
-
-    public void setLastTurn(int[] i){
-        lastTurn[0] = i[0];
-        lastTurn[1] = i[1];
-        cpuTurn +=1;
-    }
-
-    public int getCpuTurn(){ return cpuTurn;}
-
-    public void resetCpuTurn(){ cpuTurn =0;}
-
     public boolean isCpuTurn(){
         boolean cpuTurn = false;
         if (currentPlayer == player2){
@@ -135,43 +101,6 @@ public class SingleModel extends Model {
         }
         return cpuTurn;
     }
-
-    //checker if board is empty
-    public boolean isAllEmpty(Cell[][] cells) {
-        boolean empty = true;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (cells[i][j].getSymbol() != ' ') empty = false;
-            }
-        }
-        return empty;
-    }
-
-    //return a random corner of the board
-    public int[] cpuGetCorner(){
-        int[] corner = new int[2];
-        double random = Math.random();
-        if (random <= 0.5) corner[0] = 0;
-        else corner[0] = 2;
-
-        random = Math.random();
-        if (random <= 0.5) corner[1] = 0;
-        else corner[1] = 2;
-        return corner;
-    }
-
-    //finds first free occurence of provided array
-    public int[][] cpuFindMoveBest(int[][] moves, Cell[][]cells){
-        for (int[]move:moves){
-            if (cells[move[0]][move[1]].getSymbol() == ' ') {
-                int[][] temp = {{move[0],move[1]}};
-                return temp;
-            }
-        }
-
-      return null;
-    }
-
 
     //Finds random cell within provided array
     public int[][] cpuFindMoveRandom(int[][] moves, Cell[][]cells){
@@ -181,30 +110,19 @@ public class SingleModel extends Model {
             savedCpuTurns.add(temp);
         }
         }
-
-        int number = generateRandom(savedCpuTurns.size());
-        int[][] preferedMove = savedCpuTurns.get(number-1);
-        return preferedMove;
-    }
-
-    public int[][] doesntMatterItsTie(Cell[][] cells){
-        int[][] preferedMove = new int[1][1];
-
-        return preferedMove;
-    }
-
-    public void setCpuLastTurn(int i, int j){
-        cpuLastTurn[0] = i;
-        cpuLastTurn[1] = j;
-    }
-
-    public int[] getLastTurn(){
-        return lastTurn;
+        if (savedCpuTurns.size() > 0) {
+            int number = generateRandom(savedCpuTurns.size());
+            int[][] preferedMove = savedCpuTurns.get(number - 1);
+            savedCpuTurns.clear();
+            return preferedMove;
+        }
+        else return null;
     }
 
     //Check to see if there's a combination of two equal symbols
     public int[][] checkTwo(Cell[][] cells, char c){
 
+        //TODO make loops instead of being a caveman
         //horizontal check
         if (cells[0][0].getSymbol() == cells[0][1].getSymbol() && cells[0][0].getSymbol() == c && cells[0][2].getSymbol() == ' ' ) {
             int [][]result = {{0,2}};
@@ -275,16 +193,6 @@ public class SingleModel extends Model {
         return null;
     }
 
-    //Check if there is a cross pattern
-    public boolean isCross(){
-        boolean cross = false;
-        if ((lastTurn[0] == 1 && lastTurn[1] == 0) || (lastTurn[0] == 0 && lastTurn[1] == 1) ||
-        (lastTurn[0] == 1 && lastTurn[1] == 2) || (lastTurn[0] == 2 && lastTurn[1] == 1)){
-         cross = true;
-        }
-        return cross;
-    }
-
     //Generates a random number with provided int range, used for cpuFindMoveRandom
     public int generateRandom(int i){
         int number;
@@ -293,10 +201,8 @@ public class SingleModel extends Model {
         return number;
     }
 
-
-    public int[] getCpuLastTurn(){ return cpuLastTurn; }
-
     public SinglePlayer getCurrentPlayer() { return currentPlayer; }
 
     public void setCurrentPlayer(SinglePlayer player){ currentPlayer = player; }
+
 }

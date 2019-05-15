@@ -104,7 +104,6 @@ public class SingleView extends View<SingleModel> {
       }
    }
 
-
    //method for easy console access
    public void addToConsole(String s){
       ts = LocalDateTime.now();
@@ -119,10 +118,9 @@ public class SingleView extends View<SingleModel> {
       playerTurnLabel.setText("Current turn: "+ model.getCurrentPlayer().getName());
    }
 
-
    //Draw Symbols ontop of Cell
-   public void drawSymbol(char ident, Cell c){
-      if (ident == 'X') {
+   public void drawSymbol(char symbol, Cell c){
+      if (symbol == 'X') {
 
          Group lineGroup = new Group();
 
@@ -144,7 +142,7 @@ public class SingleView extends View<SingleModel> {
          c.setDisable(true);
          c.setSymbol('X');
 
-      } else if (ident == 'O') {
+      } else if (symbol == 'O') {
 
          Ellipse ellipse1 = new Ellipse();
          ellipse1.setCenterX(c.getWidth() / 2);
