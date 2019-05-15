@@ -37,6 +37,8 @@ public class SingleView extends View<SingleModel> {
    private Label playerTurnLabel;
    private Scene scene;
    private VBox groupGrid;
+   private Pane mainPane;
+   private Line winLine = new Line();
 
 
    public SingleView(Stage stage, SingleModel model) {
@@ -79,8 +81,6 @@ public class SingleView extends View<SingleModel> {
       Region spacer2 = new Region();
       Region spacer3 = new Region();
       Region spacer4 = new Region();
-      //spacer1.setPrefWidth(100);
-      //spacer2.setPrefWidth(100);
 
       //set all nodes in root pane
       groupGrid = new VBox(grid);
@@ -102,10 +102,11 @@ public class SingleView extends View<SingleModel> {
       pane.setRight(console);
       pane.setBottom(playerBox);
 
+      mainPane = new Pane(pane);
       serviceLocator = ServiceLocator.getServiceLocator();
       serviceLocator.getLogger().info("Classic SinglePlayer Game has been started");
 
-      scene = new Scene(pane);
+      scene = new Scene(mainPane);
       return scene;
    }
 
@@ -184,21 +185,18 @@ public class SingleView extends View<SingleModel> {
 
    public void animateWin(){
        Cell[] temp = model.getWinnerCombo();
-
        Timeline tl = new Timeline();
 
-       Line line1 = new Line();
-       line1.setStartX(temp[0].getCenterX());
-       line1.setStartY(temp[0].getCenterY());
-       line1.setEndX(temp[0].getCenterX());
-       line1.setEndY(temp[0].getCenterY());
-       groupGrid.getChildren().add(line1);
-       tl.getKeyFrames().add(new KeyFrame(Duration.millis(1500), new KeyValue(line1.endXProperty(),temp[2].getCenterX()),
-               new KeyValue(line1.endYProperty(),temp[2].getCenterY())));
+       winLine.setStartX(temp[0].getCenterX());
+       winLine.setStartY(temp[0].getCenterY());
+       winLine.setEndX(temp[0].getCenterX());
+       winLine.setEndY(temp[0].getCenterY());
+       winLine.setStrokeWidth(10);
+       mainPane.getChildren().addAll(winLine);
+       tl.getKeyFrames().add(new KeyFrame(Duration.millis(1500),
+               new KeyValue(winLine.endXProperty(),temp[2].getCenterX()),
+               new KeyValue(winLine.endYProperty(),temp[2].getCenterY())));
        tl.play();
-
-       PauseTransition pause = new PauseTransition(Duration.millis(2000));
-       pause.play();
 
    }
 
@@ -208,6 +206,10 @@ public class SingleView extends View<SingleModel> {
 
    public Button getRestartButton(){
        return restartButton;
+   }
+
+   public void removeLine(){
+       mainPane.getChildren().remove(winLine);
    }
 
 

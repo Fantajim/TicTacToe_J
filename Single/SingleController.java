@@ -22,6 +22,7 @@ public class SingleController extends Controller<SingleModel, SingleView> {
             if(model.isCpuTurn() && TicTacToeGame.getCpuPlayer())cpuTurnController();
             view.addToConsole("Game has been restarted");
             view.updateTurnLabel();
+            view.removeLine();
         });
         addEvents();
         if (model.isCpuTurn() == true && TicTacToeGame.getCpuPlayer())cpuTurnController();
