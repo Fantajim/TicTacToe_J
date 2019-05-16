@@ -56,12 +56,12 @@ public class MainMenuView extends View<MainMenuModel> {
         multiPlayer = new Button("Multiplayer");
         backButtonSingle = new Button("Return to previous menu");
         backButtonMulti = new Button("Return to previous menu");
-        backButtonHost = new Button("Back");
-        backButtonClient = new Button("Back");
+        backButtonHost = new Button("Return to previous menu");
+        backButtonClient = new Button("Return to previous menu");
         backButtonHost.setId("backButton");
-        backButtonClient.setId("backButton");
         backButtonSingle.setId("backButton");
         backButtonMulti.setId("backButton");
+        backButtonClient.setId("backButton");
         startSingleGame = new Button("Start");
         startServer = new  Button("Start Server");
         startClient = new Button("Start Client");
@@ -69,7 +69,6 @@ public class MainMenuView extends View<MainMenuModel> {
         clientButton = new Button("Client");
         ai_Button = new Button("AI: on");
         difficulty_Button = new Button ("Difficulty: default");
-
 
 
         Label title = new Label("TicTacToe Main Menu");
@@ -85,32 +84,6 @@ public class MainMenuView extends View<MainMenuModel> {
         return scene;
 	}
 
-    public Button getClassicSingle() { return singlePlayer; }
-
-    public Button getMultiPlayer(){ return multiPlayer; }
-
-    public Button getBackSingle(){ return backButtonSingle; }
-
-    public Button getBackMulti(){ return backButtonMulti; }
-
-    public Button getStartSingleGame() {return startSingleGame;}
-
-    public Button getAi_Button(){ return ai_Button;}
-
-    public Button getDifficulty_Button(){ return difficulty_Button;}
-
-    public Button getBackButtonHost(){ return backButtonHost;}
-
-    public Button getHostButton(){return hostButton;}
-
-    public Button getBackButtonClient(){return backButtonClient;}
-
-    public Button getClientButton(){ return clientButton;}
-
-    public Button getStartClient(){return startClient;}
-
-	public Button getStartServer(){return startServer;}
-
     public void expandClient(){
 
 	    clientMenu = new VBox();
@@ -123,8 +96,13 @@ public class MainMenuView extends View<MainMenuModel> {
 	    TextField ipField = new TextField("enter IP address here");
 	    HBox ipBox = new HBox(ipLabel,ipField);
 	    ipBox.setAlignment(Pos.CENTER);
+	    Region clientSpacer = new Region();
+        Region clientSpacer2 = new Region();
+	    clientSpacer.setPrefHeight(50);
+	    clientSpacer2.setPrefHeight(50);
+	    clientMenu.setAlignment(Pos.CENTER);
 
-	    clientMenu.getChildren().addAll(startClient,portBox,ipBox,backButtonClient);
+	    clientMenu.getChildren().addAll(startClient,clientSpacer2,ipBox,portBox,clientSpacer,backButtonClient);
 
         TranslateTransition slide = new TranslateTransition(Duration.millis(300), multiPlayerMenu);
         slide.setFromX(0);
@@ -145,14 +123,17 @@ public class MainMenuView extends View<MainMenuModel> {
 
     public void expandHost(){
 	    serverMenu = new VBox();
-        Region spacerServer = new Region();
         Label portLabel = new Label("Port:  ");
         TextField portField = new TextField("55555");
         HBox portBox = new HBox(portLabel,portField);
         portBox.setAlignment(Pos.CENTER);
+        Region hostSpacer = new Region();
+        Region hostSpacer2 = new Region();
+        hostSpacer.setPrefHeight(60);
+        hostSpacer2.setPrefHeight(60);
+        serverMenu.setAlignment(Pos.CENTER);
 
-        serverMenu.setVgrow(spacerServer,Priority.ALWAYS);
-        serverMenu.getChildren().addAll(startServer,portBox, backButtonHost);
+        serverMenu.getChildren().addAll(startServer,hostSpacer,portBox,hostSpacer2, backButtonHost);
 
         TranslateTransition slide = new TranslateTransition(Duration.millis(300), multiPlayerMenu);
         slide.setFromX(0);
@@ -317,6 +298,32 @@ public class MainMenuView extends View<MainMenuModel> {
 
         }
     }
+
+    public Button getClassicSingle() { return singlePlayer; }
+
+    public Button getMultiPlayer(){ return multiPlayer; }
+
+    public Button getBackSingle(){ return backButtonSingle; }
+
+    public Button getBackMulti(){ return backButtonMulti; }
+
+    public Button getStartSingleGame() {return startSingleGame;}
+
+    public Button getAi_Button(){ return ai_Button;}
+
+    public Button getDifficulty_Button(){ return difficulty_Button;}
+
+    public Button getBackButtonHost(){ return backButtonHost;}
+
+    public Button getHostButton(){return hostButton;}
+
+    public Button getBackButtonClient(){return backButtonClient;}
+
+    public Button getClientButton(){ return clientButton;}
+
+    public Button getStartClient(){return startClient;}
+
+    public Button getStartServer(){return startServer;}
 }
 
 
