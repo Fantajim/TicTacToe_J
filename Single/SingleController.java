@@ -2,6 +2,7 @@ import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import java.util.Optional;
+import java.util.TooManyListenersException;
 
 
 public class SingleController extends Controller<SingleModel, SingleView> {
@@ -99,8 +100,9 @@ public class SingleController extends Controller<SingleModel, SingleView> {
     public void cpuTurnController() {
         char player = model.player1.getSymbol();
         char hal = model.player2.getSymbol();
-        int[][] corners = {{0,0},{0,2},{2,2},{2,0}};
+        int[][] cornersAndMiddle = {{0,0},{0,2},{2,2},{2,0},{1,1}};
         int[][] cross = {{0,1},{1,0},{2,1},{1,2}};
+        int[][] easy = {{0,0},{0,2},{2,2},{2,0},{1,1},{0,1},{1,0},{2,1},{1,2}};
         int[] foundCpuMove = new int[2];
         int[][] turnWin = model.checkTwo(view.getCells(), hal);
         int[][] turnDraw = model.checkTwo(view.getCells(), player);
@@ -113,19 +115,24 @@ public class SingleController extends Controller<SingleModel, SingleView> {
             foundCpuMove[0]= turnDraw[0][0];
             foundCpuMove[1]= turnDraw[0][1];
         }
-        else if (view.getCell(1, 1).getSymbol() == ' ') {
+        else if (view.getCell(1, 1).getSymbol() == ' ' && TicTacToeGame.getCpuDifficulty()== "default") {
             foundCpuMove[0]= 1;
             foundCpuMove[1] = 1;
         }
-        else if (model.cpuFindMoveRandom(corners,view.getCells())!= null){
-            int[][] foundCorners = model.cpuFindMoveRandom(corners,view.getCells());
+        else if (model.cpuFindMoveRandom(cornersAndMiddle,view.getCells())!= null && TicTacToeGame.getCpuDifficulty() != "easy"){
+            int[][] foundCorners = model.cpuFindMoveRandom(cornersAndMiddle,view.getCells());
             foundCpuMove[0] = foundCorners[0][0];
             foundCpuMove[1] = foundCorners[0][1];
         }
-        else if (model.cpuFindMoveRandom(cross,view.getCells())!= null) {
+        else if (model.cpuFindMoveRandom(cross,view.getCells())!= null && TicTacToeGame.getCpuDifficulty() != "easy") {
             int[][] foundCross = model.cpuFindMoveRandom(cross, view.getCells());
             foundCpuMove[0] = foundCross[0][0];
             foundCpuMove[1] = foundCross[0][1];
+        }
+        else {
+            int[][] foundCorners = model.cpuFindMoveRandom(easy,view.getCells());
+            foundCpuMove[0] = foundCorners[0][0];
+            foundCpuMove[1] = foundCorners[0][1];
         }
 
         cpuMove(foundCpuMove[0],foundCpuMove[1]);

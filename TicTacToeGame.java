@@ -14,7 +14,8 @@ public class TicTacToeGame extends Application {
     private Splash_View splashView;
     private MainMenuView view;
     private SingleView viewSingle;
-    private static boolean cpuPlayer = true;
+    public static boolean cpuPlayer = true;
+    public static String cpuDifficulty = "default";
 
     private ServiceLocator serviceLocator; // resources, after initialization
 
@@ -169,4 +170,5 @@ public class TicTacToeGame extends Application {
         return mainProgram;
     }
     protected static boolean getCpuPlayer(){ return cpuPlayer;}
+    protected static String getCpuDifficulty(){return cpuDifficulty;}
 }

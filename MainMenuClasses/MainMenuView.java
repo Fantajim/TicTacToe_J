@@ -22,13 +22,14 @@ public class MainMenuView extends View<MainMenuModel> {
     ServiceLocator serviceLocator;
     private Button singlePlayer;
     private Button multiPlayer;
-    private Button options;
     private Button backButtonSingle;
     private Button backButtonMulti;
     private Button classicButton;
     private Button hostButton;
     private Button clientButton;
     private BorderPane mainPane;
+    private Button ai_Button;
+    private Button difficulty_Button;
     private VBox vbox1;
     private VBox vbox2;
     private VBox vbox3;
@@ -48,12 +49,13 @@ public class MainMenuView extends View<MainMenuModel> {
         vbox1 = new VBox();
         singlePlayer = new Button("Singleplayer");
         multiPlayer = new Button("Multiplayer");
-        options = new Button("Options");
         backButtonSingle = new Button("Return to previous menu");
         backButtonMulti = new Button("Return to previous menu");
-        classicButton = new Button("Classic");
+        classicButton = new Button("Start");
         hostButton = new Button("Host");
         clientButton = new Button("Client");
+        ai_Button = new Button("AI: on");
+        difficulty_Button = new Button ("Difficulty: default");
         backButtonSingle.setId("backButton");
         backButtonMulti.setId("backButton");
 
@@ -62,7 +64,7 @@ public class MainMenuView extends View<MainMenuModel> {
         Label title = new Label("TicTacToe Main Menu");
         title.setId("MainLabel");
 
-        vbox1.getChildren().addAll(singlePlayer, multiPlayer, options);
+        vbox1.getChildren().addAll(singlePlayer, multiPlayer);
         mainPane.setCenter(vbox1);
         mainPane.setTop(title);
 
@@ -76,22 +78,22 @@ public class MainMenuView extends View<MainMenuModel> {
 
     public Button getMultiPlayer(){ return multiPlayer; }
 
-    public Button getOptions(){
-        return options;
-    }
-
     public Button getBackSingle(){ return backButtonSingle; }
 
     public Button getBackMulti(){ return backButtonMulti; }
 
     public Button getClassic() {return classicButton;}
 
+    public Button getAi_Button(){ return ai_Button;}
+
+    public Button getDifficulty_Button(){ return difficulty_Button;}
+
     public void expandSingle(){
 
         vbox2 = new VBox();
         Region spacer1 = new Region();
         vbox2.setVgrow(spacer1, Priority.ALWAYS);
-        vbox2.getChildren().addAll(classicButton,spacer1, backButtonSingle);
+        vbox2.getChildren().addAll(classicButton,ai_Button,difficulty_Button,spacer1, backButtonSingle);
         vbox2.setAlignment(Pos.CENTER);
 
         TranslateTransition slide = new TranslateTransition(Duration.millis(300),vbox1);
@@ -170,8 +172,32 @@ public class MainMenuView extends View<MainMenuModel> {
 
     }
 
-    public void expandOptions(){ }
+    public void toggleDifficulty(){
+	    if(difficulty_Button.getText() == "Difficulty: default"){
+	        difficulty_Button.setText("Difficulty: easy");
+	        TicTacToeGame.cpuDifficulty = "easy";
+        }
+	    else if(difficulty_Button.getText() == "Difficulty: easy"){
+	        difficulty_Button.setText("Difficulty: not so easy");
+	        TicTacToeGame.cpuDifficulty = "not so easy";
+        }
+        else if(difficulty_Button.getText() == "Difficulty: not so easy"){
+            difficulty_Button.setText("Difficulty: default");
+            TicTacToeGame.cpuDifficulty = "default";
+        }
+    }
 
+    public void toggleAI(){
+        if(ai_Button.getText() == "AI: on"){
+            ai_Button.setText("AI: off");
+            TicTacToeGame.cpuPlayer = false;
+        }
+        else if(ai_Button.getText() == "AI: off"){
+            ai_Button.setText("AI: on");
+            TicTacToeGame.cpuPlayer = true;
+
+        }
+    }
 }
 
 
