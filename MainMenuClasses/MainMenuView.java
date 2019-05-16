@@ -4,10 +4,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -22,17 +20,24 @@ public class MainMenuView extends View<MainMenuModel> {
     ServiceLocator serviceLocator;
     private Button singlePlayer;
     private Button multiPlayer;
-    private Button backButtonSingle;
-    private Button backButtonMulti;
-    private Button classicButton;
+    private Button startSingleGame;
+    private Button startServer;
+    private Button startClient;
     private Button hostButton;
     private Button clientButton;
+    private Button backButtonSingle;
+    private Button backButtonMulti;
+    private Button backButtonHost;
+    private Button backButtonClient;
     private BorderPane mainPane;
     private Button ai_Button;
     private Button difficulty_Button;
-    private VBox vbox1;
-    private VBox vbox2;
-    private VBox vbox3;
+    private VBox rootMenu;
+    private VBox singlePlayerMenu;
+    private VBox multiPlayerMenu;
+    private VBox serverMenu;
+    private VBox clientMenu;
+
 
 	public MainMenuView(Stage stage, MainMenuModel model) {
         super(stage, model);
@@ -46,26 +51,32 @@ public class MainMenuView extends View<MainMenuModel> {
 	protected Scene create_GUI() {
 
         mainPane = new BorderPane();
-        vbox1 = new VBox();
+        rootMenu = new VBox();
         singlePlayer = new Button("Singleplayer");
         multiPlayer = new Button("Multiplayer");
         backButtonSingle = new Button("Return to previous menu");
         backButtonMulti = new Button("Return to previous menu");
-        classicButton = new Button("Start");
+        backButtonHost = new Button("Back");
+        backButtonClient = new Button("Back");
+        backButtonHost.setId("backButton");
+        backButtonClient.setId("backButton");
+        backButtonSingle.setId("backButton");
+        backButtonMulti.setId("backButton");
+        startSingleGame = new Button("Start");
+        startServer = new  Button("Start Server");
+        startClient = new Button("Start Client");
         hostButton = new Button("Host");
         clientButton = new Button("Client");
         ai_Button = new Button("AI: on");
         difficulty_Button = new Button ("Difficulty: default");
-        backButtonSingle.setId("backButton");
-        backButtonMulti.setId("backButton");
 
 
 
         Label title = new Label("TicTacToe Main Menu");
         title.setId("MainLabel");
 
-        vbox1.getChildren().addAll(singlePlayer, multiPlayer);
-        mainPane.setCenter(vbox1);
+        rootMenu.getChildren().addAll(singlePlayer, multiPlayer);
+        mainPane.setCenter(rootMenu);
         mainPane.setTop(title);
 
         scene = new Scene(mainPane);
@@ -82,29 +93,137 @@ public class MainMenuView extends View<MainMenuModel> {
 
     public Button getBackMulti(){ return backButtonMulti; }
 
-    public Button getClassic() {return classicButton;}
+    public Button getStartSingleGame() {return startSingleGame;}
 
     public Button getAi_Button(){ return ai_Button;}
 
     public Button getDifficulty_Button(){ return difficulty_Button;}
 
+    public Button getBackButtonHost(){ return backButtonHost;}
+
+    public Button getHostButton(){return hostButton;}
+
+    public Button getBackButtonClient(){return backButtonClient;}
+
+    public Button getClientButton(){ return clientButton;}
+
+    public Button getStartClient(){return startClient;}
+
+	public Button getStartServer(){return startServer;}
+
+    public void expandClient(){
+
+	    clientMenu = new VBox();
+	    Label portLabel = new Label("Port  ");
+	    TextField portField = new TextField("55555");
+	    HBox portBox = new HBox(portLabel,portField);
+	    portBox.setAlignment(Pos.CENTER);
+
+	    Label ipLabel = new Label("IP:    ");
+	    TextField ipField = new TextField("enter IP address here");
+	    HBox ipBox = new HBox(ipLabel,ipField);
+	    ipBox.setAlignment(Pos.CENTER);
+
+	    clientMenu.getChildren().addAll(startClient,portBox,ipBox,backButtonClient);
+
+        TranslateTransition slide = new TranslateTransition(Duration.millis(300), multiPlayerMenu);
+        slide.setFromX(0);
+        slide.setByX(-400);
+        SequentialTransition sequence = new SequentialTransition(slide);
+        sequence.setOnFinished(event -> {
+            mainPane.setCenter(null);
+            mainPane.setCenter(clientMenu);
+            TranslateTransition slide2 = new TranslateTransition(Duration.millis(300), clientMenu);
+            slide2.setFromX(400);
+            slide2.setByX(-400);
+            SequentialTransition sequence2 = new SequentialTransition(slide2);
+            sequence2.play();
+        });
+        sequence.play();
+    }
+
+
+    public void expandHost(){
+	    serverMenu = new VBox();
+        Region spacerServer = new Region();
+        Label portLabel = new Label("Port:  ");
+        TextField portField = new TextField("55555");
+        HBox portBox = new HBox(portLabel,portField);
+        portBox.setAlignment(Pos.CENTER);
+
+        serverMenu.setVgrow(spacerServer,Priority.ALWAYS);
+        serverMenu.getChildren().addAll(startServer,portBox, backButtonHost);
+
+        TranslateTransition slide = new TranslateTransition(Duration.millis(300), multiPlayerMenu);
+        slide.setFromX(0);
+        slide.setByX(-400);
+        SequentialTransition sequence = new SequentialTransition(slide);
+        sequence.setOnFinished(event -> {
+            mainPane.setCenter(null);
+            mainPane.setCenter(serverMenu);
+            TranslateTransition slide2 = new TranslateTransition(Duration.millis(300), serverMenu);
+            slide2.setFromX(400);
+            slide2.setByX(-400);
+            SequentialTransition sequence2 = new SequentialTransition(slide2);
+            sequence2.play();
+        });
+        sequence.play();
+    }
+
+    public void shrinkClient(){
+        TranslateTransition slide = new TranslateTransition(Duration.millis(300), clientMenu);
+        slide.setFromX(0);
+        slide.setByX(400);
+        SequentialTransition sequence = new SequentialTransition(slide);
+        sequence.setOnFinished(event -> {
+            mainPane.setCenter(null);
+            mainPane.setCenter(multiPlayerMenu);
+            TranslateTransition slide2 = new TranslateTransition(Duration.millis(300), multiPlayerMenu);
+            slide2.setFromX(-400);
+            slide2.setByX(400);
+            SequentialTransition sequence2 = new SequentialTransition(slide2);
+            sequence2.play();
+        });
+        sequence.play();
+    }
+
+    public void shrinkHost(){
+
+        TranslateTransition slide = new TranslateTransition(Duration.millis(300), serverMenu);
+        slide.setFromX(0);
+        slide.setByX(400);
+        SequentialTransition sequence = new SequentialTransition(slide);
+        sequence.setOnFinished(event -> {
+            mainPane.setCenter(null);
+            mainPane.setCenter(multiPlayerMenu);
+            TranslateTransition slide2 = new TranslateTransition(Duration.millis(300), multiPlayerMenu);
+            slide2.setFromX(-400);
+            slide2.setByX(400);
+            SequentialTransition sequence2 = new SequentialTransition(slide2);
+            sequence2.play();
+        });
+        sequence.play();
+    }
+
+
+
     public void expandSingle(){
 
-        vbox2 = new VBox();
+        singlePlayerMenu = new VBox();
         Region spacer1 = new Region();
-        vbox2.setVgrow(spacer1, Priority.ALWAYS);
-        vbox2.getChildren().addAll(classicButton,ai_Button,difficulty_Button,spacer1, backButtonSingle);
-        vbox2.setAlignment(Pos.CENTER);
+        singlePlayerMenu.setVgrow(spacer1, Priority.ALWAYS);
+        singlePlayerMenu.getChildren().addAll(startSingleGame,ai_Button,difficulty_Button,spacer1, backButtonSingle);
+        singlePlayerMenu.setAlignment(Pos.CENTER);
 
-        TranslateTransition slide = new TranslateTransition(Duration.millis(300),vbox1);
+        TranslateTransition slide = new TranslateTransition(Duration.millis(300), rootMenu);
         slide.setFromX(0);
         slide.setByX(-400);
 
         SequentialTransition sequence = new SequentialTransition(slide);
         sequence.setOnFinished(event -> {
             mainPane.setCenter(null);
-            mainPane.setCenter(vbox2);
-            TranslateTransition slide2 = new TranslateTransition(Duration.millis(300),vbox2);
+            mainPane.setCenter(singlePlayerMenu);
+            TranslateTransition slide2 = new TranslateTransition(Duration.millis(300), singlePlayerMenu);
             slide2.setFromX(400);
             slide2.setByX(-400);
             SequentialTransition sequence2 = new SequentialTransition(slide2);
@@ -114,14 +233,14 @@ public class MainMenuView extends View<MainMenuModel> {
     }
 
     public void shrinkSingle(){
-        TranslateTransition slide = new TranslateTransition(Duration.millis(300),vbox2);
+        TranslateTransition slide = new TranslateTransition(Duration.millis(300), singlePlayerMenu);
         slide.setFromX(0);
         slide.setByX(400);
         SequentialTransition sequence = new SequentialTransition(slide);
         sequence.setOnFinished(event -> {
             mainPane.setCenter(null);
-            mainPane.setCenter(vbox1);
-            TranslateTransition slide2 = new TranslateTransition(Duration.millis(300),vbox1);
+            mainPane.setCenter(rootMenu);
+            TranslateTransition slide2 = new TranslateTransition(Duration.millis(300), rootMenu);
             slide2.setFromX(-400);
             slide2.setByX(400);
             SequentialTransition sequence2 = new SequentialTransition(slide2);
@@ -133,19 +252,19 @@ public class MainMenuView extends View<MainMenuModel> {
 
     public void expandMulti(){
 
-        vbox3 = new VBox();
-        vbox3.getChildren().addAll(hostButton,clientButton,backButtonMulti);
-        vbox3.setAlignment(Pos.CENTER);
+        multiPlayerMenu = new VBox();
+        multiPlayerMenu.getChildren().addAll(hostButton,clientButton,backButtonMulti);
+        multiPlayerMenu.setAlignment(Pos.CENTER);
 
-        TranslateTransition slide = new TranslateTransition(Duration.millis(300),vbox1);
+        TranslateTransition slide = new TranslateTransition(Duration.millis(300), rootMenu);
         slide.setFromX(0);
         slide.setByX(-400);
 
         SequentialTransition sequence = new SequentialTransition(slide);
         sequence.setOnFinished(event -> {
             mainPane.setCenter(null);
-            mainPane.setCenter(vbox3);
-            TranslateTransition slide2 = new TranslateTransition(Duration.millis(300),vbox3);
+            mainPane.setCenter(multiPlayerMenu);
+            TranslateTransition slide2 = new TranslateTransition(Duration.millis(300), multiPlayerMenu);
             slide2.setFromX(400);
             slide2.setByX(-400);
             SequentialTransition sequence2 = new SequentialTransition(slide2);
@@ -155,14 +274,14 @@ public class MainMenuView extends View<MainMenuModel> {
     }
 
     public void shrinkMulti(){
-        TranslateTransition slide = new TranslateTransition(Duration.millis(300),vbox3);
+        TranslateTransition slide = new TranslateTransition(Duration.millis(300), multiPlayerMenu);
         slide.setFromX(0);
         slide.setByX(400);
         SequentialTransition sequence = new SequentialTransition(slide);
         sequence.setOnFinished(event -> {
             mainPane.setCenter(null);
-            mainPane.setCenter(vbox1);
-            TranslateTransition slide2 = new TranslateTransition(Duration.millis(300),vbox1);
+            mainPane.setCenter(rootMenu);
+            TranslateTransition slide2 = new TranslateTransition(Duration.millis(300), rootMenu);
             slide2.setFromX(-400);
             slide2.setByX(400);
             SequentialTransition sequence2 = new SequentialTransition(slide2);
