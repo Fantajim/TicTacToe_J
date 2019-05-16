@@ -16,6 +16,7 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -149,34 +150,72 @@ public class SingleView extends View<SingleModel> {
 
          Group lineGroup = new Group();
 
+         Timeline tl = new Timeline();
+
          Line line1 = new Line();
          line1.setStartX(20);
          line1.setStartY(20);
-         line1.setEndX(c.getWidth() - 20);
-         line1.setEndY(c.getHeight() - 20);
+         line1.setEndX(20);
+         line1.setEndY(20);
+         line1.setStrokeWidth(5);
 
          Line line2 = new Line();
-         line2.setStartX(20);
-         line2.setStartY(c.getHeight() - 20);
-         line2.setEndX(c.getWidth() - 20);
+         line2.setStartX(c.getWidth()-20);
+         line2.setStartY(20);
+         line2.setEndX(c.getWidth()-20);
          line2.setEndY(20);
+         line2.setStrokeWidth(5);
 
-         lineGroup.getChildren().addAll(line1,line2);
+         Line line3 = new Line();
+         line3.setStartX(c.getWidth()-20);
+         line3.setStartY(c.getHeight()-20);
+         line3.setEndX(c.getWidth()-20);
+         line3.setEndY(c.getHeight()-20);
+         line3.setStrokeWidth(5);
 
+         Line line4 = new Line();
+         line4.setStartX(20);
+         line4.setStartY(c.getHeight()-20);
+         line4.setEndX(20);
+         line4.setEndY(c.getHeight()-20);
+         line4.setStrokeWidth(5);
+
+
+         tl.getKeyFrames().add(new KeyFrame(Duration.millis(1000),
+                  new KeyValue(line1.endXProperty(),c.getWidth()/2),
+                  new KeyValue(line1.endYProperty(),c.getHeight()/2),
+                  new KeyValue(line2.endXProperty(),c.getWidth()/2),
+                  new KeyValue(line2.endYProperty(),c.getHeight()/2),
+                  new KeyValue(line3.endXProperty(),c.getWidth()/2),
+                  new KeyValue(line3.endYProperty(),c.getHeight()/2),
+                  new KeyValue(line4.endXProperty(),c.getWidth()/2),
+                  new KeyValue(line4.endYProperty(),c.getHeight()/2)
+                  ));
+
+         lineGroup.getChildren().addAll(line1,line2,line3,line4);
+         tl.play();
          c.setGraphic(lineGroup);
          c.setDisable(true);
          c.setSymbol('X');
 
       } else if (symbol == 'O') {
 
+         Timeline tl = new Timeline();
+
          Ellipse ellipse1 = new Ellipse();
          ellipse1.setCenterX(c.getWidth() / 2);
          ellipse1.setCenterY(c.getHeight() / 2);
-         ellipse1.setRadiusX(c.getWidth() / 2 - 20);
-         ellipse1.setRadiusY(c.getHeight() / 2 - 20);
-
+         ellipse1.setRadiusX(0);
+         ellipse1.setRadiusY(0);
          ellipse1.setFill(Color.BLACK);
+          //ellipse1.setRadiusX(c.getWidth() / 2 - 20);
+          //ellipse1.setRadiusY(c.getHeight() / 2 - 20);
 
+         tl.getKeyFrames().add(new KeyFrame(Duration.millis(1000),
+                  new KeyValue(ellipse1.radiusXProperty(),c.getWidth() / 2 - 20),
+                  new KeyValue(ellipse1.radiusYProperty(),c.getHeight() / 2 - 20)));
+
+         tl.play();
          c.setGraphic(ellipse1);
          c.setDisable(true);
          c.setSymbol('O');
@@ -191,7 +230,7 @@ public class SingleView extends View<SingleModel> {
        winLine.setStartY(temp[0].getCenterY());
        winLine.setEndX(temp[0].getCenterX());
        winLine.setEndY(temp[0].getCenterY());
-       winLine.setStrokeWidth(10);
+       winLine.setStrokeWidth(20);
        mainPane.getChildren().addAll(winLine);
        tl.getKeyFrames().add(new KeyFrame(Duration.millis(1500),
                new KeyValue(winLine.endXProperty(),temp[2].getCenterX()),

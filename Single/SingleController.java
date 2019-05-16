@@ -96,7 +96,8 @@ public class SingleController extends Controller<SingleModel, SingleView> {
     }
 
     //Controller for CPU tries to have some randomness in its logic, tries to counter the player
-    //as best as possible, its not minmax but its working
+    //as best as possible, its not minmax but its working.
+    //Difficulty is implemented by giving the cpuFindRandom method more possible cells to choose form
     public void cpuTurnController() {
         char player = model.player1.getSymbol();
         char hal = model.player2.getSymbol();
@@ -129,7 +130,7 @@ public class SingleController extends Controller<SingleModel, SingleView> {
             foundCpuMove[0] = foundCross[0][0];
             foundCpuMove[1] = foundCross[0][1];
         }
-        else {
+        else if (TicTacToeGame.getCpuDifficulty() == "easy"){
             int[][] foundCorners = model.cpuFindMoveRandom(easy,view.getCells());
             foundCpuMove[0] = foundCorners[0][0];
             foundCpuMove[1] = foundCorners[0][1];
