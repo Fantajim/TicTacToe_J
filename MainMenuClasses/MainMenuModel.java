@@ -11,8 +11,6 @@ public class MainMenuModel extends Model {
     
     public MainMenuModel() {
 
-        TicTacToeGame.cpuPlayer = true;
-        TicTacToeGame.cpuDifficulty = "default";
         serviceLocator = ServiceLocator.getServiceLocator();        
         serviceLocator.getLogger().info("MainMenu model initialized");
     }

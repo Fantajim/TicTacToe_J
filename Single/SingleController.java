@@ -116,7 +116,7 @@ public class SingleController extends Controller<SingleModel, SingleView> {
             foundCpuMove[0]= turnDraw[0][0];
             foundCpuMove[1]= turnDraw[0][1];
         }
-        else if (view.getCell(1, 1).getSymbol() == ' ' && TicTacToeGame.getCpuDifficulty().equals("default")) {
+        else if (view.getCell(1, 1).getSymbol() == ' ' && TicTacToeGame.getCpuDifficulty().equals("hard")) {
             foundCpuMove[0]= 1;
             foundCpuMove[1] = 1;
         }

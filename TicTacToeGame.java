@@ -15,7 +15,7 @@ public class TicTacToeGame extends Application {
     private MainMenuView view;
     private SingleView viewSingle;
     public static boolean cpuPlayer = true;
-    public static String cpuDifficulty = "default";
+    public static String cpuDifficulty = "hard";
 
     private ServiceLocator serviceLocator; // resources, after initialization
 

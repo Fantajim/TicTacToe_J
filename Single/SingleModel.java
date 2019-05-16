@@ -22,8 +22,8 @@ public class SingleModel extends Model {
         serviceLocator = ServiceLocator.getServiceLocator();
         serviceLocator.getLogger().info("Single model initialized");
 
-       if (cpuPlayer == true && cpuDifficulty.equals("default") ){ player2.setName("Hal"); }
-       else if (cpuPlayer == true && cpuDifficulty.equals("not so easy") ){ player2.setName("Tron"); }
+       if (cpuPlayer == true && cpuDifficulty.equals("hard") ){ player2.setName("Hal"); }
+       else if (cpuPlayer == true && cpuDifficulty.equals("medium") ){ player2.setName("Tron"); }
        else if (cpuPlayer == true && cpuDifficulty.equals("easy") ){ player2.setName("Wall-E"); }
     }
 

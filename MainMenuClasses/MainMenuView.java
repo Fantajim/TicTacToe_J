@@ -68,7 +68,7 @@ public class MainMenuView extends View<MainMenuModel> {
         hostButton = new Button("Host");
         clientButton = new Button("Client");
         ai_Button = new Button("AI: on");
-        difficulty_Button = new Button ("Difficulty: default");
+        difficulty_Button = new Button ("Difficulty: hard");
 
 
         Label title = new Label("TicTacToe Main Menu");
@@ -273,17 +273,17 @@ public class MainMenuView extends View<MainMenuModel> {
     }
 
     public void toggleDifficulty(){
-	    if(difficulty_Button.getText() == "Difficulty: default"){
+	    if(difficulty_Button.getText() == "Difficulty: hard"){
 	        difficulty_Button.setText("Difficulty: easy");
 	        TicTacToeGame.cpuDifficulty = "easy";
         }
 	    else if(difficulty_Button.getText() == "Difficulty: easy"){
-	        difficulty_Button.setText("Difficulty: not so easy");
-	        TicTacToeGame.cpuDifficulty = "not so easy";
+	        difficulty_Button.setText("Difficulty: medium");
+	        TicTacToeGame.cpuDifficulty = "medium";
         }
-        else if(difficulty_Button.getText() == "Difficulty: not so easy"){
-            difficulty_Button.setText("Difficulty: default");
-            TicTacToeGame.cpuDifficulty = "default";
+        else if(difficulty_Button.getText() == "Difficulty: medium"){
+            difficulty_Button.setText("Difficulty: hard");
+            TicTacToeGame.cpuDifficulty = "hard";
         }
     }
 
