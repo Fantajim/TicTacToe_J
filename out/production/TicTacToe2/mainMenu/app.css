@@ -1,0 +1,19 @@
+.button {
+-fx-pref-height: 100;
+-fx-pref-width: 400;
+}
+
+#backButton {
+-fx-pref-height: 80;
+-fx-pref-width:200;
+-fx-alignment: center;
+}
+
+#MainLabel {
+-fx-pref-width:400;
+-fx-pref-height:100;
+-fx-font-family:Arial;
+-fx-font-size: 30px;
+-fx-font-weight:bolder;
+-fx-alignment: center;
+}

@@ -1,0 +1,14 @@
+
+
+#win {
+
+
+	-fx-border-color: black;
+	-fx-border-width: 5px;
+}
+
+#default {
+    -fx-border-insets: 0px;
+ 	-fx-border-color: black;
+ 	-fx-border-width: 0px;
+}

@@ -106,6 +106,7 @@ public class SingleView extends View<SingleModel> {
       serviceLocator.getLogger().info("SinglePlayer Game has been started");
 
       scene = new Scene(mainPane);
+      scene.getStylesheets().add(getClass().getResource("game.css").toExternalForm());
       return scene;
    }
 
@@ -234,7 +235,9 @@ public class SingleView extends View<SingleModel> {
                new KeyValue(winLine.endXProperty(),temp[2].getCenterX()),
                new KeyValue(winLine.endYProperty(),temp[2].getCenterY())));
        tl.play();
-
+       temp[0].setId("win");
+       temp[1].setId("win");
+       temp[2].setId("win");
    }
 
    public Button getBackButton(){
@@ -249,6 +252,13 @@ public class SingleView extends View<SingleModel> {
        mainPane.getChildren().remove(winLine);
    }
 
+   public void removeID() {
+      for (int i = 0; i < 3; i++) {
+         for (int j = 0; j < 3; j++) {
+         cells[i][j].setId("");
+         }
+      }
+   }
 
 
 

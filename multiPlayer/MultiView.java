@@ -29,7 +29,7 @@ public class MultiView extends View<MultiModel> {
    private BorderPane pane;
    private LocalDateTime ts;
    private String fts;
-   private static final String DATE_FORMATTER= "yyyy-MM-dd HH:mm:ss";
+   private static final String DATE_FORMATTER= "dd-MM-yyyy HH:mm:ss";
    private DateTimeFormatter formatter;
    private Label player1Label;
    private Label player2Label;

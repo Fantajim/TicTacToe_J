@@ -12,8 +12,6 @@ public class Player {
 
     public String getName(){ return name; }
 
-    public void setSymbol(char c){ this.symbol = c; }
-
     public void setName(String name){ this.name = name; }
 
 }

@@ -7,28 +7,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c2881e03-cc2c-4f4c-bb9c-158bb3364c12" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/singlePlayer/SingleController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/singlePlayer/SingleModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/singlePlayer/SingleView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/TicTacToe2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/TicTacToe2.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainMenuClasses/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/mainMenu/MainMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainMenuClasses/MainMenuModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/mainMenu/MainMenuModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainMenuClasses/MainMenuView.java" beforeDir="false" afterPath="$PROJECT_DIR$/mainMenu/MainMenuView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainMenuClasses/TttStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/mainMenu/TttStyle.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainMenuClasses/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/mainMenu/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Single/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/singlePlayer/Cell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Single/SingleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/multiPlayer/MultiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Single/SingleModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/multiPlayer/MultiModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Single/SinglePlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/singlePlayer/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Single/SingleView.java" beforeDir="false" afterPath="$PROJECT_DIR$/multiPlayer/MultiView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TicTacToeGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/TicTacToeGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mainMenu/TttStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/mainMenu/game.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/multiPlayer/MultiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/multiPlayer/MultiController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/multiPlayer/MultiView.java" beforeDir="false" afterPath="$PROJECT_DIR$/multiPlayer/MultiView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/TicTacToe2/.idea/TicTacToe2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TicTacToe2/.idea/TicTacToe2.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/TicTacToe2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TicTacToe2/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TicTacToe2/MainMenuClasses/TttStyle.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TicTacToe2/MainMenuClasses/app.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TicTacToe2/SingleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TicTacToe2/SingleController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TicTacToe2/SingleView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TicTacToe2/SingleView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TicTacToe2/TicTacToeGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TicTacToe2/TicTacToeGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/singlePlayer/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/supportClasses/Cell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/singlePlayer/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/supportClasses/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/singlePlayer/SingleView.java" beforeDir="false" afterPath="$PROJECT_DIR$/singlePlayer/SingleView.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -44,7 +31,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/singlePlayer/SingleModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
+            <state relative-caret-position="3569">
               <caret line="239" column="5" selection-start-line="239" selection-start-column="5" selection-end-line="239" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -53,11 +40,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/singlePlayer/SingleView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="37" column="26" lean-forward="true" selection-start-line="37" selection-start-column="26" selection-end-line="37" selection-end-column="26" />
+            <state relative-caret-position="370">
+              <caret line="237" column="28" selection-start-line="237" selection-start-column="28" selection-end-line="237" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -68,7 +55,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/singlePlayer/SingleController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
+            <state relative-caret-position="168">
               <caret line="12" column="57" selection-start-line="12" selection-start-column="57" selection-end-line="12" selection-end-column="57" />
             </state>
           </provider>
@@ -77,14 +64,14 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mainMenu/MainMenuView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="277" column="49" selection-start-line="277" selection-start-column="49" selection-end-line="277" selection-end-column="49" />
+            <state relative-caret-position="109">
+              <caret line="81" column="8" selection-start-line="81" selection-start-column="8" selection-end-line="81" selection-end-column="87" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/singlePlayer/Cell.java">
+        <entry file="file://$PROJECT_DIR$/supportClasses/Cell.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="285">
               <caret line="22" column="30" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
@@ -93,37 +80,42 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/license.txt">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mainMenu/game.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="4" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/multiPlayer/MultiView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3375">
-              <caret line="250" selection-start-line="250" selection-end-line="250" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/multiPlayer/MultiController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="116">
-              <caret line="17" column="24" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
+            <state relative-caret-position="-2845">
+              <caret line="31" column="53" selection-start-line="31" selection-start-column="53" selection-end-line="31" selection-end-column="53" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/multiPlayer/MultiModel.java">
+        <entry file="file://$PROJECT_DIR$/mainMenu/app.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1680">
-              <caret line="113" column="22" lean-forward="true" selection-start-line="113" selection-start-column="22" selection-end-line="113" selection-end-column="22" />
+            <state relative-caret-position="90">
+              <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/singlePlayer/Player.java">
+        <entry file="file://$PROJECT_DIR$/supportClasses/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="13" selection-start-column="13" selection-end-column="13" />
+            <state relative-caret-position="180">
+              <caret line="12" column="43" selection-start-line="12" selection-start-column="43" selection-end-line="12" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -185,14 +177,16 @@
         <option value="$PROJECT_DIR$/Single/SingleModel.java" />
         <option value="$PROJECT_DIR$/Single/SingleController.java" />
         <option value="$PROJECT_DIR$/MainMenuClasses/MainMenuView.java" />
-        <option value="$PROJECT_DIR$/TicTacToeGame.java" />
         <option value="$PROJECT_DIR$/MainMenuClasses/MainMenuModel.java" />
         <option value="$PROJECT_DIR$/singlePlayer/SingleModel.java" />
-        <option value="$PROJECT_DIR$/multiPlayer/MultiController.java" />
         <option value="$PROJECT_DIR$/multiPlayer/MultiModel.java" />
-        <option value="$PROJECT_DIR$/multiPlayer/MultiView.java" />
-        <option value="$PROJECT_DIR$/singlePlayer/SingleView.java" />
         <option value="$PROJECT_DIR$/singlePlayer/SingleController.java" />
+        <option value="$PROJECT_DIR$/TicTacToeGame.java" />
+        <option value="$PROJECT_DIR$/multiPlayer/MultiView.java" />
+        <option value="$PROJECT_DIR$/multiPlayer/MultiController.java" />
+        <option value="$PROJECT_DIR$/supportClasses/Player.java" />
+        <option value="$PROJECT_DIR$/mainMenu/game.css" />
+        <option value="$PROJECT_DIR$/singlePlayer/SingleView.java" />
       </list>
     </option>
   </component>
@@ -220,6 +214,11 @@
             <path>
               <item name="TicTacToe2" type="b2602c69:ProjectViewProjectNode" />
               <item name="TicTacToe2" type="462c0819:PsiDirectoryNode" />
+              <item name="mainMenu" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TicTacToe2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TicTacToe2" type="462c0819:PsiDirectoryNode" />
               <item name="multiPlayer" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -230,7 +229,7 @@
             <path>
               <item name="TicTacToe2" type="b2602c69:ProjectViewProjectNode" />
               <item name="TicTacToe2" type="462c0819:PsiDirectoryNode" />
-              <item name="splashScreen" type="462c0819:PsiDirectoryNode" />
+              <item name="supportClasses" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="TicTacToe2" type="b2602c69:ProjectViewProjectNode" />
@@ -511,7 +510,14 @@
       <option name="project" value="LOCAL" />
       <updated>1558011078772</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="multiplayer classes created">
+      <created>1558012495695</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1558012495695</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -547,7 +553,6 @@
     </layout>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="init" />
     <MESSAGE value="restructured" />
     <MESSAGE value="save" />
     <MESSAGE value="restructure" />
@@ -572,7 +577,8 @@
     <MESSAGE value="gui fix spacer" />
     <MESSAGE value="added cpuDifficulty names" />
     <MESSAGE value="bugfix difficulty" />
-    <option name="LAST_COMMIT_MESSAGE" value="bugfix difficulty" />
+    <MESSAGE value="multiplayer classes created" />
+    <option name="LAST_COMMIT_MESSAGE" value="multiplayer classes created" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -669,30 +675,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mainMenu/TttStyle.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/abstractClasses/View.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="208">
           <caret line="30" column="42" selection-start-line="30" selection-start-column="42" selection-end-line="30" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainMenu/app.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TicTacToeGame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="17" column="46" selection-start-line="17" selection-start-column="46" selection-end-line="17" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -717,19 +703,67 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mainMenu/MainMenuView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="277" column="49" selection-start-line="277" selection-start-column="49" selection-end-line="277" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/multiPlayer/MultiPlayer.java">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/TicTacToeGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="116" column="20" selection-start-line="116" selection-start-column="20" selection-end-line="116" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/multiPlayer/MultiModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1345">
+          <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/multiPlayer/MultiController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="337">
+          <caret line="89" selection-start-line="89" selection-end-line="89" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/multiPlayer/MultiView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2845">
+          <caret line="31" column="53" selection-start-line="31" selection-start-column="53" selection-end-line="31" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/license.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/supportClasses/Cell.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="22" column="30" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/supportClasses/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="43" selection-start-line="12" selection-start-column="43" selection-end-line="12" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/singlePlayer/SingleController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="12" column="57" selection-start-line="12" selection-start-column="57" selection-end-line="12" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/singlePlayer/SingleModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
+        <state relative-caret-position="3569">
           <caret line="239" column="5" selection-start-line="239" selection-start-column="5" selection-end-line="239" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -737,55 +771,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/singlePlayer/SingleController.java">
+    <entry file="file://$PROJECT_DIR$/mainMenu/app.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="57" selection-start-line="12" selection-start-column="57" selection-end-line="12" selection-end-column="57" />
+        <state relative-caret-position="90">
+          <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/singlePlayer/Player.java">
+    <entry file="file://$PROJECT_DIR$/mainMenu/MainMenuView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="13" selection-start-column="13" selection-end-column="13" />
+        <state relative-caret-position="109">
+          <caret line="81" column="8" selection-start-line="81" selection-start-column="8" selection-end-line="81" selection-end-column="87" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/singlePlayer/Cell.java">
+    <entry file="file://$PROJECT_DIR$/mainMenu/game.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="22" column="30" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
+        <state relative-caret-position="30">
+          <caret line="2" column="4" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/singlePlayer/SingleView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="37" column="26" lean-forward="true" selection-start-line="37" selection-start-column="26" selection-end-line="37" selection-end-column="26" />
+        <state relative-caret-position="370">
+          <caret line="237" column="28" selection-start-line="237" selection-start-column="28" selection-end-line="237" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/multiPlayer/MultiView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3375">
-          <caret line="250" selection-start-line="250" selection-end-line="250" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/multiPlayer/MultiModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1680">
-          <caret line="113" column="22" lean-forward="true" selection-start-line="113" selection-start-column="22" selection-end-line="113" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/multiPlayer/MultiController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="17" column="24" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
         </state>
       </provider>
     </entry>

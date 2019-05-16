@@ -90,7 +90,7 @@ public class MultiController extends Controller<MultiModel, MultiView> {
 
 
     //Without Platform.runLater the "crosses" sometimes don't get drawn fully, im not sure why.
-    public void cpuMove(int i, int j){
+    public void playerMove(int i, int j){
         Platform.runLater(()-> view.getCell(i,j).fire());
     }
 }

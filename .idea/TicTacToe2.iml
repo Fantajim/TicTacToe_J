@@ -9,6 +9,7 @@
       <sourceFolder url="file://$MODULE_DIR$/singlePlayer" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/multiPlayer" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/mainMenu" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/supportClasses" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
