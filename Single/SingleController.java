@@ -139,7 +139,7 @@ public class SingleController extends Controller<SingleModel, SingleView> {
         cpuMove(foundCpuMove[0],foundCpuMove[1]);
 
     }
-
+    //Without Platform.runLater the "crosses" sometimes don't get drawn fully, im not sure why.
     public void cpuMove(int i, int j){
         Platform.runLater(()-> view.getCell(i,j).fire());
     }
