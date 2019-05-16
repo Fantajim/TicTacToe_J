@@ -1,7 +1,6 @@
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
-import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -16,7 +15,6 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -31,7 +29,7 @@ public class SingleView extends View<SingleModel> {
    private BorderPane pane;
    private LocalDateTime ts;
    private String fts;
-   private static final String DATE_FORMATTER= "yyyy-MM-dd HH:mm:ss";
+   private static final String DATE_FORMATTER= "dd-MM-yyyy HH:mm:ss";
    private DateTimeFormatter formatter;
    private Label player1Label;
    private Label player2Label;
@@ -45,7 +43,7 @@ public class SingleView extends View<SingleModel> {
    public SingleView(Stage stage, SingleModel model) {
 
       super(stage, model);
-      stage.setTitle("Classic SinglePlayer");
+      stage.setTitle("SinglePlayer");
       player1Label.setText(model.player1.getName() + " = "+ model.player1.getSymbol());
       player2Label.setText(model.player2.getName() + " = "+ model.player2.getSymbol());
       playerTurnLabel.setText("Current turn: "+model.getCurrentPlayer().getName());
@@ -74,7 +72,7 @@ public class SingleView extends View<SingleModel> {
       console = new TextArea();
       console.setPrefWidth(300);
       console.setWrapText(true);
-      console.setText("Classic SinglePlayer Game has started "+"\n"+ fts);
+      console.setText("SinglePlayer Game has started "+"\n"+ fts);
       player1Label = new Label(" ");
       player2Label = new Label(" ");
       playerTurnLabel = new Label(" ");
@@ -105,7 +103,7 @@ public class SingleView extends View<SingleModel> {
 
       mainPane = new Pane(pane);
       serviceLocator = ServiceLocator.getServiceLocator();
-      serviceLocator.getLogger().info("Classic SinglePlayer Game has been started");
+      serviceLocator.getLogger().info("SinglePlayer Game has been started");
 
       scene = new Scene(mainPane);
       return scene;
@@ -134,7 +132,7 @@ public class SingleView extends View<SingleModel> {
    public void addToConsole(String s){
       ts = LocalDateTime.now();
       fts = ts.format(formatter);
-      String temp = s+"\n"+fts+"\n"+"\n";
+      String temp = s+"\n"+"\n";
       temp += console.getText();
       console.setText(temp);
    }

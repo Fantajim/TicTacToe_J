@@ -4,9 +4,9 @@ import java.util.Random;
 public class SingleModel extends Model {
 
     ServiceLocator serviceLocator;
-    public SinglePlayer player1;
-    public SinglePlayer player2;
-    private SinglePlayer currentPlayer;
+    public Player player1;
+    public Player player2;
+    private Player currentPlayer;
     private char symbol1;
     private char symbol2;
     String cpuDifficulty = TicTacToeGame.getCpuDifficulty();
@@ -16,8 +16,8 @@ public class SingleModel extends Model {
 
     public SingleModel() {
         randomizePlayerSymbol();
-        player1 = new SinglePlayer(symbol1, "Player 1");
-        player2 = new SinglePlayer(symbol2, "Player 2");
+        player1 = new Player(symbol1, "Player 1");
+        player2 = new Player(symbol2, "Player 2");
         randomizePlayer();
         serviceLocator = ServiceLocator.getServiceLocator();
         serviceLocator.getLogger().info("Single model initialized");
@@ -239,9 +239,9 @@ public class SingleModel extends Model {
         return number;
     }
 
-    public SinglePlayer getCurrentPlayer() { return currentPlayer; }
+    public Player getCurrentPlayer() { return currentPlayer; }
 
-    public void setCurrentPlayer(SinglePlayer player){ currentPlayer = player; }
+    public void setCurrentPlayer(Player player){ currentPlayer = player; }
 
     public Cell[] getWinnerCombo(){ return winnerCombo; }
 
