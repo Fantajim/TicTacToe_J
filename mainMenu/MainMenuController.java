@@ -11,17 +11,26 @@ public class MainMenuController extends Controller<MainMenuModel, MainMenuView> 
     public MainMenuController(MainMenuModel model, MainMenuView view) {
         super(model, view);
 
-        view.getClassicSingle().setOnAction(event -> startSingle());
-        view.getMultiPlayer().setOnAction(event -> startMulti());
+        view.getClassicSingle().setOnAction(event -> expandSingle());
+        view.getMultiPlayer().setOnAction(event -> expandMulti());
         view.getBackSingle().setOnAction(event -> closeSingle());
         view.getBackMulti().setOnAction(event -> closeMulti());
-        view.getStartSingleGame().setOnAction(event -> startClassic());
+        view.getStartSingleGame().setOnAction(event -> startSinglePlayer());
         view.getAi_Button().setOnAction(event -> toggleAI());
         view.getDifficulty_Button().setOnAction(event -> toggleDifficulty());
-        view.getHostButton().setOnAction(event -> startHostMenu());
+        view.getHostButton().setOnAction(event -> expandHostMenu());
         view.getBackButtonHost().setOnAction(event -> closeHostMenu());
         view.getClientButton().setOnAction(event -> expandClientMenu());
         view.getBackButtonClient().setOnAction(event -> closeClientMenu());
+        view.getStartClient().setOnAction(event -> {
+            TicTacToeGame.serverIP = view.getIpField().getText();
+            TicTacToeGame.isServer = false;
+            startMultiPlayer();
+        });
+        view.getStartServer().setOnAction(event -> {
+            TicTacToeGame.isServer = true;
+            startMultiPlayer();
+        });
 
         
         serviceLocator = ServiceLocator.getServiceLocator();        
@@ -30,17 +39,20 @@ public class MainMenuController extends Controller<MainMenuModel, MainMenuView> 
 
     }
 
-    private void startSingle(){ view.expandSingle(); }
-    private void startMulti(){ view.expandMulti();}
-    private void startHostMenu(){view.expandHost();}
+    private void expandSingle(){ view.expandSingle(); }
+    private void expandMulti(){ view.expandMulti();}
+    private void expandHostMenu(){view.expandHost();}
     private void closeSingle(){ view.shrinkSingle(); }
     private void closeMulti(){ view.shrinkMulti(); }
     private void closeHostMenu(){view.shrinkHost();}
     private void expandClientMenu(){view.expandClient();}
     private void closeClientMenu(){view.shrinkClient();}
-
-    private void startClassic(){ TicTacToeGame.getMainProgram().startClassicSingle();}
+    private void startSinglePlayer(){ TicTacToeGame.getMainProgram().startSinglePlayer();}
     private void toggleAI(){view.toggleAI();}
     private void toggleDifficulty(){view.toggleDifficulty();}
+    private void startMultiPlayer(){
+        TicTacToeGame.getMainProgram().startMultiPlayer();
+        TicTacToeGame.serverPort = Integer.parseInt(view.getPortField().getText());
+    }
 
 }

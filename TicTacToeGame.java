@@ -14,8 +14,12 @@ public class TicTacToeGame extends Application {
     private Splash_View splashView;
     private MainMenuView view;
     private SingleView viewSingle;
+    private MultiView viewMulti;
     public static boolean cpuPlayer = true;
-    public static String cpuDifficulty = "hard";
+    public static String cpuDifficulty = "Difficulty: medium";
+    public static boolean isServer = false;
+    public static String serverIP ="";
+    public static int serverPort = 55555;
 
     private ServiceLocator serviceLocator; // resources, after initialization
 
@@ -104,7 +108,23 @@ public class TicTacToeGame extends Application {
         view.start();
     }
 
-    public void startClassicSingle(){
+    public void startMultiPlayer(){
+
+        Stage multiStage = new Stage();
+
+        MultiModel modelMulti = new MultiModel();
+        viewMulti = new MultiView(multiStage,modelMulti);
+        new MultiController(modelMulti, viewMulti);
+
+        serviceLocator = ServiceLocator.getServiceLocator();
+
+        view.stop();
+        view = null;
+
+        viewMulti.start();
+    }
+
+    public void startSinglePlayer(){
 
         Stage singleStage = new Stage();
 

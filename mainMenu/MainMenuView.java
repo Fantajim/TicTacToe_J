@@ -37,6 +37,8 @@ public class MainMenuView extends View<MainMenuModel> {
     private VBox multiPlayerMenu;
     private VBox serverMenu;
     private VBox clientMenu;
+    private TextField portField;
+    private TextField ipField;
 
 
 	public MainMenuView(Stage stage, MainMenuModel model) {
@@ -68,7 +70,7 @@ public class MainMenuView extends View<MainMenuModel> {
         hostButton = new Button("Host");
         clientButton = new Button("Client");
         ai_Button = new Button("AI: on");
-        difficulty_Button = new Button ("Difficulty: hard");
+        difficulty_Button = new Button (TicTacToeGame.getCpuDifficulty());
 
 
         Label title = new Label("TicTacToe Main Menu");
@@ -88,12 +90,12 @@ public class MainMenuView extends View<MainMenuModel> {
 
 	    clientMenu = new VBox();
 	    Label portLabel = new Label("Port  ");
-	    TextField portField = new TextField("55555");
+	    portField = new TextField("55555");
 	    HBox portBox = new HBox(portLabel,portField);
 	    portBox.setAlignment(Pos.CENTER);
 
 	    Label ipLabel = new Label("IP:    ");
-	    TextField ipField = new TextField("enter IP address here");
+	    ipField = new TextField("enter IP address here");
 	    HBox ipBox = new HBox(ipLabel,ipField);
 	    ipBox.setAlignment(Pos.CENTER);
 	    Region clientSpacer = new Region();
@@ -124,7 +126,7 @@ public class MainMenuView extends View<MainMenuModel> {
     public void expandHost(){
 	    serverMenu = new VBox();
         Label portLabel = new Label("Port:  ");
-        TextField portField = new TextField("55555");
+        portField = new TextField("55555");
         HBox portBox = new HBox(portLabel,portField);
         portBox.setAlignment(Pos.CENTER);
         Region hostSpacer = new Region();
@@ -275,15 +277,15 @@ public class MainMenuView extends View<MainMenuModel> {
     public void toggleDifficulty(){
 	    if(difficulty_Button.getText() == "Difficulty: hard"){
 	        difficulty_Button.setText("Difficulty: easy");
-	        TicTacToeGame.cpuDifficulty = "easy";
+	        TicTacToeGame.cpuDifficulty = "Difficulty: easy";
         }
 	    else if(difficulty_Button.getText() == "Difficulty: easy"){
 	        difficulty_Button.setText("Difficulty: medium");
-	        TicTacToeGame.cpuDifficulty = "medium";
+	        TicTacToeGame.cpuDifficulty = "Difficulty: medium";
         }
         else if(difficulty_Button.getText() == "Difficulty: medium"){
             difficulty_Button.setText("Difficulty: hard");
-            TicTacToeGame.cpuDifficulty = "hard";
+            TicTacToeGame.cpuDifficulty = "Difficulty: hard";
         }
     }
 
@@ -324,6 +326,10 @@ public class MainMenuView extends View<MainMenuModel> {
     public Button getStartClient(){return startClient;}
 
     public Button getStartServer(){return startServer;}
+
+    public TextField getPortField() { return portField;}
+
+    public TextField getIpField() { return ipField;}
 }
 
 

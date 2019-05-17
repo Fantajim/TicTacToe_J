@@ -17,7 +17,7 @@ public class SingleController extends Controller<SingleModel, SingleView> {
             view.resetBoard();
             addEvents();
             if(model.isCpuTurn() && TicTacToeGame.getCpuPlayer())cpuTurnController();
-            view.addToConsole("Game has been restarted");
+            model.console.addToConsole("Game has been restarted");
             view.updateTurnLabel();
             view.removeLine();
 
@@ -66,7 +66,7 @@ public class SingleController extends Controller<SingleModel, SingleView> {
         boolean result = model.isWinLogic(view.getCells());
         if (result) {
             view.animateWin();
-            view.addToConsole(model.getCurrentPlayer().getName() + " is the winner\nplease press restart to continue");
+            model.console.addToConsole(model.getCurrentPlayer().getName() + " is the winner\nplease press restart to continue");
             for (int i = 0;i<3;i++){
                 for(int j=0;j<3;j++){
                     view.getCells()[i][j].setDisable(true);
@@ -82,7 +82,7 @@ public class SingleController extends Controller<SingleModel, SingleView> {
         boolean result = model.isDrawLogic(view.getCells());
 
         if (result){
-            view.addToConsole("Game has ended in a draw\nplease press restart to continue");
+            model.console.addToConsole("Game has ended in a draw\nplease press restart to continue");
             for (int i = 0;i<3;i++){
                 for(int j=0;j<3;j++){
                     view.getCells()[i][j].setDisable(true);
@@ -113,21 +113,21 @@ public class SingleController extends Controller<SingleModel, SingleView> {
             foundCpuMove[0]= turnDraw[0][0];
             foundCpuMove[1]= turnDraw[0][1];
         }
-        else if (view.getCell(1, 1).getSymbol() == ' ' && TicTacToeGame.getCpuDifficulty().equals("hard")) {
+        else if (view.getCell(1, 1).getSymbol() == ' ' && TicTacToeGame.getCpuDifficulty().equals("Difficulty: hard")) {
             foundCpuMove[0]= 1;
             foundCpuMove[1] = 1;
         }
-        else if (model.cpuFindMoveRandom(cornersAndMiddle,view.getCells())!= null && TicTacToeGame.getCpuDifficulty() != "easy"){
+        else if (model.cpuFindMoveRandom(cornersAndMiddle,view.getCells())!= null && TicTacToeGame.getCpuDifficulty() != "Difficulty: easy"){
             int[][] foundCorners = model.cpuFindMoveRandom(cornersAndMiddle,view.getCells());
             foundCpuMove[0] = foundCorners[0][0];
             foundCpuMove[1] = foundCorners[0][1];
         }
-        else if (model.cpuFindMoveRandom(cross,view.getCells())!= null && TicTacToeGame.getCpuDifficulty() != "easy") {
+        else if (model.cpuFindMoveRandom(cross,view.getCells())!= null && TicTacToeGame.getCpuDifficulty() != "Difficulty: easy") {
             int[][] foundCross = model.cpuFindMoveRandom(cross, view.getCells());
             foundCpuMove[0] = foundCross[0][0];
             foundCpuMove[1] = foundCross[0][1];
         }
-        else if (model.cpuFindMoveRandom(cross,view.getCells())!= null && TicTacToeGame.getCpuDifficulty().equals("easy")){
+        else if (model.cpuFindMoveRandom(cross,view.getCells())!= null && TicTacToeGame.getCpuDifficulty().equals("Difficulty: easy")){
             int[][] foundEasy = model.cpuFindMoveRandom(easy,view.getCells());
             foundCpuMove[0] = foundEasy[0][0];
             foundCpuMove[1] = foundEasy[0][1];

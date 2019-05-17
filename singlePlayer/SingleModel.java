@@ -9,6 +9,7 @@ public class SingleModel extends Model {
     private Player currentPlayer;
     private char symbol1;
     private char symbol2;
+    Console console;
     String cpuDifficulty = TicTacToeGame.getCpuDifficulty();
     boolean cpuPlayer = TicTacToeGame.getCpuPlayer();
     private Cell[] winnerCombo = new Cell[3];
@@ -18,13 +19,14 @@ public class SingleModel extends Model {
         randomizePlayerSymbol();
         player1 = new Player(symbol1, "Player 1");
         player2 = new Player(symbol2, "Player 2");
+        console = new Console("SinglePlayer");
         randomizePlayer();
         serviceLocator = ServiceLocator.getServiceLocator();
         serviceLocator.getLogger().info("Single model initialized");
 
-       if (cpuPlayer == true && cpuDifficulty.equals("hard") ){ player2.setName("Hal"); }
-       else if (cpuPlayer == true && cpuDifficulty.equals("medium") ){ player2.setName("Tron"); }
-       else if (cpuPlayer == true && cpuDifficulty.equals("easy") ){ player2.setName("Wall-E"); }
+       if (cpuPlayer == true && cpuDifficulty.equals("Difficulty: hard") ){ player2.setName("Hal"); }
+       else if (cpuPlayer == true && cpuDifficulty.equals("Difficulty: medium") ){ player2.setName("Tron"); }
+       else if (cpuPlayer == true && cpuDifficulty.equals("Difficulty: easy") ){ player2.setName("Wall-E"); }
     }
 
    //Method for toggling currentPlayer

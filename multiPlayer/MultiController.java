@@ -18,7 +18,7 @@ public class MultiController extends Controller<MultiModel, MultiView> {
             model.randomizePlayer();
             view.resetBoard();
             addEvents();
-            view.addToConsole("Game has been restarted");
+            model.console.addToConsole("Game has been restarted");
             view.updateTurnLabel();
             view.removeLine();
         });
@@ -61,7 +61,7 @@ public class MultiController extends Controller<MultiModel, MultiView> {
         boolean result = model.isWinLogic(view.getCells());
         if (result) {
             view.animateWin();
-            view.addToConsole(model.getCurrentPlayer().getName() + " is the winner\nplease press restart to continue");
+            model.console.addToConsole(model.getCurrentPlayer().getName() + " is the winner\nplease press restart to continue");
             for (int i = 0;i<3;i++){
                 for(int j=0;j<3;j++){
                     view.getCells()[i][j].setDisable(true);
@@ -77,7 +77,7 @@ public class MultiController extends Controller<MultiModel, MultiView> {
         boolean result = model.isDrawLogic(view.getCells());
 
         if (result){
-            view.addToConsole("Game has ended in a draw\nplease press restart to continue");
+            model.console.addToConsole("Game has ended in a draw\nplease press restart to continue");
             for (int i = 0;i<3;i++){
                 for(int j=0;j<3;j++){
                     view.getCells()[i][j].setDisable(true);

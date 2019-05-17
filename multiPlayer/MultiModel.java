@@ -1,23 +1,119 @@
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 public class MultiModel extends Model {
 
     ServiceLocator serviceLocator;
+    Console console;
     public Player player1;
     public Player player2;
     private Player currentPlayer;
+    private boolean isTurn;
     private char symbol1;
     private char symbol2;
     private Cell[] winnerCombo = new Cell[3];
+    private int serverPort;
+    private String serverIP;
+    private ServerSocket listener = null;
+    private Socket socket = null;
+    private PrintWriter out = null;
+    private BufferedReader in = null;
+    private final String gameToken = "jksfdnjkfnsdfshnfsdhjbfsdbfjs";
 
     public MultiModel() {
         randomizePlayerSymbol();
         player1 = new Player(symbol1, "Player 1");
         player2 = new Player(symbol2, "Player 2");
+        console = new Console("MultiPlayer");
         randomizePlayer();
         serviceLocator = ServiceLocator.getServiceLocator();
         serviceLocator.getLogger().info("Multi model initialized");
+        serverIP = TicTacToeGame.serverIP;
+        serverPort = TicTacToeGame.serverPort;
+
+        if (TicTacToeGame.isServer) {
+            console.addToConsole("Waiting for Client ...");
+            try {
+                listener = new ServerSocket(55555, 10, null);
+                Runnable r = new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            socket = listener.accept();
+                            serviceLocator.getLogger().info("Connection established");
+                            console.addToConsole("Connection established");
+                            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                            PrintWriter out = new PrintWriter(socket.getOutputStream());
+
+                            while(true){
+                                String input = in.readLine();
+                                if (input.startsWith(gameToken)&&(isTurn)){
+                                    Scanner scanner = new Scanner(input);
+                                    int row = scanner.nextInt();
+                                    int col = scanner.nextInt();
+                                }
+                                else if(!input.startsWith(gameToken)){
+                                    console.addToConsole(input);
+                                    //Todo make Textfield beneath console
+                                }
+
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+                };
+                Thread t = new Thread(r, "ServerSocket");
+                t.start();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        else {
+            try {
+                socket = new Socket(serverIP,serverPort);
+                serviceLocator.getLogger().info("Connected");
+                console.addToConsole("Connected");
+                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                out = new PrintWriter(socket.getOutputStream());
+
+
+                Runnable r = () -> {
+                    try {
+                        while (true) {
+                         String input = in.readLine();
+                         if (input.startsWith(gameToken)&&(isTurn)){
+                            Scanner scanner = new Scanner(input);
+                            int row = scanner.nextInt();
+                            int col = scanner.nextInt();
+                         }
+                         else if(!input.startsWith(gameToken)){
+                            console.addToConsole(input);
+                         }
+
+                        }
+                    }
+                    catch (IOException e){
+                        e.printStackTrace();
+                    }
+                };
+                Thread t = new Thread(r,"Socket");
+                        t.start();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
 
     }
 

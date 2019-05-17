@@ -7,7 +7,6 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
@@ -15,22 +14,14 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 public class SingleView extends View<SingleModel> {
 
    ServiceLocator serviceLocator;
-   private TextArea console;
    private Cell[][] cells;
    private Button backButton;
    private Button restartButton;
    private GridPane grid;
    private BorderPane pane;
-   private LocalDateTime ts;
-   private String fts;
-   private static final String DATE_FORMATTER= "dd-MM-yyyy HH:mm:ss";
-   private DateTimeFormatter formatter;
    private Label player1Label;
    private Label player2Label;
    private Label playerTurnLabel;
@@ -64,14 +55,7 @@ public class SingleView extends View<SingleModel> {
          }
       }
       //Setup console with timestamp
-      ts = LocalDateTime.now();
-      formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
-      fts = ts.format(formatter);
       pane = new BorderPane();
-      console = new TextArea();
-      console.setPrefWidth(300);
-      console.setWrapText(true);
-      console.setText("SinglePlayer Game has started "+"\n"+ fts+"\n\n");
       player1Label = new Label(" ");
       player2Label = new Label(" ");
       playerTurnLabel = new Label(" ");
@@ -93,7 +77,7 @@ public class SingleView extends View<SingleModel> {
       playerBox.setAlignment(Pos.CENTER);
 
       pane.setCenter(grid);
-      pane.setRight(console);
+      pane.setRight(model.console);
       pane.setBottom(playerBox);
 
       mainPane = new Pane(pane);
@@ -116,12 +100,6 @@ public class SingleView extends View<SingleModel> {
             cells[i][j].setId("");
          }
       }
-   }
-
-   //method for easy console access and autoscrolling
-   public void addToConsole(String s){
-      console.setText(console.getText()+s+"\n\n");
-      console.setScrollTop(Double.MAX_VALUE);
    }
 
    //Update label to display currentplayer

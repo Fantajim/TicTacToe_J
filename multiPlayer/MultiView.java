@@ -21,16 +21,11 @@ import java.time.format.DateTimeFormatter;
 public class MultiView extends View<MultiModel> {
 
    ServiceLocator serviceLocator;
-   private TextArea console;
    private Cell[][] cells;
    private Button backButton;
    private Button restartButton;
    private GridPane grid;
    private BorderPane pane;
-   private LocalDateTime ts;
-   private String fts;
-   private static final String DATE_FORMATTER= "dd-MM-yyyy HH:mm:ss";
-   private DateTimeFormatter formatter;
    private Label player1Label;
    private Label player2Label;
    private Label playerTurnLabel;
@@ -49,6 +44,7 @@ public class MultiView extends View<MultiModel> {
       serviceLocator = ServiceLocator.getServiceLocator();
       serviceLocator.getLogger().info("Multi view initialized");
       updateTurnLabel();
+      blockBoard();
 
    }
 
@@ -63,15 +59,8 @@ public class MultiView extends View<MultiModel> {
             grid.add(cells[i][j],j,i);
          }
       }
-      //Setup console with timestamp
-      ts = LocalDateTime.now();
-      formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
-      fts = ts.format(formatter);
+
       pane = new BorderPane();
-      console = new TextArea();
-      console.setPrefWidth(300);
-      console.setWrapText(true);
-      console.setText("MultiPlayer Game has started "+"\n"+ fts);
       player1Label = new Label(" ");
       player2Label = new Label(" ");
       playerTurnLabel = new Label(" ");
@@ -94,14 +83,14 @@ public class MultiView extends View<MultiModel> {
 
 
       pane.setCenter(grid);
-      pane.setRight(console);
+      pane.setRight(model.console);
       pane.setBottom(playerBox);
 
       mainPane = new Pane(pane);
       serviceLocator = ServiceLocator.getServiceLocator();
       serviceLocator.getLogger().info("MultiPlayer Game has been started");
-      scene.getStylesheets().add(getClass().getResource("multigame.css").toExternalForm());
       scene = new Scene(mainPane);
+      scene.getStylesheets().add(getClass().getResource("multigame.css").toExternalForm());
       return scene;
    }
 
@@ -118,10 +107,13 @@ public class MultiView extends View<MultiModel> {
       }
    }
 
-   //method for easy console access
-   public void addToConsole(String s){
-      console.setText(console.getText()+s+"\n\n");
-      console.setScrollTop(Double.MAX_VALUE);
+   public void blockBoard(){
+
+      for (int i = 0;i<3;i++){
+         for( int j = 0;j< 3;j++){
+            cells[i][j].setDisable(true);
+         }
+      }
    }
 
    //Update label to display currentplayer
