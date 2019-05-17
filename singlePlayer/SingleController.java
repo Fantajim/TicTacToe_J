@@ -14,13 +14,12 @@ public class SingleController extends Controller<SingleModel, SingleView> {
         });
         view.getRestartButton().setOnAction(event -> {
             model.randomizePlayer();
-            view.createBoard();
+            view.resetBoard();
             addEvents();
             if(model.isCpuTurn() && TicTacToeGame.getCpuPlayer())cpuTurnController();
             view.addToConsole("Game has been restarted");
             view.updateTurnLabel();
             view.removeLine();
-            view.removeID();
 
         });
         addEvents();

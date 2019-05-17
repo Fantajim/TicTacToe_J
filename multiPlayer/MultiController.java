@@ -6,7 +6,9 @@ public class MultiController extends Controller<MultiModel, MultiView> {
 
     public MultiController(MultiModel model, MultiView view) {
         super(model, view);
-
+        addEvents();
+        serviceLocator = ServiceLocator.getServiceLocator();
+        serviceLocator.getLogger().info("Multi controller initialized");
 
         view.getBackButton().setOnAction(event -> {
             TicTacToeGame.getMainProgram().startMainMenu();
@@ -14,16 +16,13 @@ public class MultiController extends Controller<MultiModel, MultiView> {
         });
         view.getRestartButton().setOnAction(event -> {
             model.randomizePlayer();
-            view.createBoard();
+            view.resetBoard();
             addEvents();
             view.addToConsole("Game has been restarted");
             view.updateTurnLabel();
             view.removeLine();
         });
-        addEvents();
 
-        serviceLocator = ServiceLocator.getServiceLocator();
-        serviceLocator.getLogger().info("Multi controller initialized");
     }
 
     public int[] getButtonPressed(Cell c){
@@ -88,8 +87,6 @@ public class MultiController extends Controller<MultiModel, MultiView> {
         return result;
     }
 
-
-    //Without Platform.runLater the "crosses" sometimes don't get drawn fully, im not sure why.
     public void playerMove(int i, int j){
         Platform.runLater(()-> view.getCell(i,j).fire());
     }

@@ -105,21 +105,15 @@ public class SingleView extends View<SingleModel> {
       return scene;
    }
 
-   //get whole Array
-   public Cell[][] getCells(){ return cells; }
-
-   //get a single Cell from Array
-   public Cell getCell(int i, int j){ return cells[i][j]; }
-
-
-   //method for creating a new playboard
-   public void createBoard(){
+   //method for resetting the playboard
+   public void resetBoard(){
 
       for (int i = 0;i<3;i++){
          for( int j = 0;j< 3;j++){
             cells[i][j].setGraphic(null);
             cells[i][j].setSymbol(' ');
             cells[i][j].setDisable(false);
+            cells[i][j].setId("");
          }
       }
    }
@@ -199,8 +193,6 @@ public class SingleView extends View<SingleModel> {
          ellipse1.setRadiusX(0);
          ellipse1.setRadiusY(0);
          ellipse1.setFill(Color.BLACK);
-          //ellipse1.setRadiusX(c.getWidth() / 2 - 20);
-          //ellipse1.setRadiusY(c.getHeight() / 2 - 20);
 
          tl.getKeyFrames().add(new KeyFrame(Duration.millis(1000),
                   new KeyValue(ellipse1.radiusXProperty(),c.getWidth() / 2 - 20),
@@ -244,14 +236,8 @@ public class SingleView extends View<SingleModel> {
        mainPane.getChildren().remove(winLine);
    }
 
-   public void removeID() {
-      for (int i = 0; i < 3; i++) {
-         for (int j = 0; j < 3; j++) {
-         cells[i][j].setId("");
-         }
-      }
-   }
+   public Cell[][] getCells(){ return cells; }
 
-
+   public Cell getCell(int i, int j){ return cells[i][j]; }
 
 }

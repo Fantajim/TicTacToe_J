@@ -100,26 +100,20 @@ public class MultiView extends View<MultiModel> {
       mainPane = new Pane(pane);
       serviceLocator = ServiceLocator.getServiceLocator();
       serviceLocator.getLogger().info("MultiPlayer Game has been started");
-
+      scene.getStylesheets().add(getClass().getResource("multigame.css").toExternalForm());
       scene = new Scene(mainPane);
       return scene;
    }
 
-   //get whole Array
-   public Cell[][] getCells(){ return cells; }
-
-   //get a single Cell from Array
-   public Cell getCell(int i, int j){ return cells[i][j]; }
-
-
-   //method for creating a new playboard
-   public void createBoard(){
+   //method for resetting the playboard
+   public void resetBoard(){
 
       for (int i = 0;i<3;i++){
          for( int j = 0;j< 3;j++){
             cells[i][j].setGraphic(null);
             cells[i][j].setSymbol(' ');
             cells[i][j].setDisable(false);
+            cells[i][j].setId("");
          }
       }
    }
@@ -227,6 +221,9 @@ public class MultiView extends View<MultiModel> {
                new KeyValue(winLine.endXProperty(),temp[2].getCenterX()),
                new KeyValue(winLine.endYProperty(),temp[2].getCenterY())));
        tl.play();
+      temp[0].setId("win");
+      temp[1].setId("win");
+      temp[2].setId("win");
 
    }
 
@@ -241,5 +238,9 @@ public class MultiView extends View<MultiModel> {
    public void removeLine(){
        mainPane.getChildren().remove(winLine);
    }
+
+   public Cell[][] getCells(){ return cells; }
+
+   public Cell getCell(int i, int j){ return cells[i][j]; }
 
 }
