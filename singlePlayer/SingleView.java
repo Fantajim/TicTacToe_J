@@ -21,7 +21,7 @@ import java.time.format.DateTimeFormatter;
 public class SingleView extends View<SingleModel> {
 
    ServiceLocator serviceLocator;
-   TextArea console;
+   private TextArea console;
    private Cell[][] cells;
    private Button backButton;
    private Button restartButton;
@@ -35,7 +35,6 @@ public class SingleView extends View<SingleModel> {
    private Label player2Label;
    private Label playerTurnLabel;
    private Scene scene;
-   private VBox groupGrid;
    private Pane mainPane;
    private Line winLine = new Line();
 
@@ -72,7 +71,7 @@ public class SingleView extends View<SingleModel> {
       console = new TextArea();
       console.setPrefWidth(300);
       console.setWrapText(true);
-      console.setText("SinglePlayer Game has started "+"\n"+ fts);
+      console.setText("SinglePlayer Game has started "+"\n"+ fts+"\n\n");
       player1Label = new Label(" ");
       player2Label = new Label(" ");
       playerTurnLabel = new Label(" ");
@@ -80,9 +79,6 @@ public class SingleView extends View<SingleModel> {
       Region spacer2 = new Region();
       Region spacer3 = new Region();
       Region spacer4 = new Region();
-
-      //set all nodes in root pane
-      groupGrid = new VBox(grid);
 
       restartButton = new Button("Restart");
       restartButton.setPrefSize(100,50);
@@ -96,8 +92,7 @@ public class SingleView extends View<SingleModel> {
       playerBox.setHgrow(spacer4,Priority.ALWAYS);
       playerBox.setAlignment(Pos.CENTER);
 
-
-      pane.setCenter(groupGrid);
+      pane.setCenter(grid);
       pane.setRight(console);
       pane.setBottom(playerBox);
 
@@ -129,13 +124,10 @@ public class SingleView extends View<SingleModel> {
       }
    }
 
-   //method for easy console access
+   //method for easy console access and autoscrolling
    public void addToConsole(String s){
-      ts = LocalDateTime.now();
-      fts = ts.format(formatter);
-      String temp = s+"\n"+"\n";
-      temp += console.getText();
-      console.setText(temp);
+      console.setText(console.getText()+s+"\n\n");
+      console.setScrollTop(Double.MAX_VALUE);
    }
 
    //Update label to display currentplayer

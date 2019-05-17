@@ -21,7 +21,7 @@ import java.time.format.DateTimeFormatter;
 public class MultiView extends View<MultiModel> {
 
    ServiceLocator serviceLocator;
-   TextArea console;
+   private TextArea console;
    private Cell[][] cells;
    private Button backButton;
    private Button restartButton;
@@ -35,7 +35,6 @@ public class MultiView extends View<MultiModel> {
    private Label player2Label;
    private Label playerTurnLabel;
    private Scene scene;
-   private VBox groupGrid;
    private Pane mainPane;
    private Line winLine = new Line();
 
@@ -81,9 +80,6 @@ public class MultiView extends View<MultiModel> {
       Region spacer3 = new Region();
       Region spacer4 = new Region();
 
-      //set all nodes in root pane
-      groupGrid = new VBox(grid);
-
       restartButton = new Button("Restart");
       restartButton.setPrefSize(100,50);
       backButton = new Button("Main Menu");
@@ -97,7 +93,7 @@ public class MultiView extends View<MultiModel> {
       playerBox.setAlignment(Pos.CENTER);
 
 
-      pane.setCenter(groupGrid);
+      pane.setCenter(grid);
       pane.setRight(console);
       pane.setBottom(playerBox);
 
@@ -130,11 +126,8 @@ public class MultiView extends View<MultiModel> {
 
    //method for easy console access
    public void addToConsole(String s){
-      ts = LocalDateTime.now();
-      fts = ts.format(formatter);
-      String temp = s+"\n"+fts+"\n"+"\n";
-      temp += console.getText();
-      console.setText(temp);
+      console.setText(console.getText()+s+"\n\n");
+      console.setScrollTop(Double.MAX_VALUE);
    }
 
    //Update label to display currentplayer
