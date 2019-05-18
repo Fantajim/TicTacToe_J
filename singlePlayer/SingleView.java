@@ -1,6 +1,7 @@
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
+import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -180,6 +181,7 @@ public class SingleView extends View<SingleModel> {
          c.setGraphic(ellipse1);
          c.setDisable(true);
          c.setSymbol('O');
+
       }
    }
 

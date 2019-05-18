@@ -2,12 +2,14 @@
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
@@ -29,9 +31,11 @@ public class MultiView extends View<MultiModel> {
    private Label player1Label;
    private Label player2Label;
    private Label playerTurnLabel;
+   private TextField chat;
    private Scene scene;
    private Pane mainPane;
    private Line winLine = new Line();
+   private Button sendMessage;
 
 
    public MultiView(Stage stage, MultiModel model) {
@@ -44,7 +48,6 @@ public class MultiView extends View<MultiModel> {
       serviceLocator = ServiceLocator.getServiceLocator();
       serviceLocator.getLogger().info("Multi view initialized");
       updateTurnLabel();
-      blockBoard();
 
    }
 
@@ -81,8 +84,14 @@ public class MultiView extends View<MultiModel> {
       playerBox.setHgrow(spacer4,Priority.ALWAYS);
       playerBox.setAlignment(Pos.CENTER);
 
-
-      pane.setCenter(grid);
+      sendMessage = new Button("Send");
+      chat = new TextField();
+      chat.setPromptText("Write your chat messages here");
+      Platform.runLater((Runnable) () -> { model.console.requestFocus();});
+      HBox chatBox = new HBox(chat, sendMessage);
+      chatBox.setHgrow(chat,Priority.ALWAYS);
+      VBox centerBox = new VBox(grid,chatBox);
+      pane.setCenter(centerBox);
       pane.setRight(model.console);
       pane.setBottom(playerBox);
 
@@ -111,7 +120,15 @@ public class MultiView extends View<MultiModel> {
 
       for (int i = 0;i<3;i++){
          for( int j = 0;j< 3;j++){
-            cells[i][j].setDisable(true);
+            if (cells[i][j].getSymbol()==' ') cells[i][j].setDisable(true);
+         }
+      }
+   }
+
+   public void unblockBoard(){
+      for (int i = 0;i<3;i++){
+         for( int j = 0;j< 3;j++){
+            if (cells[i][j].getSymbol() ==' ') cells[i][j].setDisable(false);
          }
       }
    }
@@ -119,6 +136,13 @@ public class MultiView extends View<MultiModel> {
    //Update label to display currentplayer
    public void updateTurnLabel() {
       playerTurnLabel.setText("Current turn: "+ model.getCurrentPlayer().getName());
+   }
+
+   public void updatePlayerSymbols(){
+      Platform.runLater(()-> {
+         player1Label.setText(model.player1.getName() + " = "+ model.player1.getSymbol());
+         player2Label.setText(model.player2.getName() + " = "+ model.player2.getSymbol());
+              });
    }
 
    //Draw Symbols ontop of Cell
@@ -219,20 +243,18 @@ public class MultiView extends View<MultiModel> {
 
    }
 
-   public Button getBackButton(){
-       return backButton;
-   }
+   public Button getBackButton(){ return backButton; }
 
-   public Button getRestartButton(){
-       return restartButton;
-   }
+   public Button getRestartButton(){ return restartButton; }
 
-   public void removeLine(){
-       mainPane.getChildren().remove(winLine);
-   }
+   public void removeLine(){ mainPane.getChildren().remove(winLine); }
 
    public Cell[][] getCells(){ return cells; }
 
    public Cell getCell(int i, int j){ return cells[i][j]; }
+
+   public TextField getChat(){ return chat;}
+
+   public Button getSendMessage() { return sendMessage;}
 
 }

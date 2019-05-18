@@ -50,9 +50,9 @@ public class SingleController extends Controller<SingleModel, SingleView> {
                 view.getCell(i,j).setOnAction(event -> {
                     int[] index = getButtonPressed((Cell) event.getSource());
                     view.drawSymbol(model.getCurrentPlayer().getSymbol(),view.getCell(index[0],index[1]));
-                    if(isWin());
-                    else if(isDraw());
-                    else model.toggleCurrentPlayer();
+                    isWin();
+                    isDraw();
+                    model.toggleCurrentPlayer();
                     view.updateTurnLabel();
                     if(model.isCpuTurn() && TicTacToeGame.getCpuPlayer())cpuTurnController();
 
@@ -62,7 +62,7 @@ public class SingleController extends Controller<SingleModel, SingleView> {
     }
 
     //controller part of win
-    public boolean isWin(){
+    public void isWin(){
         boolean result = model.isWinLogic(view.getCells());
         if (result) {
             view.animateWin();
@@ -73,11 +73,10 @@ public class SingleController extends Controller<SingleModel, SingleView> {
                 }
             }
         }
-        return result;
     }
 
     //controller part of draw
-    public boolean isDraw() {
+    public void isDraw() {
 
         boolean result = model.isDrawLogic(view.getCells());
 
@@ -89,7 +88,6 @@ public class SingleController extends Controller<SingleModel, SingleView> {
                 }
             }
         }
-        return result;
     }
 
     //Controller for CPU tries to have some randomness in its logic, tries to counter the player

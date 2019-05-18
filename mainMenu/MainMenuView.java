@@ -95,7 +95,8 @@ public class MainMenuView extends View<MainMenuModel> {
 	    portBox.setAlignment(Pos.CENTER);
 
 	    Label ipLabel = new Label("IP:    ");
-	    ipField = new TextField("enter IP address here");
+	    ipField = new TextField("localhost");
+        ipField.setPromptText("enter IP address here");
 	    HBox ipBox = new HBox(ipLabel,ipField);
 	    ipBox.setAlignment(Pos.CENTER);
 	    Region clientSpacer = new Region();

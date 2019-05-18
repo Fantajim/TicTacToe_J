@@ -1,5 +1,6 @@
 
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -23,6 +24,7 @@ public abstract class View<M extends Model> {
     protected View(Stage stage, M model) {
         this.stage = stage;
         this.model = model;
+        stage.getIcons().add(new Image("TTT_icon.png"));
         
         scene = create_GUI(); // Create all controls within "root"
         stage.setScene(scene);

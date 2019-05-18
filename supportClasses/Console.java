@@ -15,12 +15,13 @@ public class Console extends TextArea {
         this.setWrapText(true);
         fts = ts.format(formatter);
         this.setText(s+" game has started "+"\n"+ fts+"\n\n");
+        this.setEditable(false);
 
     }
 
     //method for easy console access and autoscrolling
     public void addToConsole(String s){
-        this.setText(this.getText()+s+"\n\n");
+        this.setText(this.getText()+s+"\n");
         this.setScrollTop(Double.MAX_VALUE);
     }
 

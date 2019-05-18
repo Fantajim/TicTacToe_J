@@ -15,6 +15,7 @@ public class TicTacToeGame extends Application {
     private MainMenuView view;
     private SingleView viewSingle;
     private MultiView viewMulti;
+
     public static boolean cpuPlayer = true;
     public static String cpuDifficulty = "Difficulty: medium";
     public static boolean isServer = false;
@@ -155,10 +156,19 @@ public class TicTacToeGame extends Application {
 
         // Close the splash screen, and set the reference to null, so that all
         // Splash_XXX objects can be garbage collected
-        viewSingle.stop();
-        viewSingle = null;
+        if (viewSingle == null){
+            viewMulti.stop();
+            viewMulti = null;
+            view.start();
 
-        view.start();
+        } else if (viewMulti == null) {
+            viewSingle.stop();
+            viewSingle = null;
+
+            view.start();
+        }
+
+
     }
 
 
