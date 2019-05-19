@@ -37,7 +37,8 @@ public class MainMenuView extends View<MainMenuModel> {
     private VBox multiPlayerMenu;
     private VBox serverMenu;
     private VBox clientMenu;
-    private TextField portField;
+    private TextField serverPortField;
+    private TextField clientPortField;
     private TextField ipField;
 
 
@@ -90,12 +91,12 @@ public class MainMenuView extends View<MainMenuModel> {
 
 	    clientMenu = new VBox();
 	    Label portLabel = new Label("Port  ");
-	    portField = new TextField("55555");
-	    HBox portBox = new HBox(portLabel,portField);
+	    clientPortField = new TextField(Integer.toString(TicTacToeGame.clientServerPort));
+	    HBox portBox = new HBox(portLabel, clientPortField);
 	    portBox.setAlignment(Pos.CENTER);
 
 	    Label ipLabel = new Label("IP:    ");
-	    ipField = new TextField("localhost");
+	    ipField = new TextField(TicTacToeGame.serverIP);
         ipField.setPromptText("enter IP address here");
 	    HBox ipBox = new HBox(ipLabel,ipField);
 	    ipBox.setAlignment(Pos.CENTER);
@@ -127,8 +128,8 @@ public class MainMenuView extends View<MainMenuModel> {
     public void expandHost(){
 	    serverMenu = new VBox();
         Label portLabel = new Label("Port:  ");
-        portField = new TextField("55555");
-        HBox portBox = new HBox(portLabel,portField);
+        serverPortField = new TextField(Integer.toString(TicTacToeGame.serverPort));
+        HBox portBox = new HBox(portLabel, serverPortField);
         portBox.setAlignment(Pos.CENTER);
         Region hostSpacer = new Region();
         Region hostSpacer2 = new Region();
@@ -192,7 +193,8 @@ public class MainMenuView extends View<MainMenuModel> {
 
 
     public void expandSingle(){
-
+	    setAi_Button();
+	    setDifficulty_Button();
         singlePlayerMenu = new VBox();
         Region spacer1 = new Region();
         singlePlayerMenu.setVgrow(spacer1, Priority.ALWAYS);
@@ -328,9 +330,22 @@ public class MainMenuView extends View<MainMenuModel> {
 
     public Button getStartServer(){return startServer;}
 
-    public TextField getPortField() { return portField;}
+    public TextField getClientPortField() { return clientPortField;}
+
+    public TextField getServerPortField() { return serverPortField;}
 
     public TextField getIpField() { return ipField;}
+
+    public void setAi_Button(){
+	    if(TicTacToeGame.cpuPlayer)ai_Button.setText("AI: on");
+	    else ai_Button.setText("AI: off");
+    }
+
+    public void setDifficulty_Button() {
+	    if(TicTacToeGame.cpuDifficulty == "Difficulty: medium")difficulty_Button.setText("Difficulty: medium");
+	    else if(TicTacToeGame.cpuDifficulty == "Difficulty: easy")difficulty_Button.setText("Difficulty: easy");
+	    else difficulty_Button.setText("Difficulty: hard");
+    }
 }
 
 

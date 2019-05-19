@@ -20,6 +20,7 @@ public class TicTacToeGame extends Application {
     public static String cpuDifficulty = "Difficulty: medium";
     public static boolean isServer = false;
     public static String serverIP ="";
+    public static int clientServerPort = 55555;
     public static int serverPort = 55555;
 
     private ServiceLocator serviceLocator; // resources, after initialization

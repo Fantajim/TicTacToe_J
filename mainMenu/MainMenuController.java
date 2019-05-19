@@ -23,16 +23,18 @@ public class MainMenuController extends Controller<MainMenuModel, MainMenuView> 
         view.getClientButton().setOnAction(event -> expandClientMenu());
         view.getBackButtonClient().setOnAction(event -> closeClientMenu());
         view.getStartClient().setOnAction(event -> {
-            TicTacToeGame.serverIP = view.getIpField().getText();
             TicTacToeGame.isServer = false;
+            TicTacToeGame.clientServerPort = Integer.parseInt(view.getClientPortField().getText());
+            TicTacToeGame.serverIP = view.getIpField().getText();
             startMultiPlayer();
         });
         view.getStartServer().setOnAction(event -> {
             TicTacToeGame.isServer = true;
+            TicTacToeGame.serverPort = Integer.parseInt(view.getServerPortField().getText());
             startMultiPlayer();
         });
 
-        
+
         serviceLocator = ServiceLocator.getServiceLocator();        
         serviceLocator.getLogger().info("MainMenu controller initialized");
 
@@ -50,9 +52,6 @@ public class MainMenuController extends Controller<MainMenuModel, MainMenuView> 
     private void startSinglePlayer(){ TicTacToeGame.getMainProgram().startSinglePlayer();}
     private void toggleAI(){view.toggleAI();}
     private void toggleDifficulty(){view.toggleDifficulty();}
-    private void startMultiPlayer(){
-        TicTacToeGame.getMainProgram().startMultiPlayer();
-        TicTacToeGame.serverPort = Integer.parseInt(view.getPortField().getText());
-    }
+    private void startMultiPlayer(){ TicTacToeGame.getMainProgram().startMultiPlayer(); }
 
 }

@@ -65,9 +65,8 @@ public class MultiController extends Controller<MultiModel, MultiView> {
             model.console.addToConsole("SERVER: Waiting for Client on port: "+TicTacToeGame.serverPort);
             try {
                 listener = new ServerSocket(55555, 10, null);
-                Runnable r = new Runnable() {
-                    @Override
-                    public void run() {
+                Runnable r = ()-> {
+
                         try {
                             socket = listener.accept();
                             serviceLocator.getLogger().info("Connection established");
@@ -137,7 +136,6 @@ public class MultiController extends Controller<MultiModel, MultiView> {
                                 startMulti();
                             }
                         }
-                    }
                 };
                 Thread t = new Thread(r, "ServerSocket");
                 t.start();
