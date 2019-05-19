@@ -230,7 +230,7 @@ public class MultiController extends Controller<MultiModel, MultiView> {
                 t.start();
 
             } catch (Exception e) {
-                e.printStackTrace();
+                model.console.addToConsole("Could not establish connection to Server at given IP + Port, please go back to MainMenu and check settings");
             }
 
         }
