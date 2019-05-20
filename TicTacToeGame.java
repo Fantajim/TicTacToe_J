@@ -9,6 +9,10 @@ import javafx.stage.Stage;
  * 
  * @author Brad Richards
  */
+//TODO AI can be tricked when using mirrored corners, especially hard difficulty since it chooses always the middle
+//TODO Server doesnt properly close jawaw.exe
+
+
 public class TicTacToeGame extends Application {
     private static TicTacToeGame mainProgram; // singleton
     private Splash_View splashView;

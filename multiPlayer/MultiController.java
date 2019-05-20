@@ -11,6 +11,7 @@ import java.net.Socket;
 public class MultiController extends Controller<MultiModel, MultiView> {
     ServiceLocator serviceLocator;
     private int serverPort;
+    private int clientServerPort;
     private String serverIP;
     private ServerSocket listener = null;
     private Socket socket = null;
@@ -32,6 +33,7 @@ public class MultiController extends Controller<MultiModel, MultiView> {
         serviceLocator.getLogger().info("Multi controller initialized");
         serverIP = TicTacToeGame.serverIP;
         serverPort = TicTacToeGame.serverPort;
+        clientServerPort = TicTacToeGame.clientServerPort;
 
         view.getChat().setOnAction(event -> chatSend());
         view.getSendMessage().setOnAction(event -> chatSend());
@@ -147,7 +149,7 @@ public class MultiController extends Controller<MultiModel, MultiView> {
         else {
             model.setCurrentPlayerID(model.player2);
             try {
-                socket = new Socket(serverIP,serverPort);
+                socket = new Socket(serverIP,clientServerPort);
                 serviceLocator.getLogger().info("Connected to Server");
                 model.console.addToConsole("CLIENT: Connected to Server");
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
