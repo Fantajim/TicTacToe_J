@@ -11,6 +11,7 @@ import javafx.stage.Stage;
  */
 //TODO AI can be tricked when using mirrored corners, especially hard difficulty since it chooses always the middle
 //TODO Server doesnt properly close jawaw.exe
+//Todo Let AI take over and implement autoplay
 
 
 public class TicTacToeGame extends Application {
