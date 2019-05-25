@@ -112,9 +112,11 @@ public class SingleController extends Controller<SingleModel, SingleView> {
             foundCpuMove[1]= turnDraw[0][1];
         }
 
-        //TODO move 3 for cpu is bad need something some manual guidance here
-
-        
+        else if (model.criticalDiagonal()&& TicTacToeGame.getCpuDifficulty() != "Difficulty: easy"){
+            int[][] foundCross = model.cpuFindMoveRandom(cross, view.getCells());
+            foundCpuMove[0] = foundCross[0][0];
+            foundCpuMove[1] = foundCross[0][1];
+        }
 
         else if (view.getCell(1, 1).getSymbol() == ' ' && TicTacToeGame.getCpuDifficulty().equals("Difficulty: hard")) {
             foundCpuMove[0]= 1;

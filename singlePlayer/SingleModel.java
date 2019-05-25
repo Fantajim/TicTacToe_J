@@ -1,3 +1,5 @@
+import javafx.scene.layout.GridPane;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -9,6 +11,8 @@ public class SingleModel extends Model {
     private Player currentPlayer;
     private char symbol1;
     private char symbol2;
+    private GridPane grid;
+    private Cell[][] cells;
     Console console;
     String cpuDifficulty = TicTacToeGame.getCpuDifficulty();
     boolean cpuPlayer = TicTacToeGame.getCpuPlayer();
@@ -23,6 +27,8 @@ public class SingleModel extends Model {
         randomizePlayer();
         serviceLocator = ServiceLocator.getServiceLocator();
         serviceLocator.getLogger().info("Single model initialized");
+
+        createBoard();
 
        if (cpuPlayer == true && cpuDifficulty.equals("Difficulty: hard") ){ player2.setName("Hal"); }
        else if (cpuPlayer == true && cpuDifficulty.equals("Difficulty: medium") ){ player2.setName("Tron"); }
@@ -241,10 +247,42 @@ public class SingleModel extends Model {
         return number;
     }
 
+    public void createBoard(){
+        grid = new GridPane();
+        cells = new Cell[3][3];
+
+        for (int i = 0;i<3;i++){
+            for( int j = 0;j< 3;j++){
+                cells[i][j] = new Cell();
+                grid.add(cells[i][j],j,i);
+            }
+        }
+    }
+
+    public boolean criticalDiagonal(){
+        boolean critical = false;
+        int cornerCount = 0;
+
+        if (cells[0][0].getSymbol() == player1.getSymbol() && cells[1][1].getSymbol() == player2.getSymbol() ) cornerCount++;
+        if (cells[0][2].getSymbol() == player1.getSymbol() && cells[1][1].getSymbol() == player2.getSymbol() ) cornerCount++;
+        if (cells[2][0].getSymbol() == player1.getSymbol() && cells[1][1].getSymbol() == player2.getSymbol() ) cornerCount++;
+        if (cells[2][2].getSymbol() == player1.getSymbol() && cells[1][1].getSymbol() == player2.getSymbol() ) cornerCount++;
+        if (cornerCount==2)critical = true;
+
+        cornerCount = 0;
+        return critical;
+
+
+    }
+
     public Player getCurrentPlayer() { return currentPlayer; }
 
     public void setCurrentPlayer(Player player){ currentPlayer = player; }
 
     public Cell[] getWinnerCombo(){ return winnerCombo; }
+
+    public GridPane getGrid(){return grid;}
+
+    public Cell[][] getCells(){return cells;}
 
 }

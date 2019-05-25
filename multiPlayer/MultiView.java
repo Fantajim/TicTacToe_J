@@ -53,19 +53,13 @@ public class MultiView extends View<MultiModel> {
 
    @Override
    protected Scene create_GUI() {
-      grid = new GridPane();
-      cells = new Cell[3][3];
+      grid = model.getGrid();
+      cells = model.getCells();
 
-      for (int i = 0;i<3;i++){
-         for( int j = 0;j< 3;j++){
-            cells[i][j] = new Cell();
-            grid.add(cells[i][j],j,i);
-         }
-      }
 
       pane = new BorderPane();
-      player1Label = new Label(" ");
-      player2Label = new Label(" ");
+      player1Label = new Label("");
+      player2Label = new Label("");
       playerTurnLabel = new Label(" ");
       Region spacer1 = new Region();
       Region spacer2 = new Region();
@@ -116,34 +110,13 @@ public class MultiView extends View<MultiModel> {
       }
    }
 
-   public void blockBoard(){
-
-      for (int i = 0;i<3;i++){
-         for( int j = 0;j< 3;j++){
-            if (cells[i][j].getSymbol()==' ') cells[i][j].setDisable(true);
-         }
-      }
-   }
-
-   public void unblockBoard(){
-      for (int i = 0;i<3;i++){
-         for( int j = 0;j< 3;j++){
-            if (cells[i][j].getSymbol() ==' ') cells[i][j].setDisable(false);
-         }
-      }
-   }
 
    //Update label to display currentplayer
    public void updateTurnLabel() {
       playerTurnLabel.setText("Current turn: "+ model.getCurrentPlayer().getName());
    }
 
-   public void updatePlayerSymbols(){
-      Platform.runLater(()-> {
-         player1Label.setText(model.player1.getName() + " = "+ model.player1.getSymbol());
-         player2Label.setText(model.player2.getName() + " = "+ model.player2.getSymbol());
-              });
-   }
+
 
    //Draw Symbols ontop of Cell
    public void drawSymbol(char symbol, Cell c){
@@ -209,8 +182,6 @@ public class MultiView extends View<MultiModel> {
          ellipse1.setRadiusX(0);
          ellipse1.setRadiusY(0);
          ellipse1.setFill(Color.BLACK);
-          //ellipse1.setRadiusX(c.getWidth() / 2 - 20);
-          //ellipse1.setRadiusY(c.getHeight() / 2 - 20);
 
          tl.getKeyFrames().add(new KeyFrame(Duration.millis(1000),
                   new KeyValue(ellipse1.radiusXProperty(),c.getWidth() / 2 - 20),
@@ -241,6 +212,13 @@ public class MultiView extends View<MultiModel> {
       temp[1].setId("win");
       temp[2].setId("win");
 
+   }
+
+   public void updatePlayerSymbols(){
+      Platform.runLater(()-> {
+         player1Label.setText(model.player1.getName() + " = "+ model.player1.getSymbol());
+         player2Label.setText(model.player2.getName() + " = "+ model.player2.getSymbol());
+      });
    }
 
    public Button getBackButton(){ return backButton; }

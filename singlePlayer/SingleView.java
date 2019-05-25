@@ -46,15 +46,10 @@ public class SingleView extends View<SingleModel> {
 
    @Override
    protected Scene create_GUI() {
-      grid = new GridPane();
-      cells = new Cell[3][3];
 
-      for (int i = 0;i<3;i++){
-         for( int j = 0;j< 3;j++){
-            cells[i][j] = new Cell();
-            grid.add(cells[i][j],j,i);
-         }
-      }
+      grid = model.getGrid();
+      cells = model.getCells();
+
       //Setup console with timestamp
       pane = new BorderPane();
       player1Label = new Label(" ");
