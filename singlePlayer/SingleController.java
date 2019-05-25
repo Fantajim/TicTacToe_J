@@ -66,7 +66,7 @@ public class SingleController extends Controller<SingleModel, SingleView> {
         boolean result = model.isWinLogic(view.getCells());
         if (result) {
             view.animateWin();
-            model.console.addToConsole(model.getCurrentPlayer().getName() + " is the winner\nplease press restart to continue");
+            model.console.addToConsole(model.getCurrentPlayer().getName() + " is the winner\nPlease press restart to continue\n");
             for (int i = 0;i<3;i++){
                 for(int j=0;j<3;j++){
                     view.getCells()[i][j].setDisable(true);
@@ -81,7 +81,7 @@ public class SingleController extends Controller<SingleModel, SingleView> {
         boolean result = model.isDrawLogic(view.getCells());
 
         if (result){
-            model.console.addToConsole("Game has ended in a draw\nplease press restart to continue");
+            model.console.addToConsole("Game has ended in a draw\nPlease press restart to continue\n");
             for (int i = 0;i<3;i++){
                 for(int j=0;j<3;j++){
                     view.getCells()[i][j].setDisable(true);

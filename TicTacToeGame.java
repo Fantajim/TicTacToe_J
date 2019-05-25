@@ -27,6 +27,7 @@ public class TicTacToeGame extends Application {
     public static String serverIP ="";
     public static int clientServerPort = 55555;
     public static int serverPort = 55555;
+    public static int dimension = 3;
 
     private ServiceLocator serviceLocator; // resources, after initialization
 
