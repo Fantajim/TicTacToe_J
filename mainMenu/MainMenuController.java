@@ -22,6 +22,7 @@ public class MainMenuController extends Controller<MainMenuModel, MainMenuView> 
         view.getBackButtonHost().setOnAction(event -> closeHostMenu());
         view.getClientButton().setOnAction(event -> expandClientMenu());
         view.getBackButtonClient().setOnAction(event -> closeClientMenu());
+        view.getGridSize().setOnAction(event -> view.toggleGrid());
         view.getStartClient().setOnAction(event -> {
             TicTacToeGame.isServer = false;
             TicTacToeGame.clientServerPort = Integer.parseInt(view.getClientPortField().getText());
@@ -49,7 +50,10 @@ public class MainMenuController extends Controller<MainMenuModel, MainMenuView> 
     private void closeHostMenu(){view.shrinkHost();}
     private void expandClientMenu(){view.expandClient();}
     private void closeClientMenu(){view.shrinkClient();}
-    private void startSinglePlayer(){ TicTacToeGame.getMainProgram().startSinglePlayer();}
+    private void startSinglePlayer(){
+        TicTacToeGame.dimension = 3;
+        TicTacToeGame.getMainProgram().startSinglePlayer();
+    }
     private void toggleAI(){view.toggleAI();}
     private void toggleDifficulty(){view.toggleDifficulty();}
     private void startMultiPlayer(){ TicTacToeGame.getMainProgram().startMultiPlayer(); }

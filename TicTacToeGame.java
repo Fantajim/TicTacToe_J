@@ -27,7 +27,7 @@ public class TicTacToeGame extends Application {
     public static String serverIP ="";
     public static int clientServerPort = 55555;
     public static int serverPort = 55555;
-    public static int dimension = 3;
+    public static int dimension = 4;
 
     private ServiceLocator serviceLocator; // resources, after initialization
 
@@ -118,19 +118,26 @@ public class TicTacToeGame extends Application {
 
     public void startMultiPlayer(){
 
+        if(viewMulti!=null){ viewMulti=null; }
+
+
         Stage multiStage = new Stage();
 
         MultiModel modelMulti = new MultiModel();
+
+
+
         viewMulti = new MultiView(multiStage,modelMulti);
         new MultiController(modelMulti, viewMulti);
 
         serviceLocator = ServiceLocator.getServiceLocator();
 
-        view.stop();
+        if(view!=null)view.stop();
         view = null;
 
         viewMulti.start();
     }
+
 
     public void startSinglePlayer(){
 

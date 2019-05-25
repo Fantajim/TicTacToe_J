@@ -19,7 +19,8 @@ public class MultiModel extends Model {
     private Player currentPlayerID;
     private char symbol1;
     private char symbol2;
-    private Cell[] winnerCombo = new Cell[3];
+    private ArrayList<Cell> winnerCombo = new ArrayList<>();
+    private boolean isQuad = false;
 
     private Cell[][] cells;
     private GridPane grid;
@@ -60,60 +61,115 @@ public class MultiModel extends Model {
     }
 
         //Logic part of win
-    public boolean isWinLogic (Cell[][]cells){
-            boolean result = false;
+    public boolean isWinLogic (Cell[][]cells) {
+        boolean result = false;
+        int counter = 1;
 
-            //TODO make loops instead of being a caveman
-            //check if three cells are equal
-            if (cells[0][0].getSymbol() == cells[0][1].getSymbol() && cells[0][0].getSymbol() == cells[0][2].getSymbol() && cells[0][0].getSymbol() != ' ') {
-                result = true; // first row horizontal
-                winnerCombo[0] = cells[0][0];
-                winnerCombo[1] = cells[0][1];
-                winnerCombo[2] = cells[0][2];
-            } else if (cells[1][0].getSymbol() == cells[1][1].getSymbol() && cells[1][0].getSymbol() == cells[1][2].getSymbol() && cells[1][0].getSymbol() != ' ') {
-                result = true; // 2nd row horizontal
-                winnerCombo[0] = cells[1][0];
-                winnerCombo[1] = cells[1][1];
-                winnerCombo[2] = cells[1][2];
-            } else if (cells[2][0].getSymbol() == cells[2][1].getSymbol() && cells[2][0].getSymbol() == cells[2][2].getSymbol() && cells[2][0].getSymbol() != ' ') {
-                result = true; // 3rd row horizontal
-                winnerCombo[0] = cells[2][0];
-                winnerCombo[1] = cells[2][1];
-                winnerCombo[2] = cells[2][2];
-            } else if (cells[0][0].getSymbol() == cells[1][0].getSymbol() && cells[0][0].getSymbol() == cells[2][0].getSymbol() && cells[0][0].getSymbol() != ' ') {
-                result = true; //first row vertical
-                winnerCombo[0] = cells[0][0];
-                winnerCombo[1] = cells[1][0];
-                winnerCombo[2] = cells[2][0];
-            } else if (cells[0][1].getSymbol() == cells[1][1].getSymbol() && cells[0][1].getSymbol() == cells[2][1].getSymbol() && cells[0][1].getSymbol() != ' ') {
-                result = true; // 2nd row vertical
-                winnerCombo[0] = cells[0][1];
-                winnerCombo[1] = cells[1][1];
-                winnerCombo[2] = cells[2][1];
-            } else if (cells[0][2].getSymbol() == cells[1][2].getSymbol() && cells[0][2].getSymbol() == cells[2][2].getSymbol() && cells[0][2].getSymbol() != ' ') {
-                result = true; //3rd row vertical
-                winnerCombo[0] = cells[0][2];
-                winnerCombo[1] = cells[1][2];
-                winnerCombo[2] = cells[2][2];
-            } else if (cells[0][0].getSymbol() == cells[1][1].getSymbol() && cells[0][0].getSymbol() == cells[2][2].getSymbol() && cells[0][0].getSymbol() != ' ') {
-                result = true; //diagonal
-                winnerCombo[0] = cells[0][0];
-                winnerCombo[1] = cells[1][1];
-                winnerCombo[2] = cells[2][2];
-            } else if (cells[0][2].getSymbol() == cells[1][1].getSymbol() && cells[0][2].getSymbol() == cells[2][0].getSymbol() && cells[0][2].getSymbol() != ' ') {
-                result = true; //diagonal
-                winnerCombo[0] = cells[0][2];
-                winnerCombo[1] = cells[1][1];
-                winnerCombo[2] = cells[2][0];
+
+        //check horizontal
+
+        for (int i = 0; i < TicTacToeGame.dimension ; i++) {
+            for (int j = 0; j < TicTacToeGame.dimension - 1; j++) {
+
+                if(cells[i][j].getSymbol() == cells[i][j+1].getSymbol() && cells[i][j].getSymbol() != ' ' ){
+                    counter++;
+                    if (counter == TicTacToeGame.dimension){
+                        result = true;
+                        for (int k = 0;k<TicTacToeGame.dimension;k++){
+                            winnerCombo.add(cells[i][k]);
+
+                        }
+                    }
+                }
+
             }
-            return result;
+            counter = 1;
+        }
+
+        for (int i = 0; i < TicTacToeGame.dimension ; i++) {
+            for (int j = 0; j < TicTacToeGame.dimension - 1; j++) {
+
+                if(cells[j][i].getSymbol() == cells[j+1][i].getSymbol() && cells[j][i].getSymbol() != ' ' ){
+                    counter++;
+                    if (counter == TicTacToeGame.dimension){
+                        result = true;
+                        for (int k = 0;k<TicTacToeGame.dimension;k++){
+                            winnerCombo.add(cells[k][i]);
+
+                        }
+                    }
+                }
+
+            }
+            counter = 1;
+        }
+
+
+
+        //check diagonally tl-br
+        for (int i = 0; i < TicTacToeGame.dimension - 1; i++) {
+
+                if(cells[i][i].getSymbol() == cells[i+1][i+1].getSymbol() && cells[i][i].getSymbol() != ' ' ){
+                    counter++;
+                    if (counter == TicTacToeGame.dimension){
+                        result = true;
+                        for (int k = 0;k<TicTacToeGame.dimension;k++){
+                            winnerCombo.add(cells[k][k]);
+                        }
+                    }
+                }
+                else counter = 1;
+
+        }
+
+        //check diagonally bl-tr
+        for (int j = 0, i = TicTacToeGame.dimension-1; j < TicTacToeGame.dimension - 1 && i > 0 ; j++,i--) {
+
+            if(cells[i][j].getSymbol() == cells[i-1][j+1].getSymbol() && cells[i][j].getSymbol() != ' ' ){
+                counter++;
+                if (counter == TicTacToeGame.dimension){
+                    result = true;
+                    for (int k = 0, l = TicTacToeGame.dimension-1;k<TicTacToeGame.dimension && l > -1;k++,l--){
+                        winnerCombo.add(cells[l][k]);
+                    }
+                }
+            }
+            else counter = 1;
+
+        }
+
+        //check quad
+
+        for (int i = 0; i < TicTacToeGame.dimension-1;i++){
+            for (int j= 0; j< TicTacToeGame.dimension -1;j++) {
+                if (    cells[i][j].getSymbol() == cells[i][j+1].getSymbol() &&
+                        cells[i][j].getSymbol() == cells[i+1][j].getSymbol() &&
+                        cells[i][j].getSymbol() == cells[i+1][j+1].getSymbol() &&
+                        cells[i][j].getSymbol() != ' '){
+                    result = true;
+                    winnerCombo.add(cells[i][j]);
+                    winnerCombo.add(cells[i][j+1]);
+                    winnerCombo.add(cells[i+1][j+1]);
+                    winnerCombo.add(cells[i+1][j]);
+                    isQuad = true;
+                }
+                else counter = 1;
+            }
+
+
+        }
+
+
+
+        return result;
+
     }
 
         //Logic part of draw to check if there's an empty cell left
     public boolean isDrawLogic (Cell[][]cells){
             boolean result = true;
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
+            for (int i = 0; i < TicTacToeGame.dimension; i++) {
+                for (int j = 0; j < TicTacToeGame.dimension; j++) {
                     if (cells[i][j].getSymbol() == ' ') {
                         result = false;
                         break;
@@ -124,28 +180,28 @@ public class MultiModel extends Model {
     }
 
     public void createBoard() {
-            cells = new Cell[3][3];
-            grid = new GridPane();
-            for (int i = 0;i<3;i++){
-                for( int j = 0;j< 3;j++){
-                    cells[i][j] = new Cell();
-                    grid.add(cells[i][j],j,i);
-                }
+        cells = new Cell[TicTacToeGame.dimension][TicTacToeGame.dimension];
+        grid = new GridPane();
+        for (int i = 0;i<TicTacToeGame.dimension;i++){
+            for( int j = 0;j< TicTacToeGame.dimension;j++){
+                cells[i][j] = new Cell();
+                grid.add(cells[i][j],j,i);
             }
+        }
     }
 
     public void blockBoard(){
 
-        for (int i = 0;i<3;i++){
-            for( int j = 0;j< 3;j++){
+        for (int i = 0;i<TicTacToeGame.dimension;i++){
+            for( int j = 0;j< TicTacToeGame.dimension;j++){
                 if (cells[i][j].getSymbol()==' ') cells[i][j].setDisable(true);
             }
         }
     }
 
     public void unblockBoard(){
-        for (int i = 0;i<3;i++){
-            for( int j = 0;j< 3;j++){
+        for (int i = 0;i<TicTacToeGame.dimension;i++){
+            for( int j = 0;j< TicTacToeGame.dimension;j++){
                 if (cells[i][j].getSymbol() ==' ') cells[i][j].setDisable(false);
             }
         }
@@ -171,8 +227,12 @@ public class MultiModel extends Model {
         currentPlayer = player;
     }
 
-    public Cell[] getWinnerCombo () {
+    public ArrayList<Cell> getWinnerCombo () {
         return winnerCombo;
     }
+
+    public boolean isQuad(){return isQuad;}
+
+    public void setIsQuad(boolean b){isQuad = b;}
 
 }

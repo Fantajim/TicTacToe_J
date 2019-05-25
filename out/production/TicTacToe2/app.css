@@ -3,6 +3,11 @@
 -fx-pref-width: 400;
 }
 
+#gridButton {
+-fx-pref-height: 50;
+-fx-pref-width: 100;
+}
+
 #backButton {
 -fx-pref-height: 80;
 -fx-pref-width:200;

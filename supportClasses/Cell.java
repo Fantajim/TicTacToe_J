@@ -7,7 +7,7 @@ public class Cell extends Button {
 
    public Cell(){
       super();
-      this.setPrefSize(150,150);
+      this.setPrefSize(450/TicTacToeGame.dimension,450/TicTacToeGame.dimension);
       setStyle("-fx-border-color: black");
       symbol = ' ';
    }
@@ -16,10 +16,10 @@ public class Cell extends Button {
    public void setSymbol(char c) { this.symbol = c; }
 
    public double getCenterX(){
-      return this.getLayoutX()+75;
+      return this.getLayoutX()+this.getWidth()/2;
    }
 
    public double getCenterY(){
-      return this.getLayoutY()+75;
+      return this.getLayoutY()+this.getHeight()/2;
    }
 }

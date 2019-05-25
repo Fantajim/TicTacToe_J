@@ -32,6 +32,7 @@ public class MainMenuView extends View<MainMenuModel> {
     private BorderPane mainPane;
     private Button ai_Button;
     private Button difficulty_Button;
+    private Button gridSize;
     private VBox rootMenu;
     private VBox singlePlayerMenu;
     private VBox multiPlayerMenu;
@@ -72,6 +73,8 @@ public class MainMenuView extends View<MainMenuModel> {
         clientButton = new Button("Client");
         ai_Button = new Button("AI: on");
         difficulty_Button = new Button (TicTacToeGame.getCpuDifficulty());
+        gridSize = new Button("Grid size: "+TicTacToeGame.dimension);
+        gridSize.setId("gridButton");
 
 
         Label title = new Label("TicTacToe Main Menu");
@@ -129,7 +132,9 @@ public class MainMenuView extends View<MainMenuModel> {
 	    serverMenu = new VBox();
         Label portLabel = new Label("Port:  ");
         serverPortField = new TextField(Integer.toString(TicTacToeGame.serverPort));
-        HBox portBox = new HBox(portLabel, serverPortField);
+        Region portSpacer = new Region();
+        portSpacer.setPrefWidth(20);
+        HBox portBox = new HBox(gridSize,portSpacer,portLabel, serverPortField);
         portBox.setAlignment(Pos.CENTER);
         Region hostSpacer = new Region();
         Region hostSpacer2 = new Region();
@@ -304,6 +309,17 @@ public class MainMenuView extends View<MainMenuModel> {
         }
     }
 
+    public void toggleGrid(){
+	    if(gridSize.getText().equals("Grid size: 3")){
+	        gridSize.setText("Grid size: 4");
+	        TicTacToeGame.dimension = 4;
+        }
+	    else if (gridSize.getText().equals("Grid size: 4")){
+	        gridSize.setText("Grid size: 3");
+	        TicTacToeGame.dimension = 3;
+        }
+    }
+
     public Button getClassicSingle() { return singlePlayer; }
 
     public Button getMultiPlayer(){ return multiPlayer; }
@@ -329,6 +345,8 @@ public class MainMenuView extends View<MainMenuModel> {
     public Button getStartClient(){return startClient;}
 
     public Button getStartServer(){return startServer;}
+
+    public Button getGridSize(){return gridSize;}
 
     public TextField getClientPortField() { return clientPortField;}
 

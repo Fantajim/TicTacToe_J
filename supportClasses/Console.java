@@ -21,7 +21,7 @@ public class Console extends TextArea {
 
     //method for easy console access and autoscrolling
     public void addToConsole(String s){
-        this.setText(this.getText()+s+"\n");
+        this.setText(this.getText()+s+"\n\n");
         this.setScrollTop(Double.MAX_VALUE);
     }
 

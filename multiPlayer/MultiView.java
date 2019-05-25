@@ -1,6 +1,7 @@
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
+import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -19,6 +20,7 @@ import javafx.util.Duration;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class MultiView extends View<MultiModel> {
 
@@ -35,6 +37,13 @@ public class MultiView extends View<MultiModel> {
    private Scene scene;
    private Pane mainPane;
    private Line winLine = new Line();
+   private Line winLine1 = new Line();
+   private Line winLine2 = new Line();
+   private Line winLine3 = new Line();
+   private Line winLine4 = new Line();
+   private SequentialTransition sequence = new SequentialTransition();
+
+   private Group winLineGroup = new Group();
    private Button sendMessage;
 
 
@@ -100,8 +109,8 @@ public class MultiView extends View<MultiModel> {
    //method for resetting the playboard
    public void resetBoard(){
 
-      for (int i = 0;i<3;i++){
-         for( int j = 0;j< 3;j++){
+      for (int i = 0;i<TicTacToeGame.dimension;i++){
+         for( int j = 0;j< TicTacToeGame.dimension;j++){
             cells[i][j].setGraphic(null);
             cells[i][j].setSymbol(' ');
             cells[i][j].setDisable(false);
@@ -195,23 +204,87 @@ public class MultiView extends View<MultiModel> {
    }
 
    public void animateWin(){
-       Cell[] temp = model.getWinnerCombo();
+       ArrayList<Cell> temp = model.getWinnerCombo();
        Timeline tl = new Timeline();
+       Timeline tl2 = new Timeline();
+       Timeline tl3 = new Timeline();
+       Timeline tl4 = new Timeline();
 
-       winLine.setStartX(temp[0].getCenterX());
-       winLine.setStartY(temp[0].getCenterY());
-       winLine.setEndX(temp[0].getCenterX());
-       winLine.setEndY(temp[0].getCenterY());
-       winLine.setStrokeWidth(20);
-       mainPane.getChildren().addAll(winLine);
-       tl.getKeyFrames().add(new KeyFrame(Duration.millis(1500),
-               new KeyValue(winLine.endXProperty(),temp[2].getCenterX()),
-               new KeyValue(winLine.endYProperty(),temp[2].getCenterY())));
-       tl.play();
-      temp[0].setId("win");
-      temp[1].setId("win");
-      temp[2].setId("win");
 
+      if (model.isQuad()){
+         winLine1.setStartX(temp.get(0).getCenterX());
+         winLine1.setStartY(temp.get(0).getCenterY());
+         winLine1.setEndX(temp.get(0).getCenterX());
+         winLine1.setEndY(temp.get(0).getCenterY());
+         winLine1.setStrokeWidth(60 / TicTacToeGame.dimension);
+
+         tl.getKeyFrames().add(new KeyFrame(Duration.millis(1500 / 4),
+                 new KeyValue(winLine1.endXProperty(), temp.get(1).getCenterX()),
+                 new KeyValue(winLine1.endYProperty(), temp.get(1).getCenterY())));
+
+
+         winLine2.setStartX(temp.get(1).getCenterX());
+         winLine2.setStartY(temp.get(1).getCenterY());
+         winLine2.setEndX(temp.get(1).getCenterX());
+         winLine2.setEndY(temp.get(1).getCenterY());
+         winLine2.setStrokeWidth(60 / TicTacToeGame.dimension);
+
+         tl2.getKeyFrames().add(new KeyFrame(Duration.millis(1500 / 4),
+                 new KeyValue(winLine2.endXProperty(), temp.get(2).getCenterX()),
+                 new KeyValue(winLine2.endYProperty(), temp.get(2).getCenterY())));
+
+
+         winLine3.setStartX(temp.get(2).getCenterX());
+         winLine3.setStartY(temp.get(2).getCenterY());
+         winLine3.setEndX(temp.get(2).getCenterX());
+         winLine3.setEndY(temp.get(2).getCenterY());
+         winLine3.setStrokeWidth(60 / TicTacToeGame.dimension);
+
+         tl3.getKeyFrames().add(new KeyFrame(Duration.millis(1500 / 4),
+                 new KeyValue(winLine3.endXProperty(), temp.get(3).getCenterX()),
+                 new KeyValue(winLine3.endYProperty(), temp.get(3).getCenterY())));
+
+         winLine4.setStartX(temp.get(3).getCenterX());
+         winLine4.setStartY(temp.get(3).getCenterY());
+         winLine4.setEndX(temp.get(3).getCenterX());
+         winLine4.setEndY(temp.get(3).getCenterY());
+         winLine4.setStrokeWidth(60 / TicTacToeGame.dimension);
+
+         tl4.getKeyFrames().add(new KeyFrame(Duration.millis(1500 / 4),
+                 new KeyValue(winLine4.endXProperty(), temp.get(0).getCenterX()),
+                 new KeyValue(winLine4.endYProperty(), temp.get(0).getCenterY())));
+
+         winLineGroup.getChildren().addAll(winLine1,winLine2,winLine3,winLine4);
+         model.setIsQuad(false);
+         sequence.getChildren().addAll(tl,tl2,tl3,tl4);
+      }
+
+      else {
+         winLine.setStartX(temp.get(0).getCenterX());
+         winLine.setStartY(temp.get(0).getCenterY());
+         winLine.setEndX(temp.get(0).getCenterX());
+         winLine.setEndY(temp.get(0).getCenterY());
+         winLine.setStrokeWidth(60 / TicTacToeGame.dimension);
+         winLineGroup.getChildren().add(winLine);
+
+
+         tl.getKeyFrames().add(new KeyFrame(Duration.millis(1500),
+                 new KeyValue(winLine.endXProperty(), temp.get(temp.size() - 1).getCenterX()),
+                 new KeyValue(winLine.endYProperty(), temp.get(temp.size() - 1).getCenterY())));
+
+
+
+         sequence.getChildren().addAll(tl);
+         }
+
+      mainPane.getChildren().addAll(winLineGroup);
+
+       sequence.play();
+
+       for(Cell c:temp){
+          c.setId("win");
+       }
+       model.getWinnerCombo().clear();
    }
 
    public void updatePlayerSymbols(){
@@ -225,7 +298,13 @@ public class MultiView extends View<MultiModel> {
 
    public Button getRestartButton(){ return restartButton; }
 
-   public void removeLine(){ mainPane.getChildren().remove(winLine); }
+   public void removeLine(){
+      mainPane.getChildren().remove(winLineGroup);
+      winLineGroup.getChildren().clear();
+      sequence.getChildren().clear();
+
+
+   }
 
    public Cell[][] getCells(){ return cells; }
 

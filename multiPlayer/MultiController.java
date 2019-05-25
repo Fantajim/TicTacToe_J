@@ -12,6 +12,7 @@ public class MultiController extends Controller<MultiModel, MultiView> {
     private final String symbolToken = "sdkjfsdnsdlsflfkrkrkrfjksnfeskjfneskdpo";
     private final String gameToken = "jksfdnjkfnsdfshreofreifejferjfemfenfsd";
     private final String doRestartToken = "fmfwekmfownefjfbwfdsfmkldsfmlsnewj";
+    private final String dimRestartToken = "kldmdnvuruehrehererkvrkmrgenndfl";
     private final String endToken = "sdsfenrjfkvlkwmekwmewjdfuitutgnfnjklmdfmk";
     private int serverPort;
     private int clientServerPort;
@@ -77,7 +78,7 @@ public class MultiController extends Controller<MultiModel, MultiView> {
                         model.console.addToConsole("SERVER: Client found at IP-address: "+socket.getInetAddress().toString());
                         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                         out = new PrintWriter(socket.getOutputStream());
-                        out.println(symbolToken+model.player1.getSymbol()+model.player2.getSymbol());
+                        out.println(symbolToken+model.player1.getSymbol()+model.player2.getSymbol()+TicTacToeGame.dimension);
                         out.flush();
                         model.unblockBoard();
                         stop=false;
@@ -100,6 +101,11 @@ public class MultiController extends Controller<MultiModel, MultiView> {
 
                             else if (input.equals(doRestartToken)){
                                  resetGame();
+                            }
+
+                            else if (input.equals(dimRestartToken)){
+                                socket.close();
+                                model.console.addToConsole("Client connected with different grid dimensions, attempt to reconnect with correct grid.");
                             }
 
                             else if(input.equals(endToken)){
@@ -184,6 +190,7 @@ public class MultiController extends Controller<MultiModel, MultiView> {
 
                                 char colChar = move.charAt(1);
                                 int col = Character.getNumericValue(colChar);
+
                                 oponnentMove(model.getCurrentPlayer().getSymbol(),row,col);
                                 model.unblockBoard();
                             }
@@ -193,6 +200,19 @@ public class MultiController extends Controller<MultiModel, MultiView> {
                                 symbol = input.replace(symbolToken,"");
                                 model.player1.setSymbol(symbol.charAt(0));
                                 model.player2.setSymbol(symbol.charAt(1));
+                                char dimChar = symbol.charAt(2);
+                                int dimension = Character.getNumericValue(dimChar);
+                                if (dimension != TicTacToeGame.dimension){
+                                    out.println(dimRestartToken);
+                                    out.flush();
+                                    TicTacToeGame.dimension = dimension;
+                                    socket.close();
+                                    Platform.runLater(()-> {
+                                        view.stage.close();
+                                        TicTacToeGame.getMainProgram().startMultiPlayer();
+                                    });
+
+                                }
                                 view.updatePlayerSymbols();
 
                             }
@@ -271,8 +291,8 @@ public class MultiController extends Controller<MultiModel, MultiView> {
 
     public int[] getButtonPressed(Cell c){
         int[] index = new int[2];
-        for (int i = 0;i<3;i++){
-            for (int j = 0;j<3;j++){
+        for (int i = 0;i<TicTacToeGame.dimension;i++){
+            for (int j = 0;j<TicTacToeGame.dimension;j++){
                 if (c == view.getCell(i,j)){
                     index[0] = i;
                     index[1] = j;
@@ -285,8 +305,8 @@ public class MultiController extends Controller<MultiModel, MultiView> {
     //add events to buttons
     private void addEvents(){
 
-        for (int i =0;i<3;i++){
-            for(int j=0;j<3;j++){
+        for (int i =0;i<TicTacToeGame.dimension;i++){
+            for(int j=0;j<TicTacToeGame.dimension;j++){
                 view.getCell(i,j).setOnAction(event -> {
                     int[] index = getButtonPressed((Cell) event.getSource());
                     view.drawSymbol(model.getCurrentPlayer().getSymbol(), view.getCell(index[0], index[1]));
@@ -320,8 +340,8 @@ public class MultiController extends Controller<MultiModel, MultiView> {
         if (result) {
             view.animateWin();
             model.console.addToConsole("GAME: "+model.getCurrentPlayer().getName() + " is the winner\nplease press restart to continue");
-            for (int i = 0;i<3;i++){
-                for(int j=0;j<3;j++){
+            for (int i = 0;i<TicTacToeGame.dimension;i++){
+                for(int j=0;j<TicTacToeGame.dimension;j++){
                     view.getCells()[i][j].setDisable(true);
                 }
             }
@@ -335,16 +355,12 @@ public class MultiController extends Controller<MultiModel, MultiView> {
 
         if (result){
             model.console.addToConsole("GAME: Game has ended in a draw\nplease press restart to continue");
-            for (int i = 0;i<3;i++){
-                for(int j=0;j<3;j++){
+            for (int i = 0;i<TicTacToeGame.dimension;i++){
+                for(int j=0;j<TicTacToeGame.dimension;j++){
                     view.getCells()[i][j].setDisable(true);
                 }
             }
         }
-    }
-
-    public void playerMove(int i, int j){
-        Platform.runLater(()-> view.getCell(i,j).fire());
     }
 
     public void chatSend() {
