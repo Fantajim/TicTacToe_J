@@ -42,6 +42,7 @@ public class MultiController extends Controller<MultiModel, MultiView> {
                 out.println(endToken);
                 out.flush();
                 try {
+                    stop = true;
                     socket.close();
                     stopMulti();
 
@@ -50,7 +51,7 @@ public class MultiController extends Controller<MultiModel, MultiView> {
                 }
             }
 
-            TicTacToeGame.getMainProgram().startMainMenu();
+            Platform.runLater(()->  TicTacToeGame.getMainProgram().startMainMenu());
             serviceLocator.getLogger().info("MultiPlayer Game has stopped");
         });
         view.getRestartButton().setOnAction(event -> {
@@ -178,7 +179,7 @@ public class MultiController extends Controller<MultiModel, MultiView> {
 
                 Runnable r = () -> {
                     try {
-                        while (true) {
+                        while (!stop) {
                             String input = in.readLine();
                             if (input.startsWith(gameToken)){
                                 String move;
